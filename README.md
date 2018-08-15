@@ -24,3 +24,10 @@ npm run idt:run
 # Deploy your app to IBM Cloud:
 npm run idt:deploy
 ```
+
+## Credentials
+
+Application should have follow `process.env`: 
+
+ - `SASHIDO_TANTALUS_CONNECTION_STRING`
+ 
