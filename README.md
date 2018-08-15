@@ -1,7 +1,8 @@
-# tantalus
-A generated IBM Cloud application
+# Tantalus
 
-[![](https://img.shields.io/badge/IBM%20Cloud-powered-blue.svg)](https://bluemix.net)
+Tantalus must "speak" with MongoDB and export Developer query to JSON or CSV
+
+Application is using nodeserver: https://github.com/ibm-developer/generator-nodeserver
 
 ## Run locally as Node.js application
 
