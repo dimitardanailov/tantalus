@@ -1,0 +1,8 @@
+---
+applications:
+- instances: 1
+  timeout: 180
+  name: tantalus
+  buildpack: sdk-for-nodejs
+  command: npm start
+  random-route: true
