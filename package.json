@@ -1,24 +1,17 @@
 {
   "name": "tantalus",
   "version": "1.0.0",
-  "description": "A generated IBM Cloud application",
+  "description": "Tantalus must 'speak' with MongoDB and export Developer query to JSON or CSV",
   "private": true,
   "engines": {
-    "node": "^8.11.1"
+    "node": "^8.9.4"
   },
   "scripts": {
     "start": "node server/server.js",
     "debug": "chmod +x run-debug && ./run-debug",
     "test": "nyc mocha",
     "dev": "nodemon server/server.js",
-    "start:cluster": "sl-run server/server.js",
-    "build": "npm run build:idt",
-    "idt:build": "node idt.js build",
-    "idt:test": "node idt.js test",
-    "idt:debug": "node idt.js debug",
-    "idt:run": "node idt.js run",
-    "idt:deploy": "node idt.js deploy",
-    "idt:install": "node idt.js install"
+    "start:cluster": "sl-run server/server.js"
   },
   "nodemonConfig": {
     "env": {

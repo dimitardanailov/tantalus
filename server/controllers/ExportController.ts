@@ -17,5 +17,3 @@ export class ExportController extends QueryController {
 	}
 
 }
-
-export default ExportController;

@@ -30,4 +30,3 @@ npm run idt:deploy
 Application should have follow `process.env`: 
 
  - `SASHIDO_TANTALUS_CONNECTION_STRING`
- 
