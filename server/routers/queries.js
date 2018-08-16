@@ -1,4 +1,4 @@
-const express = require('express');
+import express from "express";
 
 module.exports = function(app, basepath) {
 	const router = express.Router();
@@ -9,4 +9,10 @@ module.exports = function(app, basepath) {
 
 	router.post('/export/progress', (req, res, next) => {
 	});
+
+	router.get('/helloworld', (req, res, next) => {
+		res.json({});
+	}); 
+
+	app.use(basepath, router);
 };
