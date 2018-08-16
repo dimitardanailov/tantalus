@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+			"lib": ["es2018"],
+			"rootDir": "./server",
+			"outDir": "./server",
+			"module": "commonjs",
+			"target": "es2018",
+			"sourceMap": true,
+			"allowJs": true,
+			"experimentalDecorators": true,
+			"emitDecoratorMetadata": true,
+			"skipLibCheck": true
+	},
+	"include": ["./src/**/*"],
+	"exclude": ["node_modules", "./src/base_template/*"]
+}
