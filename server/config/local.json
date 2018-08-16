@@ -6,5 +6,8 @@
       "bucket": "",
       "dirTemplate": "__applicationId__/__operationId__/"     
     }
+  }, 
+  "mongodb": {
+    "collection": "tantalus"
   }
 }
