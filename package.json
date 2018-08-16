@@ -36,6 +36,7 @@
     "strong-supervisor": "^6.2.0"
   },
   "devDependencies": {
+    "@types/express": "^4.16.0",
     "@types/mongodb": "^3.1.4",
     "@types/mongoose": "^5.2.5",
     "chai": "^4.0.0",
