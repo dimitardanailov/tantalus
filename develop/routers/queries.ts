@@ -1,7 +1,5 @@
-import express from "express";
-
-module.exports = function(app, basepath) {
-	const router = express.Router();
+module.exports = (app, basepath) => {
+	const router = require('express').Router();
 
 	router.post('/export', (req, res, next) => {
 		res.json({});
