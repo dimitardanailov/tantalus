@@ -1,15 +1,15 @@
 /**
- * Repositiories: https://github.com/typestack/routing-controllers
+ * Repositiories: 
+ * https://github.com/typestack/routing-controllers
+ * https://github.com/pleerock/routing-controllers-express-demo
  */
 
 import "reflect-metadata"; // this shim is required
 import { createExpressServer } from "routing-controllers";
-import { ExportController } from "./controllers/ExportController";
 
 require('appmetrics-dash').attach();
 require('appmetrics-prometheus').attach();
 const appName = require('./../package').name;
-// const express = require('express');
 const log4js = require('log4js');
 const localConfig = require('./config/local.json');
 const path = require('path');
@@ -17,7 +17,8 @@ const logger = log4js.getLogger(appName);
 
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
-	controllers: [ExportController] // we specify controllers we want to use
+	routePrefix: "/api",
+	controllers: [__dirname + "/controllers/*.js"]
 });
 
 app.use(log4js.connectLogger(logger, { level: process.env.LOG_LEVEL || 'info' }));
