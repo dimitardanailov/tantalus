@@ -1,11 +1,6 @@
-module.exports = (app) => {
-    const basepath = "/v1";
-  
+module.exports = (app) => {  
     require('./public')(app);
 
     // Monitoring
     require('./health')(app);
-
-    // Application routes
-    require('./queries')(app, basepath);
 };  

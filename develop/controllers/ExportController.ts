@@ -1,7 +1,12 @@
-import { QueryController } from "./QueryController";
+import { JsonController, Get, Post, Param, Delete, Body } from "routing-controllers";
+import { Service } from "typedi";
+import { QueryController } from './QueryController';
 
+@Service()
+@JsonController()
 export class ExportController extends QueryController {
 
+	/*
 	exportParseQuery() {
 		// Check application id and ... are correct
 		// Create a new database record
@@ -14,6 +19,10 @@ export class ExportController extends QueryController {
 		// Get record by MongoDB ID 
 		// Update percent data
 		// 
-	}
+	} */
 
+	@Get("/helloworld")
+	helloworld() {
+		return "Hello world !!!";
+	}
 }
