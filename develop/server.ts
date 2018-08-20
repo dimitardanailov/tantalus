@@ -6,6 +6,7 @@
 
 import "reflect-metadata"; // this shim is required
 import { createExpressServer } from "routing-controllers";
+import { TantalusLogger } from "./helpers/logger/TantalusLogger";
 
 require('appmetrics-dash').attach();
 require('appmetrics-prometheus').attach();
@@ -26,9 +27,8 @@ require('./routers/index')(app);
 
 const port = process.env.PORT || localConfig.port;
 app.listen(port, () => {
-  logger.info(`${appName} listening on http://localhost:${port}/appmetrics-dash`);
-  
-  logger.info(`${appName} listening on http://localhost:${port}`);
+	TantalusLogger.info(`${appName} listening on http://localhost:${port}/appmetrics-dash`);
+	TantalusLogger.info(`${appName} listening on http://localhost:${port}`);
 });
 
 app.use((req, res, next) => {
