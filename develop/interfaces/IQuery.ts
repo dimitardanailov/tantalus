@@ -1,3 +1,3 @@
 export interface IQuery {
-  applicationId: string;
+	applicationId: string;
 }

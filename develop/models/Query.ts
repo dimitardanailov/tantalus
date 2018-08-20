@@ -1,18 +1,31 @@
 
 import { Document, Schema, Model, model} from "mongoose";
-import { IQuery } from '../interfaces/IQuery'
+import { IQuery } from '../interfaces/IQuery';
 
-export interface IQueryModel extends IQuery, Document {
+interface IQueryModel extends IQuery, Document {
   
 }
 
-export const QuerySchema: Schema = new Schema({
+const QuerySchema: Schema = new Schema({
 	'applicationId': String,
 	'parseQuery': String,
 	'progress': {
 		'type': String,
 		'percent': Number
-	}
-});	
+	},
+	'createdAt': Date,
+	'updatedAt': Date
+});
 
-export const Query: Model<IQueryModel> = model<IQueryModel>("Query", QuerySchema);
+QuerySchema.pre('save', (next) => {
+	const now = new Date();
+	if (!this.createdAt) {
+		this.createdAt = now;
+		this.updatedAt = now;
+	}
+	next();
+});
+
+export class Query extends model<IQueryModel>('Query', QuerySchema) {
+
+}
