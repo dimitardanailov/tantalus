@@ -30,3 +30,9 @@ npm run idt:deploy
 Application should have follow `process.env`: 
 
  - `SASHIDO_TANTALUS_CONNECTION_STRING`
+
+ ## Resources / Ideas
+
+ - [TypeScript: Declaring Mongoose Schema + Model](https://brianflove.com/2016/10/04/typescript-declaring-mongoose-schema-model/)
+ - [routing-controllers-express-demo](https://github.com/pleerock/routing-controllers-express-demo)
+ - [routing-controllers](https://github.com/typestack/routing-controllers)
