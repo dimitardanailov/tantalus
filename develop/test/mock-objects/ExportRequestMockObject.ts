@@ -1,4 +1,4 @@
-import { ParseQueryMockObject } from "./ParseQueryMockObject"
+import { ParseQueryMockObject } from "./ParseQueryMockObject";
 
 export class ExportRequestMockObject {
 

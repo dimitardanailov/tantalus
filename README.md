@@ -33,6 +33,8 @@ Application should have follow `process.env`:
 
  ## Resources / Ideas
 
- - [TypeScript: Declaring Mongoose Schema + Model](https://brianflove.com/2016/10/04/typescript-declaring-mongoose-schema-model/)
- - [routing-controllers-express-demo](https://github.com/pleerock/routing-controllers-express-demo)
- - [routing-controllers](https://github.com/typestack/routing-controllers)
+- [TypeScript: Declaring Mongoose Schema + Model](https://brianflove.com/2016/10/04/typescript-declaring-mongoose-schema-model/)
+- [routing-controllers-express-demo](https://github.com/pleerock/routing-controllers-express-demo)
+- [routing-controllers](https://github.com/typestack/routing-controllers)
+- [TypeScript 2 + Express + Mongoose + Mocha + Chai](https://brianflove.com/2016/11/11/typescript-2-express-mongoose-mocha-chai/)
+- [How to specify test directory for mocha?](https://stackoverflow.com/questions/10753288/how-to-specify-test-directory-for-mocha)

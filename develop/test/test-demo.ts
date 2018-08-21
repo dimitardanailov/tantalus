@@ -1,9 +1,9 @@
-var assert = require('chai').assert;
-var expect = require('chai').expect;
-var should = require('chai').should();
-
 // Below code demonstrates using various methods of testing
 describe('Demonstrating testing with various assertion methods', function() {
+
+	var assert = require('chai').assert;
+	var expect = require('chai').expect;
+	var should = require('chai').should();
 
   describe('Testing with assert', function() {
     it('Tests assert.equal', function() {
