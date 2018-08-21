@@ -1,8 +1,8 @@
-var expect = require('chai').expect;
-var http = require('http');
-
 // Below code demonstrates using various methods of testing
 describe('Testing Server', function() {
+
+	const expect = require('chai').expect;
+	const http = require('http');
 
   before(function(done){
     require(process.cwd() + '/server/server');
@@ -10,21 +10,21 @@ describe('Testing Server', function() {
     this.timeout(10000);
   });
 
-  it('Health endpoint shows status up', function(done){
-    var responseString = '';
+  it('Health endpoint shows status up', (done) => {
+    let responseString = '';
 
-    var options = {
+    const options = {
       host: 'localhost',
       port: process.env.PORT || 3000,
       path: '/health'
     };
 
-    var callback = function(response){
-      response.on('data', function (chunk) {
+    const callback = (response) => {
+      response.on('data', (chunk) => {
         responseString += chunk;
       });
 
-      response.on('end', function () {
+      response.on('end', () => {
         expect(responseString).to.equal('{"status":"UP"}');
         done();
       });

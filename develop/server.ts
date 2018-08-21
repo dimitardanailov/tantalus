@@ -5,7 +5,9 @@
  */
 
 import "reflect-metadata"; // this shim is required
-import { createExpressServer } from "routing-controllers";
+import { createExpressServer, useContainer } from "routing-controllers";
+import {Container} from "typedi";
+import { TantalusLogger } from "./helpers/logger/TantalusLogger";
 
 require('appmetrics-dash').attach();
 require('appmetrics-prometheus').attach();
@@ -14,6 +16,9 @@ const log4js = require('log4js');
 const localConfig = require('./config/local.json');
 const path = require('path');
 const logger = log4js.getLogger(appName);
+
+// Setup routing-controllers to use typedi container.
+useContainer(Container);
 
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
@@ -26,9 +31,8 @@ require('./routers/index')(app);
 
 const port = process.env.PORT || localConfig.port;
 app.listen(port, () => {
-  logger.info(`${appName} listening on http://localhost:${port}/appmetrics-dash`);
-  
-  logger.info(`${appName} listening on http://localhost:${port}`);
+	TantalusLogger.info(`${appName} listening on http://localhost:${port}/appmetrics-dash`);
+	TantalusLogger.info(`${appName} listening on http://localhost:${port}`);
 });
 
 app.use((req, res, next) => {
