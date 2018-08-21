@@ -6,4 +6,8 @@ export class TantalusLogger {
 	static info(message) {
 		logger.info(message);
 	}
+
+	static debugVariable(variable) {
+		logger.debug(`Variable value is: ${JSON.stringify(variable)}`);
+	}
 }

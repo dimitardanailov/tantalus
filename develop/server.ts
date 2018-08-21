@@ -5,7 +5,8 @@
  */
 
 import "reflect-metadata"; // this shim is required
-import { createExpressServer } from "routing-controllers";
+import { createExpressServer, useContainer } from "routing-controllers";
+import {Container} from "typedi";
 import { TantalusLogger } from "./helpers/logger/TantalusLogger";
 
 require('appmetrics-dash').attach();
@@ -15,6 +16,9 @@ const log4js = require('log4js');
 const localConfig = require('./config/local.json');
 const path = require('path');
 const logger = log4js.getLogger(appName);
+
+// Setup routing-controllers to use typedi container.
+useContainer(Container);
 
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({

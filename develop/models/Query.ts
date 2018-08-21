@@ -1,5 +1,6 @@
 
-import { Document, Schema, Model, model} from "mongoose";
+import { mongoose } from "../database/config";
+import { Document, Schema, Model} from "mongoose";
 import { IQuery } from '../interfaces/IQuery';
 
 interface IQueryModel extends IQuery, Document {
@@ -26,6 +27,6 @@ QuerySchema.pre('save', (next) => {
 	next();
 });
 
-export class Query extends model<IQueryModel>('Query', QuerySchema) {
+export class Query extends mongoose.model<IQueryModel>('Query', QuerySchema) {
 
 }

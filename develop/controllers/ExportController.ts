@@ -1,10 +1,21 @@
-import { JsonController, Get, Post, Param, Delete, Body } from "routing-controllers";
+import { JsonController, Get, Post, Param, Delete, Body, Controller } from "routing-controllers";
 import { Service } from "typedi";
 import { QueryController } from './QueryController';
+import { QueryRepository } from "../repositories/QueryRepository";
+import { TantalusLogger } from "../helpers/logger/TantalusLogger";
+import { QueryMockObject } from "../test/mock-objects/QueryMockObject";
+import { Query } from "../models/Query";
 
 @Service()
 @JsonController()
+@Controller("/exports")
 export class ExportController extends QueryController {
+
+	
+
+	constructor(private repository: QueryRepository) {
+		super();
+	}
 
 	/*
 	exportParseQuery() {
@@ -21,8 +32,15 @@ export class ExportController extends QueryController {
 		// 
 	} */
 
-	@Get("/helloworld")
+	@Get('/createrecord')
+	createRecord(): Query {
+		const mockObject = new QueryMockObject();
+		
+		return this.repository.save(mockObject.query);
+	}
+
+	@Get('/helloworld')
 	helloworld() {
-		return "Hello world !!!";
+		return 'Hello world !!!';
 	}
 }

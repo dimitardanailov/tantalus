@@ -1,3 +1,5 @@
 export interface IQuery {
-	applicationId: string;
+	applicationId: String;
+	parseQuery: String;
+	
 }
