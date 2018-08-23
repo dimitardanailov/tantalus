@@ -29,7 +29,11 @@ npm run idt:deploy
 
 Application should have follow `process.env`: 
 
- - `SASHIDO_TANTALUS_CONNECTION_STRING`
+### S3 configurations
+
+ - `TANTALUS_S3_ACCESS_KEY_ID`
+ - `TANTALUS_S3_SECRET_ACCESS_KEY`
+ - `TANTALUS_S3_BUCKET`
 
  ## Resources / Ideas
 

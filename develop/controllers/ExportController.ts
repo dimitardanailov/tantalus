@@ -5,6 +5,7 @@ import { QueryRepository } from "../repositories/QueryRepository";
 import { TantalusLogger } from "../helpers/logger/TantalusLogger";
 import { QueryMockObject } from "../test/mock-objects/QueryMockObject";
 import { IQuery } from "../interfaces/IQuery";
+import { TantalusAWSS3 } from "../helpers/aws/TantalusAWSS3";
 
 @Service()
 @JsonController()
@@ -41,6 +42,18 @@ export class ExportController extends QueryController {
 		return await promise.then(dbQuery => {
 			return dbQuery.toJSON();
 		});
+	}
+
+	@Get('/aws')
+	awsUpload() {
+		const fileLocation = `${__dirname.replace('controllers', '')}config/local.json`;
+
+		// const awsS3 = new TantalusAWSS3();
+		// awsS3.uploadToS3([fileLocation, fileLocation], 'test.zip');
+		
+		this.repository.stream();
+
+		return `${fileLocation}`;
 	}
 
 	@Get('/helloworld')
