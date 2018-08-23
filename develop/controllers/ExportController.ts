@@ -1,17 +1,15 @@
-import { JsonController, Get, Post, Param, Delete, Body, Controller } from "routing-controllers";
+import { JsonController, Get, Post, Param, Delete, Body, Controller, OnUndefined, InternalServerError } from "routing-controllers";
 import { Service } from "typedi";
 import { QueryController } from './QueryController';
 import { QueryRepository } from "../repositories/QueryRepository";
 import { TantalusLogger } from "../helpers/logger/TantalusLogger";
 import { QueryMockObject } from "../test/mock-objects/QueryMockObject";
-import { Query } from "../models/Query";
+import { IQuery } from "../interfaces/IQuery";
 
 @Service()
 @JsonController()
 @Controller("/exports")
 export class ExportController extends QueryController {
-
-	
 
 	constructor(private repository: QueryRepository) {
 		super();
@@ -33,10 +31,16 @@ export class ExportController extends QueryController {
 	} */
 
 	@Get('/createrecord')
-	createRecord(): Query {
+	@OnUndefined(204)
+	async createRecord(): Promise<IQuery> {
+		// Create a dummy Query
 		const mockObject = new QueryMockObject();
-		
-		return this.repository.save(mockObject.query);
+
+		const promise = this.repository.save(mockObject.query);
+
+		return await promise.then(dbQuery => {
+			return dbQuery.toJSON();
+		});
 	}
 
 	@Get('/helloworld')

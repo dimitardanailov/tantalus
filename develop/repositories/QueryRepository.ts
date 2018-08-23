@@ -3,9 +3,12 @@ import { Query } from "../models/Query";
 
 @Service()
 export class QueryRepository {
-	save(query: Query) {
-		query.save();
 
-		return query;
+	findOne() {
+		return Promise.resolve(Query.findOne().lean());
+	}
+
+	save(query: Query): Promise<Query> {
+		return Promise.resolve(query.save());
 	}
 }
