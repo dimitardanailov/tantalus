@@ -31,8 +31,7 @@
     "reflect-metadata": "^0.1.12",
     "routing-controllers": "^0.7.7",
     "strong-supervisor": "^6.2.0",
-    "typedi": "^0.8.0",
-    "zip-stream": "^2.0.1"
+    "typedi": "^0.8.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
