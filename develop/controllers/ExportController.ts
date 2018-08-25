@@ -6,6 +6,7 @@ import { TantalusLogger } from "../helpers/logger/TantalusLogger";
 import { QueryMockObject } from "../test/mock-objects/QueryMockObject";
 import { IQuery } from "../interfaces/IQuery";
 import { TantalusAWSS3 } from "../helpers/aws/TantalusAWSS3";
+import { TantalusStream } from "../helpers/streams/TantalusStream";
 
 @Service()
 @JsonController()
@@ -46,14 +47,31 @@ export class ExportController extends QueryController {
 
 	@Get('/aws')
 	awsUpload() {
-		const fileLocation = `${__dirname.replace('controllers', '')}config/local.json`;
+		const cursor = this.repository.getCursorToAllRecords();
+		const appStream = new TantalusStream();
+		appStream.input.push('{[');
 
-		// const awsS3 = new TantalusAWSS3();
-		// awsS3.uploadToS3([fileLocation, fileLocation], 'test.zip');
-		
-		this.repository.stream();
+		const awsS3 = new TantalusAWSS3();
 
-		return `${fileLocation}`;
+		cursor.on('data', function(doc) {
+			appStream.input.push(JSON.stringify(doc));
+		});
+
+		cursor.on('close', function() {
+			TantalusLogger.info('done ....');
+			
+			appStream.input.push(']}');
+			appStream.input.push(null); // No more data
+			TantalusLogger.info('Stream was created ...');
+
+			appStream.input.pipe(awsS3.uploadToS3('test'));
+		});
+
+		appStream.input.on('end', () => {
+			TantalusLogger.info('Stream. end emitter ...');
+		});
+
+		return 'Completed !!!';
 	}
 
 	@Get('/helloworld')
