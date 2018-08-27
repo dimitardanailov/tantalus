@@ -6,7 +6,7 @@ import { TantalusLogger } from "../helpers/logger/TantalusLogger";
 export class QueryRepository {
 
 	getCursorToAllRecords() {
-		return Query.find().cursor();
+		return Query.find().limit(25).cursor();
 	}
 
 	findOne() {

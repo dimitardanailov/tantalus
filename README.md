@@ -44,3 +44,4 @@ Application should have follow `process.env`:
 - [How to specify test directory for mocha?](https://stackoverflow.com/questions/10753288/how-to-specify-test-directory-for-mocha)
 - [Configuring the SDK in Node.js](http://docs.amazonaws.cn/en_us/AWSJavaScriptSDK/guide/node-configuring.html)
 - [Support for Promises in the SDK](https://aws.amazon.com/blogs/developer/support-for-promises-in-the-sdk/)
+- [Pipe a stream to s3.upload()](https://stackoverflow.com/questions/37336050/pipe-a-stream-to-s3-upload/37366093#37366093)

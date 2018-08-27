@@ -1,22 +1,29 @@
 import AWS = require('aws-sdk');
-import { TantalusLogger } from "../logger/TantalusLogger";
 import { Stream } from 'stream';
+import { TantalusLogger } from "../logger/TantalusLogger";
+import { ContentTypes } from "../../enums/ContentTypes";
 
 export class TantalusAWSS3 {
 
 	private body;
 
-	public uploadToS3(s3Key: string) {
+	public uploadToS3(s3Key: string, contentType: ContentTypes) {
 		// Create a bridge between application and S3
 		TantalusAWSS3.createAWSCongiguration();
 
-		var pass = new Stream.PassThrough();
+		// The stream.PassThrough class is a trivial implementation of 
+		// a Transform stream that simply passes the input bytes across to the output. 
+		// Its purpose is primarily for examples and testing, 
+		// but there are some use cases where stream.PassThrough is useful as a 
+		// building block for novel sorts of streams
+		const pass = new Stream.PassThrough();
 
 		const s3 = new AWS.S3();
 		const uploadOperator = s3.upload({
 			Bucket: TantalusAWSS3.getBucketName(),
 			Key : s3Key,
-			Body: pass
+			Body: pass,
+			ContentType: contentType
 		});
 
 		uploadOperator.on('httpUploadProgress', progress => {

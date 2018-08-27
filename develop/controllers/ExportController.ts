@@ -7,6 +7,7 @@ import { QueryMockObject } from "../test/mock-objects/QueryMockObject";
 import { IQuery } from "../interfaces/IQuery";
 import { TantalusAWSS3 } from "../helpers/aws/TantalusAWSS3";
 import { TantalusStream } from "../helpers/streams/TantalusStream";
+import { ContentTypes } from "../enums/ContentTypes";
 
 @Service()
 @JsonController()
@@ -52,6 +53,7 @@ export class ExportController extends QueryController {
 		appStream.input.push('{[');
 
 		const awsS3 = new TantalusAWSS3();
+		// appStream.input.pipe(awsS3.uploadToS3('test', ContentTypes.JSON));
 
 		cursor.on('data', function(doc) {
 			appStream.input.push(JSON.stringify(doc));
@@ -63,8 +65,6 @@ export class ExportController extends QueryController {
 			appStream.input.push(']}');
 			appStream.input.push(null); // No more data
 			TantalusLogger.info('Stream was created ...');
-
-			appStream.input.pipe(awsS3.uploadToS3('test'));
 		});
 
 		appStream.input.on('end', () => {
