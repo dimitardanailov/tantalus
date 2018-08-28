@@ -8,13 +8,16 @@ import "reflect-metadata"; // this shim is required
 import { createExpressServer, useContainer } from "routing-controllers";
 import {Container} from "typedi";
 import { TantalusLogger } from "./helpers/logger/TantalusLogger";
+import { TantalusAppSettings } from "./helpers/app-settings/TantalusAppSettings";
+
+import express = require("express");
+import tus = require("tus-node-server");
 
 require('appmetrics-dash').attach();
 require('appmetrics-prometheus').attach();
-const appName = require('./../package').name;
-const log4js = require('log4js');
-const localConfig = require('./config/local.json');
-const path = require('path');
+const appName = TantalusAppSettings.getAppName();
+import log4js = require('log4js');
+import path = require('path');
 const logger = log4js.getLogger(appName);
 
 // Setup routing-controllers to use typedi container.
@@ -22,17 +25,29 @@ useContainer(Container);
 
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
-	routePrefix: "/api",
-	controllers: [__dirname + "/controllers/*.js"]
+	routePrefix: '/api',
+	controllers: [__dirname + '/controllers/*.js']
 });
+
+// Create TUS server(https://github.com/tus/tus-node-server)
+const server = new tus.Server();
+server.datastore = new tus.FileStore({
+    path: '/files'
+});
+
+const uploadApp = express();
+uploadApp.all('*', server.handle.bind(server));
+app.use(TantalusAppSettings.getTusUploadEndPoint(), uploadApp);
 
 app.use(log4js.connectLogger(logger, { level: process.env.LOG_LEVEL || 'info' }));
 require('./routers/index')(app);
 
-const port = process.env.PORT || localConfig.port;
+const port = TantalusAppSettings.getPort();
 app.listen(port, () => {
-	TantalusLogger.info(`${appName} listening on http://localhost:${port}/appmetrics-dash`);
-	TantalusLogger.info(`${appName} listening on http://localhost:${port}`);
+	const domain = TantalusAppSettings.getDomain();
+
+	TantalusLogger.info(`${appName} listening on ${domain}:${port}/appmetrics-dash`);
+	TantalusLogger.info(`${appName} listening on ${domain}:${port}`);
 });
 
 app.use((req, res, next) => {
