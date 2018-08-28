@@ -34,6 +34,7 @@ Application should have follow `process.env`:
  - `TANTALUS_S3_ACCESS_KEY_ID`
  - `TANTALUS_S3_SECRET_ACCESS_KEY`
  - `TANTALUS_S3_BUCKET`
+ - `TANTALUS_AMAZON_REGION`
 
  ## Resources / Ideas
 

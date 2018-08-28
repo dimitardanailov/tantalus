@@ -37,22 +37,26 @@ export class TantalusAWSS3 {
 		return pass;
 	}
 
+	public static getBucketName() {
+		return process.env.TANTALUS_S3_BUCKET || '';
+	}
+
+	public static getAccessKey() {
+		return process.env.TANTALUS_S3_ACCESS_KEY_ID || '';
+	}
+
+	public static getSecretAccessKey() {
+		return process.env.TANTALUS_S3_SECRET_ACCESS_KEY || '';
+	}
+
+	public static getAmazonRegion() {
+		return process.env.TANTALUS_AMAZON_REGION || 'eu-central-1';
+	}
+
 	private static createAWSCongiguration() {
 		AWS.config.update( { 
 			accessKeyId: TantalusAWSS3.getAccessKey(), 
 			secretAccessKey: TantalusAWSS3.getSecretAccessKey()
 		});
-	}
-
-	private static getBucketName() {
-		return process.env.TANTALUS_S3_BUCKET || '';
-	}
-
-	private static getAccessKey() {
-		return process.env.TANTALUS_S3_ACCESS_KEY_ID || '';
-	}
-
-	private static getSecretAccessKey() {
-		return process.env.TANTALUS_S3_SECRET_ACCESS_KEY || '';
 	}
 }

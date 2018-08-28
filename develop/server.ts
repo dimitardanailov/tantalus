@@ -18,6 +18,7 @@ require('appmetrics-prometheus').attach();
 const appName = TantalusAppSettings.getAppName();
 import log4js = require('log4js');
 import path = require('path');
+import { TantalusTUSServerAWSS3 } from "./helpers/aws/TantalusTUSServerAWSS3";
 const logger = log4js.getLogger(appName);
 
 // Setup routing-controllers to use typedi container.
@@ -31,9 +32,7 @@ const app = createExpressServer({
 
 // Create TUS server(https://github.com/tus/tus-node-server)
 const server = new tus.Server();
-server.datastore = new tus.FileStore({
-    path: '/files'
-});
+server.datastore = TantalusTUSServerAWSS3.createDateStore();
 
 const uploadApp = express();
 uploadApp.all('*', server.handle.bind(server));
