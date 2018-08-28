@@ -8,6 +8,7 @@ import { IQuery } from "../interfaces/IQuery";
 import { TantalusAWSS3 } from "../helpers/aws/TantalusAWSS3";
 import { TantalusStream } from "../helpers/streams/TantalusStream";
 import { ContentTypes } from "../enums/ContentTypes";
+import { TantalusTUSClientAWSS3 } from "../helpers/aws/TantalusTUSClientAWSS3";
 
 @Service()
 @JsonController()
@@ -72,6 +73,35 @@ export class ExportController extends QueryController {
 		});
 
 		return 'Completed !!!';
+	}
+
+	@Get('/tus')
+	tusUpload() {
+		const cursor = this.repository.getCursorToAllRecords();
+
+		// Stream and AWS S3 configurations
+		const tusClient = new TantalusTUSClientAWSS3();
+		const appStream = new TantalusStream();
+		appStream.input.push('{[');
+		appStream.input.pipe(tusClient.upload('test'));
+
+		cursor.on('data', function(doc) {
+			appStream.input.push(JSON.stringify(doc));
+		});
+
+		cursor.on('close', function() {
+			TantalusLogger.info('done ....');
+			
+			appStream.input.push(']}');
+			appStream.input.push(null); // No more data
+			TantalusLogger.info('Stream was created ...');
+		});
+
+		appStream.input.on('end', () => {
+			TantalusLogger.info('Stream. end emitter ...');
+		});
+
+		return 'TUS Completed !!!';
 	}
 
 	@Get('/helloworld')

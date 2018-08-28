@@ -5,5 +5,5 @@ module.exports = (app) => {
 		require('./health')(app);
 		
 		// TUS
-		require('./tus')();
+		// require('./tus')();
 };  
