@@ -36,6 +36,9 @@ Application should have follow `process.env`:
  - `TANTALUS_S3_BUCKET`
  - `TANTALUS_AMAZON_REGION`
 
+ ### File system Configurations
+ - `TANTALUS_TEMP_DIR`
+
  ## Resources / Ideas
 
 - [TypeScript: Declaring Mongoose Schema + Model](https://brianflove.com/2016/10/04/typescript-declaring-mongoose-schema-model/)
