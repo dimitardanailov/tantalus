@@ -76,37 +76,8 @@ export class ExportController extends QueryController {
 		return 'Completed !!!';
 	}
 
-	@Get('/tus')
-	tusUpload() {
-		const cursor = this.repository.getCursorToAllRecords();
-
-		// Stream and AWS S3 configurations
-		const tusClient = new TantalusTUSClientAWSS3();
-		const appStream = new TantalusStream();
-		appStream.input.push('{[');
-		appStream.input.pipe(tusClient.upload('test'));
-
-		cursor.on('data', function(doc) {
-			appStream.input.push(JSON.stringify(doc));
-		});
-
-		cursor.on('close', function() {
-			TantalusLogger.info('done ....');
-			
-			appStream.input.push(']}');
-			appStream.input.push(null); // No more data
-			TantalusLogger.info('Stream was created ...');
-		});
-
-		appStream.input.on('end', () => {
-			TantalusLogger.info('Stream. end emitter ...');
-		});
-
-		return 'TUS Completed !!!';
-	}
-
 	@Get('/fs')
-	fsUplo2ad() {
+	fsUplo2ad() {		
 		const cursor = this.repository.getCursorToAllRecords();
 
 		// Create FS stream configurations
@@ -127,7 +98,15 @@ export class ExportController extends QueryController {
 		});
 
 		fsStream.readableStream.on('end', () => {
-			TantalusLogger.info('Stream. end emitter ...');
+			TantalusLogger.info('Stream end emitter ...');
+			
+		});
+
+		fsStream.writeStream.on('finish', () => {
+			TantalusLogger.info('Stream finish emitter ...');
+
+			const tusClient = new TantalusTUSClientAWSS3();
+			tusClient.upload(fsStream.path, 'bucketFileName.json.gz');
 		});
 
 		return 'Completed !!!';

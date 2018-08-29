@@ -3,18 +3,17 @@ import { TantalusLogger } from "../logger/TantalusLogger";
 import { TantalusAppSettings } from "../app-settings/TantalusAppSettings";
 import { Stream } from "stream";
 import { ContentTypes } from "../../enums/ContentTypes";
+import fs = require("fs");
 
 export class TantalusTUSClientAWSS3 {
 
-	upload(filename: string) {
-		const fs = require("fs");
-		var path = __dirname + '/TantalusAWSS3.js';
+	upload(path: string, bucketFileName: string) {
 		var file = fs.createReadStream(path);
 		var size = fs.statSync(path).size;
 
-		const pass = new Stream.PassThrough();
-
 		const endpoint = TantalusAppSettings.getFullMicroservicesURL() + TantalusAppSettings.getTusUploadEndPoint();
+
+		TantalusLogger.info(bucketFileName);
 
 		// https://github.com/tus/tus-js-client
 		// https://github.com/tus/tus-js-client/blob/master/demo/node.js
@@ -23,8 +22,7 @@ export class TantalusTUSClientAWSS3 {
 			resume: true,
 			uploadSize: size,
 			metadata: {
-				filename: filename,
-				filetype: ContentTypes.JSON
+				filename: bucketFileName
 			},
 			onError: error => {
 				TantalusLogger.info(error);
@@ -38,11 +36,8 @@ export class TantalusTUSClientAWSS3 {
 				TantalusLogger.info('Upload finished:' + upload.url);
 			}
 		};
-
-		// Start the upload
+		
 		const upload = new tus.Upload(file, options);
 		upload.start();
-
-		return pass;
 	}
 }

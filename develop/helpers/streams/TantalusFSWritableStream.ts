@@ -27,11 +27,12 @@ export class TantalusFSWritableStream {
 	}
 
 	constructor(filename: string) {
-		this._path = TantalusFSWritableStream.getFullPath(filename);
+		this._path = `${TantalusFSWritableStream.getFullPath(filename)}.gz`;
+		this._writeStream = fs.createWriteStream(this._path);
 
 		this._readableStream
 			.pipe(zlib.createGzip())
-			.pipe(fs.createWriteStream(`${this._path}.gz`))
+			.pipe(this._writeStream);
 	}
 
 	private static getFullPath(filename: string): string {
