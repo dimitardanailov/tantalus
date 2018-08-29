@@ -8,6 +8,8 @@ import { IQuery } from "../interfaces/IQuery";
 import { TantalusAWSS3 } from "../helpers/aws/TantalusAWSS3";
 import { TantalusStream } from "../helpers/streams/TantalusStream";
 import { ContentTypes } from "../enums/ContentTypes";
+import { TantalusTUSClientAWSS3 } from "../helpers/aws/TantalusTUSClientAWSS3";
+import { TantalusFSWritableStream } from "../helpers/streams/TantalusFSWritableStream";
 
 @Service()
 @JsonController()
@@ -69,6 +71,42 @@ export class ExportController extends QueryController {
 
 		appStream.input.on('end', () => {
 			TantalusLogger.info('Stream. end emitter ...');
+		});
+
+		return 'Completed !!!';
+	}
+
+	@Get('/fs')
+	fsUplo2ad() {		
+		const cursor = this.repository.getCursorToAllRecords();
+
+		// Create FS stream configurations
+		const fsStream = new TantalusFSWritableStream('test.json');
+		fsStream.readableStream.push('{[');
+
+		cursor.on('data', doc => {
+			fsStream.readableStream.push(JSON.stringify(doc));
+		});
+
+		cursor.on('close', () => {
+			TantalusLogger.info('cursor.close() ....');
+
+			fsStream.readableStream.push(']}');
+
+			// No more data.input.push(null);
+			fsStream.readableStream.push(null); 
+		});
+
+		fsStream.readableStream.on('end', () => {
+			TantalusLogger.info('Stream end emitter ...');
+			
+		});
+
+		fsStream.writeStream.on('finish', () => {
+			TantalusLogger.info('Stream finish emitter ...');
+
+			const tusClient = new TantalusTUSClientAWSS3();
+			tusClient.upload(fsStream.path, 'bucketFileName.json.gz');
 		});
 
 		return 'Completed !!!';

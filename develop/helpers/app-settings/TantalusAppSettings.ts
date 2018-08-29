@@ -25,4 +25,8 @@ export class TantalusAppSettings {
 	public static getTusUploadEndPoint() {
 		return '/tus/aws/uploads'
 	}
+
+	public static getFileSystemTempDir() {
+		return process.env.TANTALUS_TEMP_DIR || '';
+	}
 }

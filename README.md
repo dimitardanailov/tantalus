@@ -34,6 +34,10 @@ Application should have follow `process.env`:
  - `TANTALUS_S3_ACCESS_KEY_ID`
  - `TANTALUS_S3_SECRET_ACCESS_KEY`
  - `TANTALUS_S3_BUCKET`
+ - `TANTALUS_AMAZON_REGION`
+
+ ### File system Configurations
+ - `TANTALUS_TEMP_DIR`
 
  ## Resources / Ideas
 
@@ -45,3 +49,6 @@ Application should have follow `process.env`:
 - [Configuring the SDK in Node.js](http://docs.amazonaws.cn/en_us/AWSJavaScriptSDK/guide/node-configuring.html)
 - [Support for Promises in the SDK](https://aws.amazon.com/blogs/developer/support-for-promises-in-the-sdk/)
 - [Pipe a stream to s3.upload()](https://stackoverflow.com/questions/37336050/pipe-a-stream-to-s3-upload/37366093#37366093)
+- [TUS: Server](https://github.com/tus/tus-node-server)
+- [TUS: JS Client](https://github.com/tus/tus-js-client)
+- [TUS: JS Client and Nodejs Example](https://github.com/tus/tus-js-client/blob/master/demo/node.js)
