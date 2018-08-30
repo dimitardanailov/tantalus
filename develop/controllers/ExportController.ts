@@ -8,7 +8,7 @@ import { IQuery } from "../interfaces/IQuery";
 import { TantalusAWSS3 } from "../helpers/aws/TantalusAWSS3";
 import { TantalusStream } from "../helpers/streams/TantalusStream";
 import { ContentTypes } from "../enums/ContentTypes";
-import { TantalusTUSClientAWSS3 } from "../helpers/aws/TantalusTUSClientAWSS3";
+import { TantalusTUSClientAWSS3, TantalusTUSClientAWSS3Options } from "../helpers/aws/TantalusTUSClientAWSS3";
 import { TantalusFSWritableStream } from "../helpers/streams/TantalusFSWritableStream";
 
 @Service()
@@ -106,7 +106,12 @@ export class ExportController extends QueryController {
 			TantalusLogger.info('Stream finish emitter ...');
 
 			const tusClient = new TantalusTUSClientAWSS3();
-			tusClient.upload(fsStream.path, 'bucketFileName.json.gz');
+			const options = new TantalusTUSClientAWSS3Options();
+			options.path = fsStream.path;
+			options.bucketFileName = 'bucketFileName.json.gz';
+			options.contentType = ContentTypes.GZIP;
+
+			tusClient.upload(options);
 		});
 
 		return 'Completed !!!';
