@@ -23,7 +23,7 @@ export class TantalusAppSettings {
 	}
 
 	public static getTusUploadEndPoint() {
-		return '/tus/aws/uploads'
+		return '/tus/aws/uploads';
 	}
 
 	public static getFileSystemTempDir() {

@@ -1,4 +1,4 @@
-import { assert, expect } from "chai";
+import { assert } from "chai";
 import { TantalusLogger } from "../../../helpers/logger/TantalusLogger";
 import { TantalusAWSS3 } from "../../../helpers/aws/TantalusAWSS3";
 
