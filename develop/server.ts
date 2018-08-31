@@ -26,7 +26,7 @@ useContainer(Container);
 
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
-	routePrefix: '/api',
+	routePrefix: TantalusAppSettings.getControllersRoutePrefix(),
 	controllers: [__dirname + '/controllers/*.js']
 });
 
@@ -55,4 +55,6 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   res.sendFile(path.join(__dirname, '../public', '500.html'));
-})
+});
+
+module.exports = app; // for testing

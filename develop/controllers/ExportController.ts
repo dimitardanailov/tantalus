@@ -3,7 +3,7 @@ import { Service } from "typedi";
 import { QueryController } from './QueryController';
 import { QueryRepository } from "../repositories/QueryRepository";
 import { TantalusLogger } from "../helpers/logger/TantalusLogger";
-import { QueryMockObject } from "../test/mock-objects/QueryMockObject";
+import { QueryMockObject } from "../test/mock-objects/models/QueryMockObject";
 import { IQuery } from "../interfaces/IQuery";
 import { TantalusAWSS3 } from "../helpers/aws/TantalusAWSS3";
 import { TantalusStream } from "../helpers/streams/TantalusStream";

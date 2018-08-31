@@ -1,17 +1,19 @@
 import { assert } from "chai";
-import { IQuery } from "../../interfaces/IQuery";
 import { Query } from "../../models/Query";
-import { QueryMockObject } from "../mock-objects/QueryMockObject";
+import { QueryMockObject } from "../mock-objects/models/QueryMockObject";
 import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
 import { QueryRepository } from "../../repositories/QueryRepository";
-import { MochaDatabaseConfiguration } from "../database/MochaDatabaseConfiguration";
+import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 
-describe.only('QueryRepository', () => {
+describe('QueryRepository', () => {
 
 	let repository: QueryRepository;
 
-	// Create a connection to database
 	before(done => {
+		// Setup a proces env
+		process.env.NODE_ENV = 'test';
+
+		// Create a connection to database
 		MochaDatabaseConfiguration.connectToDatabase(done);
 	});
 
@@ -45,6 +47,6 @@ describe.only('QueryRepository', () => {
 
 			assert.notEqual(null, promise);
 		});
-	});
+	}); // save method 
 
 });

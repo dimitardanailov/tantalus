@@ -2,6 +2,10 @@ import { TantalusLogger } from "../logger/TantalusLogger";
 
 export class TantalusAppSettings {
 
+	public static getControllersRoutePrefix() {
+		return '/api';
+	}
+
 	public static getDomain() {
 		return 'http://localhost';
 	}
