@@ -1,5 +1,5 @@
-import { db, mongoose } from "../../database/config-test";
-import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
+import { db, mongoose } from "../../../database/config-test";
+import { TantalusLogger } from "../../../helpers/logger/TantalusLogger";
 
 export class MochaDatabaseConfiguration {
 

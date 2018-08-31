@@ -1,5 +1,5 @@
-import { Query } from "../../models/Query";
-import { ExportRequestMockObject } from "./ExportRequestMockObject";
+import { Query } from "../../../models/Query";
+import { ExportRequestMockObject } from "../models/ExportRequestMockObject";
 import { ParseQueryMockObject } from "./ParseQueryMockObject";
 
 export class QueryMockObject { 
