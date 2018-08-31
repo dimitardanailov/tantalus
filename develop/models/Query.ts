@@ -1,4 +1,3 @@
-
 import { mongoose } from "../database/config";
 import { Document, Schema, Model } from "mongoose";
 import { IQuery } from '../interfaces/IQuery';

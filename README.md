@@ -29,6 +29,13 @@ npm run idt:deploy
 
 Application should have follow `process.env`: 
 
+### Database configurations
+
+ - `TANTALUS_DATABASE_SERVER`
+ - `TANTALUS_DATABASE`
+ - `TANTALUS_TESTING_DATABASE_SERVER`
+ - `TANTALUS_TESTING_DATABASE`
+
 ### S3 configurations
 
  - `TANTALUS_S3_ACCESS_KEY_ID`
@@ -68,5 +75,6 @@ Application should have follow `process.env`:
 - [How to specify test directory for mocha?](https://stackoverflow.com/questions/10753288/how-to-specify-test-directory-for-mocha)
 - [Mocha glob pattern](https://remarkablemark.org/blog/2017/02/07/mocha-glob-pattern/)
 - [const {NODE_PORT, NODE_ENV} = process.env](https://medium.com/@maxcbc/mocking-environment-variables-in-node-js-a17a416e127c)
+- [How to Test Promises with Mocha](https://wietse.loves.engineering/testing-promises-with-mocha-90df8b7d2e35)
 
 

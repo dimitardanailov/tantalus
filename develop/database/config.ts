@@ -1,9 +1,18 @@
 import * as mongoose from "mongoose";
 import { TantalusLogger } from "../helpers/logger/TantalusLogger";
-const localConfig = require('../config/local.json');
+import { TantalusDatabaseSettings } from "../helpers/database/TantalusDatabaseSettings";
 
-mongoose.connect(`mongodb://127.0.0.1:27017/${localConfig.mongodb.collection}`).then(() => {
+const mongo = {
+  uri: TantalusDatabaseSettings.getConnectionString(),
+  opt: {
+    useNewUrlParser: true
+  }
+};
+
+mongoose.connect(mongo.uri, mongo.opt).then(() => {
 	TantalusLogger.info('Connected to Database');
+
+	return mongoose.connection;
 }).catch(err => {
 	TantalusLogger.debugVariable(err);
 });
