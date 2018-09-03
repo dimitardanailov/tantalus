@@ -1,11 +1,11 @@
-import { assert } from "chai";
+import { assert, expect } from "chai";
 import { Operation } from "../../models/Operation";
 import { OperationMockObject } from "../mock-objects/models/OperationMockObject";
 import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
 import { OperationRepository } from "../../repositories/OperationRepository";
 import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 
-describe('OperationRepository', () => {
+describe.only('OperationRepository', () => {
 
 	let repository: OperationRepository;
 
@@ -28,9 +28,6 @@ describe('OperationRepository', () => {
 	
 	// After all tests are finished drop database and close connection
 	after(done => {
-		TantalusLogger.info('OperationRepository.after');
-		TantalusLogger.info(done);
-
 		MochaDatabaseConfiguration.dropDatabase(done);
 	});
 
@@ -56,6 +53,7 @@ describe('OperationRepository', () => {
 
 				assert.notEqual(null, promise);
 			});
+
 		}); // save method 
 	}); // JSON test cases 
 
@@ -83,5 +81,4 @@ describe('OperationRepository', () => {
 			});
 		}); // save method
 	}); // CSV test cases
-
 });

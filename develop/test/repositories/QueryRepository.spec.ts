@@ -5,7 +5,7 @@ import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
 import { QueryRepository } from "../../repositories/QueryRepository";
 import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 
-describe('QueryRepository', () => {
+describe.only('QueryRepository', () => {
 
 	let repository: QueryRepository;
 
@@ -28,16 +28,20 @@ describe('QueryRepository', () => {
 	
 	// After all tests are finished drop database and close connection
 	after(done => {
-		MochaDatabaseConfiguration.dropDatabase(done);
+		MochaDatabaseConfiguration.dropDatabaseAndCloseConnection(done);
 	});
 
 	describe('save', () => {
-		it('positive', async () => {
+		it('positive', done => {
 			const mockObject = new QueryMockObject();
 			const query: Query = mockObject.query;
-			const promise = await repository.save(query);
+			const promise = repository.save(query);
 
-			assert.equal(query, promise);
+			promise.then(dbOperation => {
+				assert.equal(query, dbOperation);
+
+				done();
+			});
 		});
 
 		it('negative', async () => {

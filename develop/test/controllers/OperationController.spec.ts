@@ -6,7 +6,7 @@ import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
 import { beforeEach } from "mocha";
 import { MochaController } from "../utils/controllers/MochaController";
 
-describe.only('OperationController', () => {
+describe('OperationController', () => {
 
 	before(done => {
 		chai.use(chaiHttp);
