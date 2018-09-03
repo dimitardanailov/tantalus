@@ -28,7 +28,7 @@ describe('QueryRepository', () => {
 	
 	// After all tests are finished drop database and close connection
 	after(done => {
-		MochaDatabaseConfiguration.dropDatabase(done);
+		MochaDatabaseConfiguration.dropDatabaseAndCloseConnection(done);
 	});
 
 	describe('save', () => {
