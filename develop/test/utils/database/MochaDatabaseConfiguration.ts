@@ -17,7 +17,7 @@ export class MochaDatabaseConfiguration {
 		mongoose.connection.db.dropDatabase(() => {
 			TantalusLogger.info('Drop database ...');
 
-      mongoose.connection.close(done);
+			mongoose.connection.close(done);
     });
 	}
 
