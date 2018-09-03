@@ -5,7 +5,7 @@ import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
 import { OperationRepository } from "../../repositories/OperationRepository";
 import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 
-describe.only('OperationRepository', () => {
+describe('OperationRepository', () => {
 
 	let repository: OperationRepository;
 
