@@ -6,18 +6,19 @@ import { TantalusLogger } from "../helpers/logger/TantalusLogger";
 import { OperationMockObject } from "../test/mock-objects/models/OperationMockObject";
 import { ContentTypes } from "../enums/ContentTypes";
 import { IOperation } from "../interfaces/IOperation";
+import { HTTPResponseCodes } from "../enums/HTTPResponseCodes";
 
 @Service()
 @JsonController()
 @Controller("/operations")
-export class OperationsController extends AbstractController {
+export class OperationController extends AbstractController {
 
 	constructor(private repository: OperationRepository) {
 		super();
 	}
 
 	@Get('/createrecord')
-	@OnUndefined(204)
+	@OnUndefined(HTTPResponseCodes.OnUndefined)
 	async createRecord(): Promise<IOperation> {
 		// Create a dummy Operation
 		const operation = OperationMockObject.createSimpleJson();
@@ -27,10 +28,5 @@ export class OperationsController extends AbstractController {
 		return await promise.then(dbQuery => {
 			return dbQuery.toJSON();
 		});
-	}
-
-	@Get('/helloworld')
-	helloworld() {
-		return 'Hello world !!!';
 	}
 }
