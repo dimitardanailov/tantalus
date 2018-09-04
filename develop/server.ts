@@ -5,8 +5,8 @@
  */
 
 import "reflect-metadata"; // this shim is required
-import { createExpressServer, useContainer } from "routing-controllers";
-import {Container} from "typedi";
+import { createExpressServer, useContainer, Action } from "routing-controllers";
+import { Container } from "typedi";
 import { TantalusLogger } from "./helpers/logger/TantalusLogger";
 import { TantalusAppSettings } from "./helpers/app-settings/TantalusAppSettings";
 
@@ -27,7 +27,10 @@ useContainer(Container);
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
 	routePrefix: TantalusAppSettings.getControllersRoutePrefix(),
-	controllers: [__dirname + '/controllers/*.js']
+	controllers: [__dirname + '/controllers/*.js'],
+	authorizationChecker: async (action: Action, roles: string[]) => {
+		return false;
+	}
 });
 
 // Create TUS server(https://github.com/tus/tus-node-server)

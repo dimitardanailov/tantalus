@@ -46,6 +46,14 @@ Application should have follow `process.env`:
  ### File system Configurations
  - `TANTALUS_TEMP_DIR`
 
+ ### AUTH Service
+
+Sashido is responsible to provide these variables.
+Each application has a proto Buffer for authentication.
+
+ - `TANTALUS_AUTH_SERVICE_HOST`
+ - `TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID`
+
 ## Resources / Ideas
 
 #### Mongoose

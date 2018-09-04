@@ -2,6 +2,7 @@
 !server/config/*
 server/*
 files/*
+auth-example.ts
 
 node_modules
 node_modules_linux
