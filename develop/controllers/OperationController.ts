@@ -1,4 +1,4 @@
-import { JsonController, Get, Post, Param, Delete, Body, Controller, OnUndefined, InternalServerError } from "routing-controllers";
+import { JsonController, Get, Post, Param, Delete, Body, Controller, OnUndefined, InternalServerError, Authorized } from "routing-controllers";
 import { Service } from "typedi";
 import { AbstractController } from "./AbstractController";
 import { OperationRepository } from "../repositories/OperationRepository";
@@ -7,6 +7,7 @@ import { OperationMockObject } from "../test/mock-objects/models/OperationMockOb
 import { ContentTypes } from "../enums/ContentTypes";
 import { IOperation } from "../interfaces/IOperation";
 import { HTTPResponseCodes } from "../enums/HTTPResponseCodes";
+import { TantalusAuthService } from "../auth/TantalusAuthService";
 
 @Service()
 @JsonController()
@@ -28,5 +29,11 @@ export class OperationController extends AbstractController {
 		return await promise.then(dbQuery => {
 			return dbQuery.toJSON();
 		});
+	}
+
+	@Authorized()
+	@Get("/auth")
+	auth() {
+		return 'Hello World';
 	}
 }
