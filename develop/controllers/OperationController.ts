@@ -34,9 +34,6 @@ export class OperationController extends AbstractController {
 	@Authorized()
 	@Get("/auth")
 	auth() {
-		//const authService = new TantalusAuthService();
-		// authService.authenticateMyApp();
-
 		return 'Hello World';
 	}
 }

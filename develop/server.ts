@@ -33,9 +33,9 @@ const app = createExpressServer({
 		const authService: TantalusAuthService = 
 			TantalusAuthService.initialize(action.request.headers);
 		
-		authService.authenticateMyApp();
+		await authService.authenticateMyApp();
 
-		return true;
+		return authService.hasDatabaseUri();
 	}
 });
 
