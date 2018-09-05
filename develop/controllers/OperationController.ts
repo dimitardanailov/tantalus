@@ -31,11 +31,11 @@ export class OperationController extends AbstractController {
 		});
 	}
 
-	// @Authorized()
+	@Authorized()
 	@Get("/auth")
-	all() {
-		const authService = new TantalusAuthService();
-		authService.authenticateMyApp();
+	auth() {
+		//const authService = new TantalusAuthService();
+		// authService.authenticateMyApp();
 
 		return 'Hello World';
 	}

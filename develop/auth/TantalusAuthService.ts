@@ -15,25 +15,36 @@ import { BrowserHeaders } from 'browser-headers';
 import { grpc } from 'grpc-web-client';
 import { TantalusAuthServiceConfigurations } from './TantalusAuthServiceConfigurations';
 import { TantalusLogger } from '../helpers/logger/TantalusLogger';
+import { TantalusAuthRequestHeader } from './TantalusAuthRequestHeader';
 
 export class TantalusAuthService extends AuthClient {
 
+	private headerRequest: TantalusAuthRequestHeader;
 	private request: MasterKeyRequest = new MasterKeyRequest();
 	private response: MasterKeyResponse;
+	
 	private sashidoClient: SashidoClient;
 
 	constructor() {
 		super(TantalusAuthServiceConfigurations.getServiceHost());
+	}
 
-		this.setMasterKeyRequestConfigurations();
+	public static initialize(headers: Object): TantalusAuthService {
+		const authService = new TantalusAuthService();
+		authService.headerRequest = new TantalusAuthRequestHeader(headers);
+		authService.setMasterKeyRequestConfigurations();
+
+		TantalusLogger.info(authService.headerRequest);
+
+		return authService;
 	}
 
 	setMasterKeyRequestConfigurations() {
 		// ENV variable
 		this.request.setServiceid(TantalusAuthServiceConfigurations.getMasterKeyServiceId());
 
-		this.request.setApplicationid(TantalusAuthServiceConfigurations.getMasterKeyApplicationId());
-		this.request.setMasterkey(TantalusAuthServiceConfigurations.getMasterKey());
+		this.request.setApplicationid(this.headerRequest.applicationId);
+		this.request.setMasterkey(this.headerRequest.masterKey);
 	}
 
 	async authenticateMyApp() {
@@ -41,21 +52,43 @@ export class TantalusAuthService extends AuthClient {
 
 		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-		const promise = new Promise<MasterKeyResponse>((resolve, reject) => {
+		// Get Master Key Response
+		this.response = await this.createMasterKeyResponsePromise();
+		TantalusLogger.info(this.response.getToken());
+
+		this.sashidoClient = TantalusAuthService.createSashidoClient();
+		const app: GetAppResponse = await this.createAppResponsePromise();
+		TantalusLogger.info(app.getDatabaseuri());
+	}
+
+	private static createSashidoClient() {
+		return new SashidoClient(TantalusAuthServiceConfigurations.getServiceHost());
+	}
+
+	private async createMasterKeyResponsePromise(): Promise<MasterKeyResponse>  {
+		return new Promise<MasterKeyResponse>((resolve, reject) => {
 			this.masterKey(this.request, (error: ServiceError, response: MasterKeyResponse) => {
-				if (error) {
-					reject(error);
-				}
+				if (error) reject(error);
 
 				resolve(response);
 			});
 		});
+	}
 
-		promise.then(response => {
-			TantalusLogger.info('MasterKeyResponse: ');
-			TantalusLogger.info(response);
-		}).catch(error => {
-			TantalusLogger.error(error);
+	private async createAppResponsePromise(): Promise<GetAppResponse> {
+		const getAppRequest = new GetAppRequest();
+  	getAppRequest.setApplicationid(this.headerRequest.applicationId);
+		
+		// Set Token
+		const meta: grpc.Metadata = new BrowserHeaders();
+		meta.set('token', this.response.getToken());
+
+		return new Promise<GetAppResponse>((resolve, reject) => {
+			this.sashidoClient.getApp(getAppRequest, meta, (error: ServiceError, response: GetAppResponse) => {
+				if (error) reject(error);
+
+				resolve(response);
+			});
 		});
 	}
 }

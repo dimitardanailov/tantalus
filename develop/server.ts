@@ -19,6 +19,7 @@ const appName = TantalusAppSettings.getAppName();
 import log4js = require('log4js');
 import path = require('path');
 import { TantalusTUSServerAWSS3 } from "./helpers/aws/TantalusTUSServerAWSS3";
+import { TantalusAuthService } from "./auth/TantalusAuthService";
 const logger = log4js.getLogger(appName);
 
 // Setup routing-controllers to use typedi container.
@@ -28,8 +29,13 @@ useContainer(Container);
 const app = createExpressServer({
 	routePrefix: TantalusAppSettings.getControllersRoutePrefix(),
 	controllers: [__dirname + '/controllers/*.js'],
-	authorizationChecker: async (action: Action, roles: string[]) => {
-		return false;
+	authorizationChecker: async (action: Action) => {
+		const authService: TantalusAuthService = 
+			TantalusAuthService.initialize(action.request.headers);
+		
+		authService.authenticateMyApp();
+
+		return true;
 	}
 });
 

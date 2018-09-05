@@ -43,16 +43,25 @@ Application should have follow `process.env`:
  - `TANTALUS_S3_BUCKET`
  - `TANTALUS_AMAZON_REGION`
 
- ### File system Configurations
+### File system Configurations
+
  - `TANTALUS_TEMP_DIR`
 
- ### AUTH Service
+### AUTH Service
 
 Sashido is responsible to provide these variables.
+
 Each application has a proto Buffer for authentication.
 
  - `TANTALUS_AUTH_SERVICE_HOST`
  - `TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID`
+
+### Sashido Testing and Development Variables
+
+You can access these variables on `Sashido` -> `App Settings` -> `Security & Keys`
+
+	- `TANTALUS_SASHIDO_APP_ID`
+	- `TANTALUS_SASHIDO_MASTER_KEY`
 
 ## Resources / Ideas
 
