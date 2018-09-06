@@ -8,6 +8,8 @@ import { ContentTypes } from "../enums/ContentTypes";
 import { IOperation } from "../interfaces/IOperation";
 import { HTTPResponseCodes } from "../enums/HTTPResponseCodes";
 import { TantalusAuthService } from "../auth/TantalusAuthService";
+import { SashidoApplication } from "../helpers/sashido/SashidoApplication";
+import { SashidoDecorator } from "./SashidoDecorator";
 
 @Service()
 @JsonController()
@@ -34,6 +36,13 @@ export class OperationController extends AbstractController {
 	@Authorized()
 	@Get("/auth")
 	auth() {
+		return 'Hello World';
+	}
+
+	@Post("/decorator")
+	decorator(@SashidoDecorator({ required: true }) app: SashidoApplication) {
+		TantalusLogger.info(app);
+
 		return 'Hello World';
 	}
 }

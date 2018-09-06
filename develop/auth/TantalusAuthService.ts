@@ -43,6 +43,18 @@ export class TantalusAuthService extends AuthClient {
 
 		return false;
 	}
+
+	getApplicationId(): string {
+		return this.headerRequest.applicationId;
+	}
+
+	getMasterKey(): string {
+		return this.headerRequest.masterKey;
+	}
+
+	getDatabaseUri(): string {
+		return this.databaseUri;
+	}
  
 	setMasterKeyRequestConfigurations() {
 		// ENV variable

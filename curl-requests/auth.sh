@@ -6,11 +6,11 @@ MASTER_KEY=$TANTALUS_SASHIDO_MASTER_KEY
 # echo $APP_ID
 # echo $MASTER_KEY
 
-END_POINT="http://localhost:3000/api/operations/auth"
+END_POINT="http://localhost:3000/api/operations/decorator"
 
 # Example and idea: https://gist.github.com/Starefossen/6699580
 
-curl -X GET \
+curl -X POST \
   -H "X-Application-Id: $APP_ID" \
   -H "X-Master-Key: $MASTER_KEY" \
   -H "Content-Type: application/json" \

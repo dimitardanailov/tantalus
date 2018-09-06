@@ -1,43 +1,32 @@
-import { NodeEnv } from "../../enums/NodeEnv";
+import { SashidoDbConnector } from "../../database/config-sashido";
+import { TantalusAuthService } from "../../auth/TantalusAuthService";
 
-class SashidoApplication {
+export class SashidoApplication {
 
-	public applicationId: string;
-	public masterKey: string;
-
-	public static createSashidoApplication(): SashidoApplication {
-		const env = process.env.NODE_ENV;
-
-		switch (env) {
-			case NodeEnv.PROD:
-				return SashidoApplication.createAppByProdConfigurations();
-			case NodeEnv.TEST:
-				return SashidoApplication.createAppByTestingConfigurations();
-			case NodeEnv.DEVELOP:
-				return SashidoApplication.createAppByDevelopConfigurations();
-			default:
-				break;
-		}
+	private _applicationId: string;
+	public applicationId(): string {
+		return this._applicationId;
 	}
 
-	/*** Production  ***/
-	private static createAppByProdConfigurations() {
-		const app = new SashidoApplication();
-
-		return app;
+	private _masterKey: string;
+	public masterKey(): string {
+		return this._masterKey;
 	}
 
-	/*** Testing  ***/
-	private static createAppByTestingConfigurations() {
-		const app = new SashidoApplication();
-		
-		return app;
+	private _connector: SashidoDbConnector;
+	public connector(): SashidoDbConnector {
+		return this._connector;
 	}
 
-	/*** Develop ***/
-	private static createAppByDevelopConfigurations() {
-		const app = new SashidoApplication();
+	constructor(authService: TantalusAuthService) {
+		this._applicationId = authService.getApplicationId();
+		this._masterKey = authService.getMasterKey();
+		this._connector = SashidoDbConnector.connect(authService.getDatabaseUri());
+	}
 
-		return app;
+	public static createSashidoApplication(authService: TantalusAuthService): SashidoApplication {
+		const instance = new SashidoApplication(authService);
+
+		return instance;
 	}
 }
