@@ -13,14 +13,22 @@ export class TantalusAuthRequestHeader {
 	}
 
 	constructor(headers: Object) {
-		const applicationKey = localConfig.auth.headerAttributes.applicationKey;
+		const applicationKey = TantalusAuthRequestHeader.getApplicationKey();
 		if ([applicationKey in headers]) {
 			this._applicationId = headers[applicationKey];
 		}
 
-		const masterKey = localConfig.auth.headerAttributes.masterKey;
+		const masterKey = TantalusAuthRequestHeader.getMasterKey();
 		if ([masterKey in headers]) {
 			this._masterKey = headers[masterKey];
 		}
+	}
+
+	public static getApplicationKey() {
+		return localConfig.auth.headerAttributes.applicationKey;
+	}
+
+	public static getMasterKey() {
+		return localConfig.auth.headerAttributes.masterKey;
 	}
 }
