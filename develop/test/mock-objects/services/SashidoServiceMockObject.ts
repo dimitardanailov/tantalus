@@ -1,4 +1,5 @@
 import { SashidoDbConnector } from "../../../database/config-sashido";
+
 export class SashidoServiceMockObject {
 	
 	private _token: string;
