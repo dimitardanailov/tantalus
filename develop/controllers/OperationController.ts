@@ -41,7 +41,7 @@ export class OperationController extends AbstractController {
 
 	@Post("/decorator")
 	decorator(@SashidoDecorator({ required: true }) app: SashidoApplication) {
-		TantalusLogger.info(app);
+		// TantalusLogger.info(app);
 
 		return 'Hello World';
 	}
