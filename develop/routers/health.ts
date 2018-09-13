@@ -7,6 +7,3 @@ module.exports = (app) => {
 
   app.use('/health', router);
 }
-
-
-

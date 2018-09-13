@@ -10,17 +10,21 @@ import { HTTPResponseCodes } from "../enums/HTTPResponseCodes";
 import { TantalusAuthService } from "../auth/TantalusAuthService";
 import { SashidoApplication } from "../helpers/sashido/SashidoApplication";
 import { SashidoDecorator } from "./SashidoDecorator";
+import { TantalusJobHelper } from "../agenda/tus/TantalusJobHelper";
+import Agenda = require("agenda");
 
 @Service()
 @JsonController()
 @Controller("/operations")
 export class OperationController extends AbstractController {
 
+	private static readonly BACKGROUND_TASK_NAME = 'operation';
+
 	constructor(private repository: OperationRepository) {
 		super();
 	}
 
-	@Get('/createrecord')
+	@Get('/create')
 	@OnUndefined(HTTPResponseCodes.OnUndefined)
 	async createRecord(): Promise<IOperation> {
 		// Create a dummy Operation
@@ -29,6 +33,8 @@ export class OperationController extends AbstractController {
 		const promise = this.repository.save(operation);
 
 		return await promise.then(dbQuery => {
+			this.defineNewBackgroundJob(dbQuery._id);
+
 			return dbQuery.toJSON();
 		});
 	}
@@ -45,4 +51,29 @@ export class OperationController extends AbstractController {
 
 		return 'Hello World';
 	}
+
+	private async defineNewBackgroundJob(_id: string) {
+		const mongoConnectionString = 'mongodb://127.0.0.1/agenda';
+
+		const agenda = new Agenda({db: {address: mongoConnectionString}});
+
+		const example = (attrs, done) => {
+			console.log(attrs);
+			done();
+		};
+
+		agenda.define('send email report', {priority: 'high', concurrency: 10}, (job, done) => {
+			const {to} = job.attrs.data;
+
+			example({
+				to,
+				from: 'example@example.com',
+				subject: 'Email Report',
+				body: '...'
+			}, done);
+		});
+		
+		TantalusLogger.info(agenda);
+	}
+
 }

@@ -6,7 +6,7 @@ import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
 import { beforeEach } from "mocha";
 import { MochaController } from "../utils/controllers/MochaController";
 
-describe('OperationController', () => {
+describe.only('OperationController', () => {
 
 	before(done => {
 		chai.use(chaiHttp);
@@ -19,7 +19,7 @@ describe('OperationController', () => {
 
 		beforeEach(done => {
 			request = chai.request(server)
-				.get('/api/operations/createrecord');
+				.get('/api/operations/create');
 
 			done();
 		});
@@ -34,6 +34,10 @@ describe('OperationController', () => {
 
 		it('response body has a property type', done => {
 			MochaController.responseBodyShouldHaveProperty(request, done, 'type');
+		});
+
+		it ('response body has a property backgroundJobStatus', done => {
+			MochaController.responseBodyShouldHaveProperty(request, done, 'backgroundJobStatus');
 		});
 	}); // createRecord test cases
 });
