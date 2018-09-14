@@ -3,6 +3,7 @@
 server/*
 files/*
 auth-example.ts
+agenda-example.ts
 
 node_modules
 node_modules_linux

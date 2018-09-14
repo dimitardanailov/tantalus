@@ -53,27 +53,26 @@ export class OperationController extends AbstractController {
 	}
 
 	private async defineNewBackgroundJob(_id: string) {
-		const mongoConnectionString = 'mongodb://127.0.0.1/agenda';
 
-		const agenda = new Agenda({db: {address: mongoConnectionString}});
+		const backgroundJob = new TantalusJobHelper(
+			OperationController.BACKGROUND_TASK_NAME,
+			_id
+		);
+		const agenda = backgroundJob.getAgenda();
 
-		const example = (attrs, done) => {
-			console.log(attrs);
-			done();
-		};
+		const queries = [
+			{
+				query: 'db.users.find({})'
+			},
+			{
+				query: 'db.articles.find({}).limit(50)'
+			}
+		];
 
-		agenda.define('send email report', {priority: 'high', concurrency: 10}, (job, done) => {
-			const {to} = job.attrs.data;
+		const attributes  = { _id, queries};
 
-			example({
-				to,
-				from: 'example@example.com',
-				subject: 'Email Report',
-				body: '...'
-			}, done);
-		});
-		
-		TantalusLogger.info(agenda);
+		await agenda.start();
+		await agenda.schedule('now', 'parse-query', attributes);
+		await agenda.schedule('1 minute', 'parse-query', attributes);
 	}
-
 }

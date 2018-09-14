@@ -1,5 +1,6 @@
 import Agenda = require("agenda");
 import { TantalusAgendaDatabaseSettings } from "../configurations/TantalusAgendaDatabaseSettings";
+import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
 
 export class TantalusJobHelper {
 
@@ -33,20 +34,5 @@ export class TantalusJobHelper {
 
 		this.repeat = TantalusJobHelper.WHEN;
 		this.name = `${name}-${mongodbId}`;
-	}
-
-
-
-	async addNewTask() {
-		/*
-		this.agenda.define(this.name, (job, done) => {
-			job.repeatEvery(this.repeat);
-			job.save();
-			
-		}); */  
-
-		// await this.agenda.start();
-
-		// await this.agenda.every(this.repeat, this.name);
 	}
 }
