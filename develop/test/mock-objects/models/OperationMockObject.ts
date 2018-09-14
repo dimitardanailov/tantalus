@@ -1,5 +1,6 @@
 import { Operation } from "../../../models/Operation";
 import { ContentTypes } from "../../../enums/ContentTypes";
+import { BackgroundJobStatuses } from "../../../enums/BackgroundStates";
 
 export class OperationMockObject { 
 	
@@ -13,6 +14,7 @@ export class OperationMockObject {
 		const mockObject = new OperationMockObject();
 		mockObject.operation.name = 'Tantalus JSON export Operation';
 		mockObject.operation.type = ContentTypes.JSON;
+		mockObject.operation.backgroundJobStatus = BackgroundJobStatuses.New;
 
 		return mockObject.operation;
 	}
@@ -21,6 +23,7 @@ export class OperationMockObject {
 		const mockObject = new OperationMockObject();
 		mockObject.operation.name = 'Tantalus CSV export Operation';
 		mockObject.operation.type = ContentTypes.CSV;
+		mockObject.operation.backgroundJobStatus = BackgroundJobStatuses.New;
 
 		return mockObject.operation;
 	}

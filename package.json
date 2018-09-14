@@ -19,6 +19,7 @@
     }
   },
   "dependencies": {
+    "agenda": "^2.0.1",
     "appmetrics-dash": "^4.0.0",
     "appmetrics-prometheus": "^2.0.0",
     "appmetrics-zipkin": "^1.0.4",
@@ -39,6 +40,7 @@
     "typedi": "^0.8.0"
   },
   "devDependencies": {
+    "@types/agenda": "^2.0.3",
     "@types/body-parser": "^1.17.0",
     "@types/chai": "^4.1.4",
     "@types/chai-as-promised": "^7.1.0",

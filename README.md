@@ -64,6 +64,10 @@ You can access these variables on `Sashido` -> `App Settings` -> `Security & Key
 	- `TANTALUS_SASHIDO_APP_ID`
 	- `TANTALUS_SASHIDO_MASTER_KEY`
 
+### Agenda
+
+	- `TANTALUS_AGENDA_DB_STRING`
+
 ## Resources / Ideas
 
 #### Mongoose
