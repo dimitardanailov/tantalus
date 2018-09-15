@@ -18,7 +18,7 @@ import Agenda = require("agenda");
 @Controller("/operations")
 export class OperationController extends AbstractController {
 
-	private static readonly BACKGROUND_TASK_NAME = 'operation';
+	public static readonly BACKGROUND_TASK_NAME = 'operation';
 
 	constructor(private repository: OperationRepository) {
 		super();
@@ -55,9 +55,9 @@ export class OperationController extends AbstractController {
 	private async defineNewBackgroundJob(_id: string) {
 
 		const backgroundJob = new TantalusJobHelper(
-			OperationController.BACKGROUND_TASK_NAME,
-			_id
+			OperationController.BACKGROUND_TASK_NAME
 		);
+
 		const agenda = backgroundJob.getAgenda();
 
 		const queries = [
@@ -72,7 +72,9 @@ export class OperationController extends AbstractController {
 		const attributes  = { _id, queries};
 
 		await agenda.start();
-		await agenda.schedule('now', 'parse-query', attributes);
-		await agenda.schedule('1 minute', 'parse-query', attributes);
+
+		// Create two dummy tasks
+		await agenda.schedule('now', OperationController.BACKGROUND_TASK_NAME, attributes);
+		await agenda.schedule('1 minute', OperationController.BACKGROUND_TASK_NAME, attributes);
 	}
 }
