@@ -1,9 +1,10 @@
 import Agenda = require("agenda");
 import { TantalusAgendaDatabaseSettings } from "./configurations/TantalusAgendaDatabaseSettings";
 import { TantalusLogger } from "../helpers/logger/TantalusLogger";
+import { OperationController } from "../controllers/OperationController";
 
 (async () => {
-	TantalusLogger.info('start ...');
+	TantalusLogger.info('Agenda Start ...');
  
 	const agenda: Agenda = new Agenda({ 
 		db: { 
@@ -20,11 +21,9 @@ import { TantalusLogger } from "../helpers/logger/TantalusLogger";
 		done();
 	};
 
-	agenda.define('parse-query', {priority: 'high', concurrency: 10}, (job, done) => {
+	agenda.define(OperationController.BACKGROUND_TASK_NAME, {priority: 'high', concurrency: 10}, (job, done) => {
 		example(job.attrs, done);
 	});
 	
-	await agenda.start();	
-	await agenda.schedule('in 20 minutes', 'send email report', {to: 'admin@example.com'});
-
+	await agenda.start();
 })();

@@ -4,16 +4,9 @@ import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
 
 export class TantalusJobHelper {
 
-	private static readonly WHEN = 'every hour';
-
 	private agenda: Agenda;
 	public getAgenda(): Agenda {
 		return this.agenda;
-	}
-
-	private repeat: string;
-	public getRepeat(): string {
-		return this.repeat;
 	}
 	
 	private name: string;
@@ -21,7 +14,7 @@ export class TantalusJobHelper {
 		return this.name;
 	}
 
-	constructor(name: string, mongodbId: string) {
+	constructor(name: string) {
 		// Create a new agenda
 		this.agenda = new Agenda({ 
 			db: { 
@@ -32,7 +25,6 @@ export class TantalusJobHelper {
 			} 
 		});
 
-		this.repeat = TantalusJobHelper.WHEN;
-		this.name = `${name}-${mongodbId}`;
+		this.name = name;
 	}
 }
