@@ -2,6 +2,8 @@ import Agenda = require("agenda");
 import { TantalusAgendaDatabaseSettings } from "./configurations/TantalusAgendaDatabaseSettings";
 import { TantalusLogger } from "../helpers/logger/TantalusLogger";
 import { OperationController } from "../controllers/OperationController";
+import { QueryRepository } from "../repositories/QueryRepository";
+import { TantalusTusHelper } from "../helpers/tus/TantalusTusHelper";
 
 (async () => {
 	TantalusLogger.info('Agenda Start ...');
@@ -15,8 +17,12 @@ import { OperationController } from "../controllers/OperationController";
 		} 
 	});
 
-	const example = function(attrs, done) {
-		console.log(attrs);
+	const example = async function(attrs, done) {
+		// Parse queries ...
+		const repository = new QueryRepository();
+		const cursor = repository.getCursorToAllRecords();
+
+		await TantalusTusHelper.exportToS3(cursor, attrs._id);
 
 		done();
 	};
