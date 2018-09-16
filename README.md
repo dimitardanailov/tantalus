@@ -61,12 +61,12 @@ Each application has a proto Buffer for authentication.
 
 You can access these variables on `Sashido` -> `App Settings` -> `Security & Keys`
 
-	- `TANTALUS_SASHIDO_APP_ID`
-	- `TANTALUS_SASHIDO_MASTER_KEY`
+ - `TANTALUS_SASHIDO_APP_ID`
+ - `TANTALUS_SASHIDO_MASTER_KEY`
 
 ### Agenda
 
-	- `TANTALUS_AGENDA_DB_STRING`
+ - `TANTALUS_AGENDA_DB_STRING`
 
 ## Resources / Ideas
 
