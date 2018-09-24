@@ -25,7 +25,6 @@ export class TantalusTusHelper {
 
 		fsStream.readableStream.on('end', () => {
 			TantalusLogger.info('Stream end emitter ...');
-			
 		});
 
 		fsStream.writeStream.on('finish', () => {

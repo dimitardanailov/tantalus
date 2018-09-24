@@ -3,6 +3,7 @@ import zlib = require('zlib');
 import { Writable, Readable } from 'stream';
 import { TantalusAppSettings } from '../app-settings/TantalusAppSettings';
 import { TantalusLogger } from '../logger/TantalusLogger';
+import { exec } from 'child_process';
 
 export class TantalusFSWritableStream {
 
@@ -27,12 +28,17 @@ export class TantalusFSWritableStream {
 	}
 
 	constructor(filename: string) {
-		this._path = `${TantalusFSWritableStream.getFullPath(filename)}.gz`;
+		this._path = `${TantalusFSWritableStream.getFullPath(filename)}`;
 		this._writeStream = fs.createWriteStream(this._path);
 
 		this._readableStream
-			.pipe(zlib.createGzip())
+			// .pipe(zlib.createGzip())
 			.pipe(this._writeStream);
+		
+		const zipName = `${this._path}.zip`
+		exec(`zip ${zipName} ${this._path}`, () => {
+			console.log('zip ...');
+		});
 	}
 
 	private static getFullPath(filename: string): string {

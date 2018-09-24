@@ -27,7 +27,9 @@ import { TantalusTusHelper } from "../helpers/tus/TantalusTusHelper";
 		done();
 	};
 
-	agenda.define(OperationController.BACKGROUND_TASK_NAME, {priority: 'high', concurrency: 10}, (job, done) => {
+	const configurations = { priority: 'high', concurrency: 10 };
+
+	agenda.define(OperationController.BACKGROUND_TASK_NAME, configurations, (job, done) => {
 		example(job.attrs, done);
 	});
 	
