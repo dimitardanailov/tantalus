@@ -1,5 +1,6 @@
 export enum ContentTypes {
 	JSON = 'application/json',
 	CSV = 'application/csv',
-	GZIP = 'application/gzip'
+	GZIP = 'application/gzip',
+	ZIP = 'application/zip'
 }
