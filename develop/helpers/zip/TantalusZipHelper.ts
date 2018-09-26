@@ -1,17 +1,39 @@
+import fs = require('fs'); 
+import archiver = require('archiver'); 
 import { TantalusLogger } from '../logger/TantalusLogger';
-import { exec } from 'child_process';
 
 export class TantalusZipHelper {
 
 	public static async createZipFile(path) {
-		const zipName = `${path}.zip`;
 		return new Promise((resolve, reject) => {
-			exec(`zip ${zipName} ${path}`, (error) => {
-				if (error) reject(error);
+			const output = fs.createWriteStream(`${path}.zip`);
 
-				resolve(zipName);
+			const archive = archiver('zip', {
+				zlib: { level: 9 } // Sets the compression level.
 			});
+
+			archive.on('warning', reject);
+
+			archive.on('error', reject);
+
+			// listen for all archive data to be written
+			// 'close' event is fired only when a file descriptor is involved
+			output.on('close', resolve);
+
+			// This event is fired when the data source is drained no matter what was the data source.
+			// It is not part of this library but rather from the NodeJS Stream API.
+			// @see: https://nodejs.org/api/stream.html#stream_event_end
+			output.on('end', resolve);
+			
+			// pipe archive data to the file
+			archive.pipe(output);
+
+			// append a file
+			archive.file(path);		
+
+			// finalize the archive (ie we are done appending files but streams have to finish yet)
+// 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
+archive.finalize();
 		});
 	}
-
 }

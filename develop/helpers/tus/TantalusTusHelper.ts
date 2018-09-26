@@ -49,7 +49,7 @@ export class TantalusTusHelper {
 	private static createZipFile(path: string) {
 		const promise = TantalusZipHelper.createZipFile(path);
 
-		promise.then(zipLocation => {
+		promise.then(() => {
 			// Delete regular file
 			fs.unlink(path, error => {
 				if (error) TantalusLogger.error(error);
@@ -58,7 +58,7 @@ export class TantalusTusHelper {
 			});
 
 			// Upload zip file on AmazonS3 through tus.io
-			TantalusTusHelper.uploadOnAmazonS3(String(zipLocation));
+			TantalusTusHelper.uploadOnAmazonS3(`${path}.zip`);
 
 		}).catch(error => {
 			TantalusLogger.error(error);
