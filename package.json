@@ -8,8 +8,10 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "debug": "chmod +x run-debug && ./run-debug",
-    "test": "nyc mocha --recursive './{,!(node_modules)/**/}*.spec.js'",
+		"debug": "chmod +x run-debug && ./run-debug",
+		"compile": "tsc",
+		"test-еxecute": "nyc mocha --recursive './{,!(node_modules)/**/}*.spec.js'",
+    "test": "npm run compile & npm run test-еxecute",
     "dev": "nodemon server/server.js",
     "start:cluster": "sl-run server/server.js"
   },

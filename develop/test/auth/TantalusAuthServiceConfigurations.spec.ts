@@ -1,17 +1,17 @@
 import { assert } from "chai";
-import { TantalusAuthServiceConfigurations } from "../../auth/TantalusAuthServiceConfigurations";
+import { AuthServiceConfigurations } from "../../auth/AuthServiceConfigurations";
 
-describe('TantalusAuthServiceConfigurations', () => {
+describe('AuthServiceConfigurations', () => {
 
 	describe('getTokenEndPoint', () => {
 		it('positive', () => {
 			const tokenEndPoint = process.env.TANTALUS_AUTH_SERVICE_TOKEN_REST_API;
 
-			assert.equal(tokenEndPoint, TantalusAuthServiceConfigurations.getTokenEndPoint());
+			assert.equal(tokenEndPoint, AuthServiceConfigurations.getTokenEndPoint());
 		});
 
 		it('negative', () => {
-			assert.notEqual(null, TantalusAuthServiceConfigurations.getTokenEndPoint());
+			assert.notEqual(null, AuthServiceConfigurations.getTokenEndPoint());
 		});
 
 	}); // TANTALUS_AUTH_SERVICE_TOKEN_REST_API code block
@@ -20,11 +20,11 @@ describe('TantalusAuthServiceConfigurations', () => {
 		it('positive', () => {
 			const databaseUriEndPoint = process.env.TANTALUS_AUTH_SERVICE_DATABASE_URI_REST_API;
 
-			assert.equal(databaseUriEndPoint, TantalusAuthServiceConfigurations.getDatabaseURIEndPoint());
+			assert.equal(databaseUriEndPoint, AuthServiceConfigurations.getDatabaseURIEndPoint());
 		});
 
 		it ('negative', () => {
-			assert.notEqual(null, TantalusAuthServiceConfigurations.getDatabaseURIEndPoint());
+			assert.notEqual(null, AuthServiceConfigurations.getDatabaseURIEndPoint());
 		});
 	}); // TANTALUS_AUTH_SERVICE_DATABASE_URI_REST_API
 
@@ -32,11 +32,11 @@ describe('TantalusAuthServiceConfigurations', () => {
 		it ('positive', () => {
 			const serviceId = process.env.TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID;
 
-			assert.equal(serviceId, TantalusAuthServiceConfigurations.getMasterKeyServiceId());
+			assert.equal(serviceId, AuthServiceConfigurations.getMasterKeyServiceId());
 		});
 
 		it ('negative', () => {
-			assert.notEqual(null, TantalusAuthServiceConfigurations.getMasterKeyServiceId());
+			assert.notEqual(null, AuthServiceConfigurations.getMasterKeyServiceId());
 		});
 	}); // TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID
 });

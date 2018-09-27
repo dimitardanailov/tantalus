@@ -1,8 +1,8 @@
 import Agenda = require("agenda");
-import { TantalusAgendaDatabaseSettings } from "../configurations/TantalusAgendaDatabaseSettings";
-import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
+import { AgendaDatabaseSettings } from "../configurations/AgendaDatabaseSettings";
+import { Logger } from "../../helpers/logger/Logger";
 
-export class TantalusJobHelper {
+export class JobHelper {
 
 	private agenda: Agenda;
 	public getAgenda(): Agenda {
@@ -18,7 +18,7 @@ export class TantalusJobHelper {
 		// Create a new agenda
 		this.agenda = new Agenda({ 
 			db: { 
-				address: TantalusAgendaDatabaseSettings.getConnectionString(),
+				address: AgendaDatabaseSettings.getConnectionString(),
 				options: {
 					useNewUrlParser: true
 				}

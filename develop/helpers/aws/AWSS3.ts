@@ -1,15 +1,15 @@
 import AWS = require('aws-sdk');
 import { Stream } from 'stream';
-import { TantalusLogger } from "../logger/TantalusLogger";
+import { Logger } from "../logger/Logger";
 import { ContentTypes } from "../../enums/ContentTypes";
 
-export class TantalusAWSS3 {
+export class AWSS3 {
 
 	private body;
 
 	public uploadToS3(s3Key: string, contentType: ContentTypes) {
 		// Create a bridge between application and S3
-		TantalusAWSS3.createAWSCongiguration();
+		AWSS3.createAWSCongiguration();
 
 		// The stream.PassThrough class is a trivial implementation of 
 		// a Transform stream that simply passes the input bytes across to the output. 
@@ -20,18 +20,18 @@ export class TantalusAWSS3 {
 
 		const s3 = new AWS.S3();
 		const uploadOperator = s3.upload({
-			Bucket: TantalusAWSS3.getBucketName(),
+			Bucket: AWSS3.getBucketName(),
 			Key : s3Key,
 			Body: pass,
 			ContentType: contentType
 		});
 
 		uploadOperator.on('httpUploadProgress', progress => {
-			TantalusLogger.debugVariable(progress);
+			Logger.debugVariable(progress);
 		});
 
 		uploadOperator.promise().then(data => {
-			TantalusLogger.debugVariable(data);
+			Logger.debugVariable(data);
 		});
 
 		return pass;
@@ -55,8 +55,8 @@ export class TantalusAWSS3 {
 
 	private static createAWSCongiguration() {
 		AWS.config.update( { 
-			accessKeyId: TantalusAWSS3.getAccessKey(), 
-			secretAccessKey: TantalusAWSS3.getSecretAccessKey()
+			accessKeyId: AWSS3.getAccessKey(), 
+			secretAccessKey: AWSS3.getSecretAccessKey()
 		});
 	}
 }

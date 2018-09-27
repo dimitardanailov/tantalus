@@ -1,15 +1,15 @@
 import fs = require('fs');
-import { TantalusFSWritableStream } from "../streams/TantalusFSWritableStream";
-import { TantalusLogger } from "../logger/TantalusLogger";
-import { TantalusTUSClientAWSS3, TantalusTUSClientAWSS3Options } from "../aws/TantalusTUSClientAWSS3";
+import { FSWritableStream } from "../streams/FSWritableStream";
+import { Logger } from "../logger/Logger";
+import { TUSClientAWSS3, TUSClientAWSS3Options } from "../aws/TUSClientAWSS3";
 import { ContentTypes } from "../../enums/ContentTypes";
-import { TantalusZipHelper } from "../zip/TantalusZipHelper";
+import { ZipHelper } from "../zip/ZipHelper";
 
-export class TantalusTusHelper {
+export class TusHelper {
 
 	public static async exportToS3(cursor, operationId) {
 		// Create FS stream configurations
-		const fsStream = new TantalusFSWritableStream(`${operationId}.json`);
+		const fsStream = new FSWritableStream(`${operationId}.json`);
 		fsStream.saveStreamOnFileSystem();
 
 		fsStream.readableStream.push('[');
@@ -27,7 +27,7 @@ export class TantalusTusHelper {
 		});
 
 		cursor.on('close', () => {
-			TantalusLogger.info('cursor.close() ....');
+			Logger.info('cursor.close() ....');
 
 			fsStream.readableStream.push(']');
 
@@ -36,40 +36,40 @@ export class TantalusTusHelper {
 		});
 
 		fsStream.readableStream.on('end', () => {
-			TantalusLogger.info('Stream end emitter ...');
+			Logger.info('Stream end emitter ...');
 		});
 
 		fsStream.writeStream.on('finish', () => {
-			TantalusLogger.info('Stream finish emitter ...');
+			Logger.info('Stream finish emitter ...');
 
-			TantalusTusHelper.createZipFile(fsStream.path);
+			TusHelper.createZipFile(fsStream.path);
 		});
 	}
 
 	private static createZipFile(path: string) {
-		const promise = TantalusZipHelper.createZipFile(path);
+		const promise = ZipHelper.createZipFile(path);
 
 		promise.then(() => {
 			// Delete regular file
 			fs.unlink(path, error => {
-				if (error) TantalusLogger.error(error);
+				if (error) Logger.error(error);
 
-				TantalusLogger.info(`${path} was deleted.`);
+				Logger.info(`${path} was deleted.`);
 			});
 
 			// Upload zip file on AmazonS3 through tus.io
-			TantalusTusHelper.uploadOnAmazonS3(`${path}.zip`);
+			TusHelper.uploadOnAmazonS3(`${path}.zip`);
 
 		}).catch(error => {
-			TantalusLogger.error(error);
+			Logger.error(error);
 		});	
 	}
 
 	private static uploadOnAmazonS3(path: string) {
-		TantalusLogger.info(path);
+		Logger.info(path);
 
-		const tusClient = new TantalusTUSClientAWSS3();
-		const options = new TantalusTUSClientAWSS3Options();
+		const tusClient = new TUSClientAWSS3();
+		const options = new TUSClientAWSS3Options();
 		options.path = path;
 		options.bucketFileName = 'bucketFileName.json.zip';
 		options.contentType = ContentTypes.ZIP;

@@ -1,6 +1,6 @@
-import { TantalusLogger } from "../logger/TantalusLogger";
+import { Logger } from "../logger/Logger";
 
-export class TantalusAppSettings {
+export class AppSettings {
 
 	public static getControllersRoutePrefix() {
 		return '/api';
@@ -11,7 +11,7 @@ export class TantalusAppSettings {
 	}
 
 	public static getFullMicroservicesURL() {
-		return `${TantalusAppSettings.getDomain()}:${TantalusAppSettings.getPort()}`;
+		return `${AppSettings.getDomain()}:${AppSettings.getPort()}`;
 	}
 
 	public static getPort() {

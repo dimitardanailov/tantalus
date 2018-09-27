@@ -1,7 +1,7 @@
 import { SashidoDbConnector } from "../../database/config-sashido";
-import { TantalusAuthService } from "../../auth/TantalusAuthService";
+import { AuthService } from "../../auth/AuthService";
 import { SashidoServiceMockObject } from "../../test/mock-objects/services/SashidoServiceMockObject";
-import { TantalusLogger } from "../logger/TantalusLogger";
+import { Logger } from "../logger/Logger";
 import { NodeEnv } from "../../enums/NodeEnv";
 
 export class SashidoApplication {
@@ -21,27 +21,27 @@ export class SashidoApplication {
 		return this._connector;
 	}
 
-	constructor(authService?: TantalusAuthService) {
+	constructor(authService?: AuthService) {
 		const isTestinEnv = process.env.NODE_ENV === NodeEnv.TEST;
 
 		if (authService.hasDatabaseUri() && (!isTestinEnv)) {
-			TantalusLogger.info('Auth has a value');
+			Logger.info('Auth has a value');
 
 			this.createApplicationByAuthService(authService);
 		} else {
-			TantalusLogger.info('Auth service is down');
+			Logger.info('Auth service is down');
 
 			this.createApplicationThroughMockObject();
 		}
 	}
 
-	public static createSashidoApplication(authService: TantalusAuthService): SashidoApplication {
+	public static createSashidoApplication(authService: AuthService): SashidoApplication {
 		const instance = new SashidoApplication(authService);
 
 		return instance;
 	}
 
-	private createApplicationByAuthService(authService: TantalusAuthService) {
+	private createApplicationByAuthService(authService: AuthService) {
 		this._applicationId = authService.getApplicationId();
 		this._masterKey = authService.getMasterKey();
 		this._connector = SashidoDbConnector.connect(authService.getDatabaseUri());

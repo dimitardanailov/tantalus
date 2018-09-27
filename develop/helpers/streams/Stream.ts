@@ -1,10 +1,10 @@
 import fs = require('fs'); 
 import zlib = require('zlib');
-import { TantalusLogger } from '../logger/TantalusLogger';
+import { Logger } from '../logger/Logger';
 import { Writable, Readable } from 'stream';
 
 
-export class TantalusStream  { 
+export class Stream  { 
 
 	/*** Input ***/
 	private _input: Readable = new Readable({

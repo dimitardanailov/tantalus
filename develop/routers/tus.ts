@@ -1,8 +1,8 @@
 import { Readable } from "stream";
 import tus = require("tus-js-client");
-import { TantalusStream } from "../helpers/streams/TantalusStream";
-import { TantalusAppSettings } from "../helpers/app-settings/TantalusAppSettings";
-import { TantalusLogger } from "../helpers/logger/TantalusLogger";
+import { Stream } from "../helpers/streams/Stream";
+import { AppSettings } from "../helpers/app-settings/AppSettings";
+import { Logger } from "../helpers/logger/Logger";
 
 module.exports = () => {
 	const fs = require("fs");
@@ -10,14 +10,14 @@ module.exports = () => {
 	console.log(__dirname);
 	var path = __dirname + '/health.js';
 
-	TantalusLogger.debugVariable(path);
+	Logger.debugVariable(path);
 
 	var file = fs.createReadStream(path);
 	var size = fs.statSync(path).size;
 
-	const endpoint = TantalusAppSettings.getFullMicroservicesURL() + 
-	TantalusAppSettings.getTusUploadEndPoint();
-	TantalusLogger.debugVariable(endpoint);
+	const endpoint = AppSettings.getFullMicroservicesURL() + 
+	AppSettings.getTusUploadEndPoint();
+	Logger.debugVariable(endpoint);
 
 	// https://github.com/tus/tus-js-client
 	// https://github.com/tus/tus-js-client/blob/master/demo/node.js
@@ -30,7 +30,7 @@ module.exports = () => {
       filename: 'tus.js'
   	},
 		onError: error => {
-			TantalusLogger.info(error);
+			Logger.info(error);
 		},
 		onProgress: (bytesUploaded, bytesTotal) => {
 			const percentage = (bytesUploaded / bytesTotal * 100).toFixed(2);
@@ -38,7 +38,7 @@ module.exports = () => {
 			console.log(bytesUploaded, bytesTotal, percentage + "%")
 		},
 		onSuccess: function() {
-			TantalusLogger.info('Upload finished:' + upload.url);
+			Logger.info('Upload finished:' + upload.url);
 		}
 	};
 

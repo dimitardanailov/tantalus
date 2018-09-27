@@ -1,19 +1,19 @@
 import { assert } from "chai";
-import { TantalusLogger } from "../../../helpers/logger/TantalusLogger";
-import { TantalusAWSS3 } from "../../../helpers/aws/TantalusAWSS3";
+import { Logger } from "../../../helpers/logger/Logger";
+import { AWSS3 } from "../../../helpers/aws/AWSS3";
 
-describe('TantalusAWSS3', () => {
+describe('AWSS3', () => {
 	describe('S3 Configurations', () => {
 
 		describe('bucketName', () => {
 			it('positive test', () => {
 				const bucketName = process.env.TANTALUS_S3_BUCKET;
 
-				assert.equal(bucketName, TantalusAWSS3.getBucketName());
+				assert.equal(bucketName, AWSS3.getBucketName());
 			});
 
 			it ('negative test', () => {
-				assert.notEqual(null, TantalusAWSS3.getBucketName());
+				assert.notEqual(null, AWSS3.getBucketName());
 			});
 		}); // end bucketName testing
 
@@ -21,11 +21,11 @@ describe('TantalusAWSS3', () => {
 			it('positive test', () => {
 				const acessKey = process.env.TANTALUS_S3_ACCESS_KEY_ID;
 
-				assert.equal(acessKey, TantalusAWSS3.getAccessKey());
+				assert.equal(acessKey, AWSS3.getAccessKey());
 			});
 
 			it('negative test', () => {
-				assert.notEqual(null, TantalusAWSS3.getAccessKey());
+				assert.notEqual(null, AWSS3.getAccessKey());
 			});
 		}); // end access key testing
 
@@ -33,11 +33,11 @@ describe('TantalusAWSS3', () => {
 			it('positive test', () => {
 				const secretKey = process.env.TANTALUS_S3_SECRET_ACCESS_KEY;
 
-				assert.equal(secretKey, TantalusAWSS3.getSecretAccessKey());
+				assert.equal(secretKey, AWSS3.getSecretAccessKey());
 			});
 
 			it ('negative test', () => {
-				assert.notEqual(null, TantalusAWSS3.getSecretAccessKey());
+				assert.notEqual(null, AWSS3.getSecretAccessKey());
 			});
 		}); // end secret key testing
 
@@ -45,11 +45,11 @@ describe('TantalusAWSS3', () => {
 			it('positive test', () => { 
 				const region = process.env.TANTALUS_AMAZON_REGION;
 
-				assert.equal(region, TantalusAWSS3.getAmazonRegion());
+				assert.equal(region, AWSS3.getAmazonRegion());
 			});
 
 			it('negative test', () => {
-				assert.notEqual(null, TantalusAWSS3.getAmazonRegion());
+				assert.notEqual(null, AWSS3.getAmazonRegion());
 			});
 		}); // end amazon region testing
 

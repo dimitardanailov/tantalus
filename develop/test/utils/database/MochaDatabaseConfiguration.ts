@@ -1,15 +1,15 @@
 import { db, mongoose } from "../../../database/config-test";
-import { TantalusLogger } from "../../../helpers/logger/TantalusLogger";
+import { Logger } from "../../../helpers/logger/Logger";
 
 export class MochaDatabaseConfiguration {
 
 	public static connectToDatabase(done: Function) {
 		db.then(() => {
-			TantalusLogger.info('Testing: Connected to Database');
+			Logger.info('Testing: Connected to Database');
 		
 			done();
 		}).catch(err => {
-			TantalusLogger.error(err);
+			Logger.error(err);
 
 			done();
 		});
@@ -19,7 +19,7 @@ export class MochaDatabaseConfiguration {
 
 		/* Try to drop database */
 		mongoose.connection.db.dropDatabase(() => {
-			TantalusLogger.info('Drop database ...');
+			Logger.info('Drop database ...');
 			
 			done();
     });
@@ -27,10 +27,10 @@ export class MochaDatabaseConfiguration {
 
 	public static dropDatabaseAndCloseConnection(done) {
 		mongoose.connection.db.dropDatabase(() => {
-			TantalusLogger.info('Drop database ...');
+			Logger.info('Drop database ...');
 			
 			mongoose.connection.close(() => {
-				TantalusLogger.info('Connection to database was closed.');
+				Logger.info('Connection to database was closed.');
 				done();
 			});
     });
@@ -39,15 +39,15 @@ export class MochaDatabaseConfiguration {
 	public static dropCollection(done, collection: string) {
 		mongoose.connection.db.dropCollection(collection, error => {
 			if (error) {
-				TantalusLogger.info(`collection: ${collection} can't be dropped`);
-				TantalusLogger.error(error);
+				Logger.info(`collection: ${collection} can't be dropped`);
+				Logger.error(error);
 
 				done();
 
 				return;
 			}
 
-			TantalusLogger.info(`collection: ${collection} can be dropped`);
+			Logger.info(`collection: ${collection} can be dropped`);
 
 			done();
 		});

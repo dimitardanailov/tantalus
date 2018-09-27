@@ -1,8 +1,8 @@
-import fs = require('fs'); 
-import archiver = require('archiver'); 
-import { TantalusLogger } from '../logger/TantalusLogger';
+import fs = require('fs');
+import archiver = require('archiver');
+import { Logger } from '../logger/Logger';
 
-export class TantalusZipHelper {
+export class ZipHelper {
 
 	public static async createZipFile(path) {
 		return new Promise((resolve, reject) => {
@@ -24,16 +24,16 @@ export class TantalusZipHelper {
 			// It is not part of this library but rather from the NodeJS Stream API.
 			// @see: https://nodejs.org/api/stream.html#stream_event_end
 			output.on('end', resolve);
-			
+
 			// pipe archive data to the file
 			archive.pipe(output);
 
 			// append a file
-			archive.file(path);		
+			archive.file(path);
 
 			// finalize the archive (ie we are done appending files but streams have to finish yet)
-// 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
-archive.finalize();
+			// 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
+			archive.finalize();
 		});
 	}
 }
