@@ -1,4 +1,4 @@
-export class TantalusAuthServiceConfigurations {
+export class AuthServiceConfigurations {
 
 	public static getTokenEndPoint(): string {
 		return process.env.TANTALUS_AUTH_SERVICE_TOKEN_REST_API || '';

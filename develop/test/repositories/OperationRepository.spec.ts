@@ -1,7 +1,7 @@
 import { assert, expect } from "chai";
 import { Operation } from "../../models/Operation";
 import { OperationMockObject } from "../mock-objects/models/OperationMockObject";
-import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
+import { Logger } from "../../helpers/logger/Logger";
 import { OperationRepository } from "../../repositories/OperationRepository";
 import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 

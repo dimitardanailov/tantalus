@@ -1,19 +1,19 @@
 import tus = require("tus-js-client");
-import { TantalusLogger } from "../logger/TantalusLogger";
-import { TantalusAppSettings } from "../app-settings/TantalusAppSettings";
+import { Logger } from "../logger/Logger";
+import { AppSettings } from "../app-settings/AppSettings";
 import { ContentTypes } from "../../enums/ContentTypes";
 import fs = require("fs");
 
-export class TantalusTUSClientAWSS3 {
+export class TUSClientAWSS3 {
 
-	upload(options: TantalusTUSClientAWSS3Options) {
+	upload(options: TUSClientAWSS3Options) {
 		var file = fs.createReadStream(options.path);
 		var size = fs.statSync(options.path).size;
 
-		const endpoint = TantalusAppSettings.getFullMicroservicesURL() + 
-			TantalusAppSettings.getTusUploadEndPoint();
+		const endpoint = AppSettings.getFullMicroservicesURL() + 
+			AppSettings.getTusUploadEndPoint();
 
-		TantalusLogger.info(options.bucketFileName);
+		Logger.info(options.bucketFileName);
 
 		// https://github.com/tus/tus-js-client
 		// https://github.com/tus/tus-js-client/blob/master/demo/node.js		
@@ -27,7 +27,7 @@ export class TantalusTUSClientAWSS3 {
 			},
 			removeFingerprintOnSuccess: options.removeFingerprintOnSuccess,
 			onError: error => {
-				TantalusLogger.info(error);
+				Logger.info(error);
 			},
 			onProgress: (bytesUploaded, bytesTotal) => {
 				const percentage = (bytesUploaded / bytesTotal * 100).toFixed(2);
@@ -35,7 +35,7 @@ export class TantalusTUSClientAWSS3 {
 				console.log(bytesUploaded, bytesTotal, percentage + "% percent")
 			},
 			onSuccess: () => {
-				TantalusLogger.info('Upload finished:' + upload.url);
+				Logger.info('Upload finished:' + upload.url);
 			}
 		});
 
@@ -43,7 +43,7 @@ export class TantalusTUSClientAWSS3 {
 	}
 }
 
-export class TantalusTUSClientAWSS3Options {
+export class TUSClientAWSS3Options {
 
 	public path: string;
 	public bucketFileName: string;

@@ -1,20 +1,20 @@
 import * as mongoose from "mongoose";
-import { TantalusLogger } from "../helpers/logger/TantalusLogger";
-import { TantalusDatabaseSettings } from "../helpers/database/TantalusDatabaseSettings";
+import { Logger } from "../helpers/logger/Logger";
+import { DatabaseSettings } from "../helpers/database/DatabaseSettings";
 
 const mongo = {
-  uri: TantalusDatabaseSettings.getConnectionString(),
+  uri: DatabaseSettings.getConnectionString(),
   opt: {
     useNewUrlParser: true
   }
 };
 
 mongoose.connect(mongo.uri, mongo.opt).then(() => {
-	TantalusLogger.info('Connected to Database');
+	Logger.info('Connected to Database');
 
 	return mongoose.connection;
 }).catch(err => {
-	TantalusLogger.debugVariable(err);
+	Logger.debugVariable(err);
 });
 
 export { mongoose };

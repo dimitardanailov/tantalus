@@ -1,9 +1,9 @@
 
-export class TantalusTestDatabaseSettings { 
+export class TestDatabaseSettings { 
 
 	public static getConnectionString() {
-		const server = TantalusTestDatabaseSettings.getDatabaseServer();
-		const database = TantalusTestDatabaseSettings.getDatabase();
+		const server = TestDatabaseSettings.getDatabaseServer();
+		const database = TestDatabaseSettings.getDatabase();
 
 		return `${server}/${database}`;
 	}

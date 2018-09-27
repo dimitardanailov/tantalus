@@ -1,6 +1,6 @@
 import { Service} from "typedi";
 import { Operation } from "../models/Operation";
-import { TantalusLogger } from "../helpers/logger/TantalusLogger";
+import { Logger } from "../helpers/logger/Logger";
 
 @Service()
 export class OperationRepository {

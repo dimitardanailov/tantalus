@@ -2,15 +2,15 @@ import { JsonController, Get, Post, Param, Delete, Body, Controller, OnUndefined
 import { Service } from "typedi";
 import { AbstractController } from "./AbstractController";
 import { OperationRepository } from "../repositories/OperationRepository";
-import { TantalusLogger } from "../helpers/logger/TantalusLogger";
+import { Logger } from "../helpers/logger/Logger";
 import { OperationMockObject } from "../test/mock-objects/models/OperationMockObject";
 import { ContentTypes } from "../enums/ContentTypes";
 import { IOperation } from "../interfaces/IOperation";
 import { HTTPResponseCodes } from "../enums/HTTPResponseCodes";
-import { TantalusAuthService } from "../auth/TantalusAuthService";
+import { AuthService } from "../auth/AuthService";
 import { SashidoApplication } from "../helpers/sashido/SashidoApplication";
 import { SashidoDecorator } from "./SashidoDecorator";
-import { TantalusJobHelper } from "../agenda/tus/TantalusJobHelper";
+import { JobHelper } from "../agenda/tus/JobHelper";
 import Agenda = require("agenda");
 
 @Service()
@@ -47,14 +47,14 @@ export class OperationController extends AbstractController {
 
 	@Post("/decorator")
 	decorator(@SashidoDecorator({ required: true }) app: SashidoApplication) {
-		// TantalusLogger.info(app);
+		// Logger.info(app);
 
 		return 'Hello World';
 	}
 
 	private async defineNewBackgroundJob(_id: string) {
 
-		const backgroundJob = new TantalusJobHelper(
+		const backgroundJob = new JobHelper(
 			OperationController.BACKGROUND_TASK_NAME
 		);
 

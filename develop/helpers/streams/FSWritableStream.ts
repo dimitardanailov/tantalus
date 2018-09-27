@@ -1,9 +1,9 @@
 import fs = require('fs');
 import { Writable, Readable } from 'stream';
-import { TantalusAppSettings } from '../app-settings/TantalusAppSettings';
-import { TantalusLogger } from '../logger/TantalusLogger';
+import { AppSettings } from '../app-settings/AppSettings';
+import { Logger } from '../logger/Logger';
 
-export class TantalusFSWritableStream {
+export class FSWritableStream {
 
 	/*** Writable ***/
 	private _writeStream: Writable;
@@ -26,7 +26,7 @@ export class TantalusFSWritableStream {
 	}
 
 	constructor(filename: string) {
-		this._path = `${TantalusFSWritableStream.getFullPath(filename)}`;
+		this._path = `${FSWritableStream.getFullPath(filename)}`;
 	}
 
 	saveStreamOnFileSystem() {
@@ -35,6 +35,6 @@ export class TantalusFSWritableStream {
 	}
 
 	private static getFullPath(filename: string): string {
-		return `${TantalusAppSettings.getFileSystemTempDir()}/${filename}`;
+		return `${AppSettings.getFileSystemTempDir()}/${filename}`;
 	}
 }

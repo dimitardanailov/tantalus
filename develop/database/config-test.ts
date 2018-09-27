@@ -1,9 +1,9 @@
 import * as mongoose from "mongoose";
-import { TantalusTestDatabaseSettings } from "../helpers/database/TantalusTestDatabaseSettings";
-import { TantalusLogger } from "../helpers/logger/TantalusLogger";
+import { TestDatabaseSettings } from "../helpers/database/TestDatabaseSettings";
+import { Logger } from "../helpers/logger/Logger";
 
 const mongo = {
-  uri: TantalusTestDatabaseSettings.getConnectionString(),
+  uri: TestDatabaseSettings.getConnectionString(),
   opt: {
     useNewUrlParser: true
   }

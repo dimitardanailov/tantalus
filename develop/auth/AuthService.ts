@@ -13,13 +13,13 @@ import {
 
 import { BrowserHeaders } from 'browser-headers';
 import { grpc } from 'grpc-web-client';
-import { TantalusAuthServiceConfigurations } from './TantalusAuthServiceConfigurations';
-import { TantalusLogger } from '../helpers/logger/TantalusLogger';
-import { TantalusAuthRequestHeader } from './TantalusAuthRequestHeader';
+import { AuthServiceConfigurations } from './AuthServiceConfigurations';
+import { Logger } from '../helpers/logger/Logger';
+import { AuthRequestHeader } from './AuthRequestHeader';
 
-export class TantalusAuthService extends AuthClient {
+export class AuthService extends AuthClient {
 
-	private headerRequest: TantalusAuthRequestHeader;
+	private headerRequest: AuthRequestHeader;
 	private request: MasterKeyRequest = new MasterKeyRequest();
 	private response: MasterKeyResponse;
 	
@@ -27,12 +27,12 @@ export class TantalusAuthService extends AuthClient {
 	private databaseUri: string = "";
 
 	constructor() {
-		super(TantalusAuthServiceConfigurations.getTokenEndPoint());
+		super(AuthServiceConfigurations.getTokenEndPoint());
 	}
 
-	public static initialize(headers: Object): TantalusAuthService {
-		const authService = new TantalusAuthService();
-		authService.headerRequest = new TantalusAuthRequestHeader(headers);
+	public static initialize(headers: Object): AuthService {
+		const authService = new AuthService();
+		authService.headerRequest = new AuthRequestHeader(headers);
 		authService.setMasterKeyRequestConfigurations(); 
 
 		return authService;
@@ -58,7 +58,7 @@ export class TantalusAuthService extends AuthClient {
  
 	setMasterKeyRequestConfigurations() {
 		// ENV variable
-		this.request.setServiceid(TantalusAuthServiceConfigurations.getMasterKeyServiceId());
+		this.request.setServiceid(AuthServiceConfigurations.getMasterKeyServiceId());
 
 		this.request.setApplicationid(this.headerRequest.applicationId);
 		this.request.setMasterkey(this.headerRequest.masterKey);
@@ -70,20 +70,20 @@ export class TantalusAuthService extends AuthClient {
 
 			// Get Master Key Response
 			this.response = await this.createMasterKeyResponsePromise();
-			TantalusLogger.info(this.response.getToken());
+			Logger.info(this.response.getToken());
 
-			this.sashidoClient = TantalusAuthService.createSashidoClient();
+			this.sashidoClient = AuthService.createSashidoClient();
 			const app: GetAppResponse = await this.createAppResponsePromise();
 
 			this.databaseUri = app.getDatabaseuri();
-			TantalusLogger.info(this.databaseUri);
+			Logger.info(this.databaseUri);
 		} catch (error) {
-			TantalusLogger.error(error);
+			Logger.error(error);
 		}
 	}
 
 	private static createSashidoClient() {
-		return new SashidoClient(TantalusAuthServiceConfigurations.getDatabaseURIEndPoint());
+		return new SashidoClient(AuthServiceConfigurations.getDatabaseURIEndPoint());
 	}
 
 	private async createMasterKeyResponsePromise(): Promise<MasterKeyResponse>  {

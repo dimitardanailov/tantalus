@@ -12,7 +12,7 @@ export class OperationMockObject {
 
 	public static createSimpleJson(): Operation {
 		const mockObject = new OperationMockObject();
-		mockObject.operation.name = 'Tantalus JSON export Operation';
+		mockObject.operation.name = ' JSON export Operation';
 		mockObject.operation.type = ContentTypes.JSON;
 		mockObject.operation.backgroundJobStatus = BackgroundJobStatuses.New;
 
@@ -21,7 +21,7 @@ export class OperationMockObject {
 
 	public static createSimpleCSV(): Operation {
 		const mockObject = new OperationMockObject();
-		mockObject.operation.name = 'Tantalus CSV export Operation';
+		mockObject.operation.name = ' CSV export Operation';
 		mockObject.operation.type = ContentTypes.CSV;
 		mockObject.operation.backgroundJobStatus = BackgroundJobStatuses.New;
 

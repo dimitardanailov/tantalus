@@ -2,7 +2,7 @@ import chai = require("chai");
 import { expect } from "chai";
 import chaiHttp = require("chai-http");
 import server = require('../../server');
-import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
+import { Logger } from "../../helpers/logger/Logger";
 import { beforeEach } from "mocha";
 
 describe('ExportController', () => {

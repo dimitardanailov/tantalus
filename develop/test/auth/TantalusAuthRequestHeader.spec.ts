@@ -1,25 +1,25 @@
 import { assert } from "chai";
-import { TantalusAuthRequestHeader } from "../../auth/TantalusAuthRequestHeader";
-import { TantalusAuthRequestHeaderMockObject } from "../mock-objects/actions/TantalusAuthRequestHeaderMockObject";
+import { AuthRequestHeader } from "../../auth/AuthRequestHeader";
+import { AuthRequestHeaderMockObject } from "../mock-objects/actions/AuthRequestHeaderMockObject";
 
-describe('TantalusAuthRequestHeader', () => {
+describe('AuthRequestHeader', () => {
 
 	describe('constructor', () => {
 
-		let mockObject: TantalusAuthRequestHeader;
+		let mockObject: AuthRequestHeader;
 		let simpleHeaders;
 
 		before(done => {
-			mockObject = TantalusAuthRequestHeaderMockObject.getHeader();
-			simpleHeaders = TantalusAuthRequestHeaderMockObject.getHeaderAttributes();
+			mockObject = AuthRequestHeaderMockObject.getHeader();
+			simpleHeaders = AuthRequestHeaderMockObject.getHeaderAttributes();
 
 			done();
 		});
 
 		describe('applicationId', () => {
-			let header: TantalusAuthRequestHeader;
+			let header: AuthRequestHeader;
 			beforeEach(done => {
-				header = new TantalusAuthRequestHeader(simpleHeaders);
+				header = new AuthRequestHeader(simpleHeaders);
 				done();
 			});
 
@@ -33,10 +33,10 @@ describe('TantalusAuthRequestHeader', () => {
 		}); // applicationId
 
 		describe('masterKey', () => {
-			let header: TantalusAuthRequestHeader;
+			let header: AuthRequestHeader;
 
 			beforeEach(done => {
-				header = new TantalusAuthRequestHeader(simpleHeaders);
+				header = new AuthRequestHeader(simpleHeaders);
 				done();
 			});
 

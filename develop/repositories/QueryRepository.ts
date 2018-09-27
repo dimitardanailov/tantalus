@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 import { Query } from "../models/Query";
-import { TantalusLogger } from "../helpers/logger/TantalusLogger";
+import { Logger } from "../helpers/logger/Logger";
 
 @Service()
 export class QueryRepository {

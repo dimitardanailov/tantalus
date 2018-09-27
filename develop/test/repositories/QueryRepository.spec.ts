@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { Query } from "../../models/Query";
 import { QueryMockObject } from "../mock-objects/models/QueryMockObject";
-import { TantalusLogger } from "../../helpers/logger/TantalusLogger";
+import { Logger } from "../../helpers/logger/Logger";
 import { QueryRepository } from "../../repositories/QueryRepository";
 import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 

@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import { TantalusLogger } from "../helpers/logger/TantalusLogger";
+import { Logger } from "../helpers/logger/Logger";
 
 export class SashidoDbConnector {
 	private configurations = {
@@ -18,11 +18,11 @@ export class SashidoDbConnector {
 
 	openMongoDBConnection() {
 		mongoose.connect(this.configurations.uri, this.configurations.opt).then(() => {
-			TantalusLogger.info('Connected to Remote Sashido Database');
+			Logger.info('Connected to Remote Sashido Database');
 		
 			return mongoose.connection;
 		}).catch(err => {
-			TantalusLogger.debugVariable(err);
+			Logger.debugVariable(err);
 		});
 	}
 

@@ -1,6 +1,6 @@
 const localConfig = require('./../config/local.json');
 
-export class TantalusAuthRequestHeader {
+export class AuthRequestHeader {
 
 	private _applicationId: string = "";
 	public get applicationId(): string {
@@ -13,12 +13,12 @@ export class TantalusAuthRequestHeader {
 	}
 
 	constructor(headers: Object) {
-		const applicationKey = TantalusAuthRequestHeader.getApplicationKey();
+		const applicationKey = AuthRequestHeader.getApplicationKey();
 		if ([applicationKey in headers]) {
 			this._applicationId = headers[applicationKey];
 		}
 
-		const masterKey = TantalusAuthRequestHeader.getMasterKey();
+		const masterKey = AuthRequestHeader.getMasterKey();
 		if ([masterKey in headers]) {
 			this._masterKey = headers[masterKey];
 		}
