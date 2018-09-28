@@ -14,7 +14,8 @@
 		"test-еxecute": "nyc mocha --recursive './{,!(node_modules)/**/}*.spec.js'",
 		"test": "npm run compile & npm run test-еxecute",
 		"dev": "nodemon server/server.js",
-		"start:cluster": "sl-run server/server.js"
+		"start:cluster": "sl-run server/server.js",
+		"postinstall": "npm run compile"
 	},
 	"nodemonConfig": {
 		"env": {
