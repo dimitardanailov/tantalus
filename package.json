@@ -6,9 +6,8 @@
 	"engines": {
 		"node": "^8.9.4"
 	},
-	"main": "server/index.js",
 	"scripts": {
-		"start": "node server/server.js",
+		"start": "node server/index.js",
 		"debug": "chmod +x run-debug && ./run-debug",
 		"compile": "tsc",
 		"test-еxecute": "nyc mocha --recursive './{,!(node_modules)/**/}*.spec.js'",
