@@ -6,16 +6,12 @@
 		"outDir": "./server",
 		"module": "commonjs",
 		"target": "es2017",
-		"sourceMap": false,
+		"sourceMap": true,
 		"allowJs": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"skipLibCheck": true
 	},
-	"include": [
-		"develop/**/*"
-	],
-	"exclude": [
-		"node_modules"
-	]
+	"include": ["develop/**/*"],
+	"exclude": ["node_modules"]
 }
