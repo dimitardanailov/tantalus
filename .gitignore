@@ -1,3 +1,5 @@
+openshift/dist/**
+
 # Local setup
 !server/config/*
 server/*
