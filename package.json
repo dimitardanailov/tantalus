@@ -7,12 +7,13 @@
 		"node": "^8.9.4"
 	},
 	"scripts": {
-		"start": "node server/index.js",
-		"debug": "chmod +x run-debug && ./run-debug",
 		"compile": "tsc",
-		"test-еxecute": "nyc mocha --recursive './{,!(node_modules)/**/}*.spec.js'",
-		"test": "npm run compile & npm run test-еxecute",
+		"debug": "chmod +x run-debug && ./run-debug",
 		"dev": "nodemon server/server.js",
+		"start:api": "node server/api/server.js",
+		"start": "node server/index.js",
+		"test:api": "nyc mocha --recursive './{,!(node_modules)/api/**/}*.spec.js'",
+		"test": "npm run compile & npm run test:api",
 		"start:cluster": "sl-run server/server.js",
 		"postinstall": "npm run compile"
 	},

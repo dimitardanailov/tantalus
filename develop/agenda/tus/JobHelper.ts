@@ -1,6 +1,5 @@
 import Agenda = require("agenda");
 import { AgendaDatabaseSettings } from "../configurations/AgendaDatabaseSettings";
-import { Logger } from "../../helpers/logger/Logger";
 
 export class JobHelper {
 
