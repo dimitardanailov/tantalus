@@ -31,4 +31,8 @@ export class AppSettings {
 	public static getFileSystemTempDir() {
 		return process.env.TANTALUS_TEMP_DIR || '';
 	}
+
+	public static removeSubFoldersByDirname(): string {
+		return __dirname.replace('/server/shared/helpers/app-settings', '');
+	}
 }

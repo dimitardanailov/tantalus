@@ -99,4 +99,9 @@ You can access these variables on `Sashido` -> `App Settings` -> `Security & Key
 - [const {NODE_PORT, NODE_ENV} = process.env](https://medium.com/@maxcbc/mocking-environment-variables-in-node-js-a17a416e127c)
 - [How to Test Promises with Mocha](https://wietse.loves.engineering/testing-promises-with-mocha-90df8b7d2e35)
 
+### npm build tool
+
+- [NPM is an amazing build tool](http://lucasmreis.github.io/blog/npm-is-an-amazing-build-tool)
+- [how to run a script without logging that that stupid npm error if it doesn't exit with code 0?](https://github.com/npm/npm/issues/6124)
+
 

@@ -59,11 +59,11 @@ app.listen(port, () => {
 });
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, '../public', '404.html'));
+  res.sendFile(path.join(AppSettings.removeSubFoldersByDirname(), 'public', '404.html'));
 })
 
 app.use((err, req, res, next) => {
-  res.sendFile(path.join(__dirname, '../public', '500.html'));
+  res.sendFile(path.join(AppSettings.removeSubFoldersByDirname(), 'public', '500.html'));
 });
 
 module.exports = app; // for testing

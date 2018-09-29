@@ -7,14 +7,18 @@
 		"node": "^8.9.4"
 	},
 	"scripts": {
+		"build": "npm run del && npm run copy && npm run compile",
 		"compile": "tsc",
+		"copy": "cp -R develop/config/ server/config/ || true",
 		"debug": "chmod +x run-debug && ./run-debug",
 		"dev": "nodemon server/server.js",
+		"del": "rm server/config/local.json || true",
 		"start:api": "node server/api/server.js",
+		"start:agenda": "node server/agenda/server.js",
+		"start:cluster": "sl-run server/server.js",
 		"start": "node server/index.js",
 		"test:api": "nyc mocha --recursive './{,!(node_modules)/api/**/}*.spec.js'",
-		"test": "npm run compile & npm run test:api",
-		"start:cluster": "sl-run server/server.js",
+		"test": "npm run build && npm run test:api",
 		"postinstall": "npm run compile"
 	},
 	"nodemonConfig": {
