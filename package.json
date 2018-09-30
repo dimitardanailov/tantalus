@@ -7,13 +7,21 @@
 		"node": "^8.9.4"
 	},
 	"scripts": {
-		"start": "node server/index.js",
-		"debug": "chmod +x run-debug && ./run-debug",
+		"build": "npm run del && npm run copy && npm run compile",
 		"compile": "tsc",
-		"test-еxecute": "nyc mocha --recursive './{,!(node_modules)/**/}*.spec.js'",
-		"test": "npm run compile & npm run test-еxecute",
+		"copy": "cp -R develop/config/ server/config/ || true",
+		"debug": "chmod +x run-debug && ./run-debug",
 		"dev": "nodemon server/server.js",
+		"del": "rm server/config/local.json || true",
+		"start:agenda": "node server/agenda/server.js",
+		"start:api": "node server/api/server.js",
 		"start:cluster": "sl-run server/server.js",
+		"start": "node server/index.js",
+		"test:api": "npm run build && mocha './server/api/test/**/*.spec.js' --recursive",
+		"test:shared": "npm run build && mocha './server/shared/test/**/*.spec.js' --recursive",
+		"test:mocha": "mocha './server/**/test/**/*.spec.js' --recursive",
+		"test": "npm run build && npm run test:mocha",
+		"report": "nyc report",
 		"postinstall": "npm run compile"
 	},
 	"nodemonConfig": {

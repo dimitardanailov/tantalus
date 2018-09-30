@@ -1,9 +1,9 @@
 import Agenda = require("agenda");
 import { AgendaDatabaseSettings } from "./configurations/AgendaDatabaseSettings";
-import { Logger } from "../helpers/logger/Logger";
-import { OperationController } from "../controllers/OperationController";
-import { QueryRepository } from "../repositories/QueryRepository";
-import { TusHelper } from "../helpers/tus/TusHelper";
+import { Logger } from "../shared/helpers/logger/Logger";
+import { QueryRepository } from "../shared/repositories/QueryRepository";
+import { BackgroundJobNames } from "../shared/enums/BackgroundJobNames";
+import { TusHelper } from "./helpers/tus/TusHelper";
 
 (async () => {
 	Logger.info('Agenda Start ...');
@@ -29,7 +29,7 @@ import { TusHelper } from "../helpers/tus/TusHelper";
 
 	const configurations = { priority: 'high', concurrency: 10 };
 
-	agenda.define(OperationController.BACKGROUND_TASK_NAME, configurations, (job, done) => {
+	agenda.define(BackgroundJobNames.Operation, configurations, (job, done) => {
 		example(job.attrs, done);
 	});
 	

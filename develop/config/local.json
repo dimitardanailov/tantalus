@@ -1,0 +1,16 @@
+{
+  "port": 3000,
+  "aws": {
+    "s3": {
+      "bucket": "",
+      "dirTemplate": "__applicationId__/__operationId__/"     
+    }
+	},
+	"auth": {
+		"headerAttributes": {
+			"applicationKey": "x-application-id",
+			"masterKey": "x-master-key"
+		}
+	}
+}
+
