@@ -18,7 +18,8 @@
 		"start:cluster": "sl-run server/server.js",
 		"start": "node server/index.js",
 		"test:api": "nyc mocha --recursive './{,!(node_modules)/api/**/}*.spec.js'",
-		"test": "npm run build && npm run test:api",
+		"test:shared": "nyc mocha --recursive './{,!(node_modules)/shared/**/}*.spec.js'",
+		"test": "npm run build && npm run test:shared && npm run test:api",
 		"postinstall": "npm run compile"
 	},
 	"nodemonConfig": {

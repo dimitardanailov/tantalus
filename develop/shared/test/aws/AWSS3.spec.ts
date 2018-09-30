@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { AWSS3 } from "../../../../shared/helpers/aws/AWSS3";
+import { AWSS3 } from "../../helpers/aws/AWSS3";
 
 describe('AWSS3', () => {
 	describe('S3 Configurations', () => {
