@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { assert, expect } from "chai";
 import { HTTPResponseCodes } from "../../../enums/HTTPResponseCodes";
 import * as request from 'superagent';
 import { Logger } from "../../../../shared/helpers/logger/Logger";
@@ -14,14 +14,22 @@ export class MochaController {
 		});
 	}
 
+	public static reponseBodyShouldBeObject(request: request.Request, done: Function) {
+		request.end((error, response) => {
+			if (error) throw error;
+
+			assert.equal('object', typeof response.body);
+
+			done();
+		});
+	}
+
 	public static responseBodyShouldHaveProperty(request: request.Request, done: Function, property: string) {
 		request.end((error, response) => {
 			if (error) throw error;
 
-			Logger.info(response.body);
-			Logger.info('Name: ' + response.body.name);
+			expect(response.body).to.have.property(property);
 
-			response.body.should.have.property(property);
 			done();
 		});
 	}

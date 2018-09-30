@@ -4,6 +4,7 @@ import chaiHttp = require("chai-http");
 import server = require('../../server');
 import { Logger } from "../../../shared/helpers/logger/Logger";
 import { beforeEach } from "mocha";
+import { MochaController } from "../utils/controllers/MochaController";
 
 describe('ExportController', () => {
 
@@ -23,25 +24,12 @@ describe('ExportController', () => {
 			done();
 		});
 
-		/*
 		it('reponse code should be 200', done => {
-			request.end((error, response) => {
-				if (error) throw error;
-
-				expect(response).to.have.status(200);
-				done();
-			});
-		}); */
+			MochaController.reponseCodeShouldBe200(request, done);
+		});
 
 		it('response body has a property applicationId', done => {
-			request.end((error, response) => {
-				if (error) throw error;
-
-				Logger.error(typeof response.body);
-
-				response.body.should.have.property('applicationId');
-				done();
-			}); 
+			MochaController.responseBodyShouldHaveProperty(request, done, 'applicationId');
 		});
 	});
 	/*** Create a record ***/
@@ -56,13 +44,8 @@ describe('ExportController', () => {
 			done();
 		});
 
-		it('reponse code should be 200', done => {			
-			request.end((error, response) => {
-				if (error) throw error;
-
-				expect(response).to.have.status(200);
-				done();
-			});
+		it('reponse code should be 200', done => {
+			MochaController.reponseCodeShouldBe200(request, done);
 		});
 	});
 	/*** Hello world ***/

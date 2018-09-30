@@ -1,5 +1,6 @@
 import { assert } from "chai";
-import { AppSettings } from "../../helpers/app-settings/AppSettings";
+import { AppSettings } from "../../../helpers/app-settings/AppSettings";
+
 
 describe('AppSettings', () => {
 
