@@ -20,16 +20,16 @@ export class AppSettings {
 		return process.env.PORT || localConfig.port;
 	}
 
-	public static getAppName() {
+	public static getAppName(): string {
 		return 'tantalus';
 	}
 
-	public static getTusUploadEndPoint() {
+	public static getTusUploadEndPoint(): string {
 		return '/tus/aws/uploads';
 	}
 
-	public static getFileSystemTempDir() {
-		return process.env.TANTALUS_TEMP_DIR || '';
+	public static getFileSystemTempDir(): string {
+		return process.env.TEMP_DIR || process.env.TANTALUS_TEMP_DIR || '';
 	}
 
 	public static removeSubFoldersByDirname(): string {

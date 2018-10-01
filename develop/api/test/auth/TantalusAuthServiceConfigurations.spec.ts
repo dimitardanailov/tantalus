@@ -5,7 +5,8 @@ describe('AuthServiceConfigurations', () => {
 
 	describe('getTokenEndPoint', () => {
 		it('positive', () => {
-			const tokenEndPoint = process.env.TANTALUS_AUTH_SERVICE_TOKEN_REST_API;
+			const tokenEndPoint = process.env.AUTH_SERVICE_TOKEN_REST_API || 
+				process.env.TANTALUS_AUTH_SERVICE_TOKEN_REST_API;
 
 			assert.equal(tokenEndPoint, AuthServiceConfigurations.getTokenEndPoint());
 		});
@@ -14,11 +15,12 @@ describe('AuthServiceConfigurations', () => {
 			assert.notEqual(null, AuthServiceConfigurations.getTokenEndPoint());
 		});
 
-	}); // TANTALUS_AUTH_SERVICE_TOKEN_REST_API code block
+	}); // getTokenEndPoint
 
 	describe('getDatabaseURIEndPoint', () => {
 		it('positive', () => {
-			const databaseUriEndPoint = process.env.TANTALUS_AUTH_SERVICE_DATABASE_URI_REST_API;
+			const databaseUriEndPoint = process.env.AUTH_SERVICE_DATABASE_URI_REST_API || 
+				process.env.TANTALUS_AUTH_SERVICE_DATABASE_URI_REST_API;
 
 			assert.equal(databaseUriEndPoint, AuthServiceConfigurations.getDatabaseURIEndPoint());
 		});
@@ -26,11 +28,12 @@ describe('AuthServiceConfigurations', () => {
 		it ('negative', () => {
 			assert.notEqual(null, AuthServiceConfigurations.getDatabaseURIEndPoint());
 		});
-	}); // TANTALUS_AUTH_SERVICE_DATABASE_URI_REST_API
+	}); // getDatabaseURIEndPoint 
 
 	describe('getMasterKeyServiceId', () => {
 		it ('positive', () => {
-			const serviceId = process.env.TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID;
+			const serviceId = process.env.AUTH_MASTER_KEY_REQUEST_SERVICE_ID || 
+				process.env.TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID;
 
 			assert.equal(serviceId, AuthServiceConfigurations.getMasterKeyServiceId());
 		});
@@ -38,5 +41,5 @@ describe('AuthServiceConfigurations', () => {
 		it ('negative', () => {
 			assert.notEqual(null, AuthServiceConfigurations.getMasterKeyServiceId());
 		});
-	}); // TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID
+	}); // getMasterKeyServiceId
 });

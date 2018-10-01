@@ -15,7 +15,7 @@ describe('AppSettings', () => {
 
 	describe('file System TempDir', () => {
 		it('positive test', () => {
-			const tempDir = process.env.TANTALUS_TEMP_DIR;
+			const tempDir = process.env.TEMP_DIR || process.env.TANTALUS_TEMP_DIR;
 
 			assert.equal(tempDir, AppSettings.getFileSystemTempDir());
 		});

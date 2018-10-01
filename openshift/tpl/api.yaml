@@ -96,24 +96,24 @@ objects:
             value: api
           - name: PORT
             value: '${PORT}'
-          - name: TANTALUS_DATABASE_SERVER
-            value: ${TANTALUS_DATABASE_SERVER}
-          - name: TANTALUS_S3_ACCESS_KEY_ID
-            value: ${TANTALUS_S3_ACCESS_KEY_ID}
-          - name: TANTALUS_S3_SECRET_ACCESS_KEY
-            value: ${TANTALUS_S3_SECRET_ACCESS_KEY}
-          - name: TANTALUS_S3_BUCKET
-            value: ${TANTALUS_S3_BUCKET}
-          - name: TANTALUS_AMAZON_REGION
-            value: ${TANTALUS_AMAZON_REGION}
-          - name: TANTALUS_TEMP_DIR
-            value: ${TANTALUS_TEMP_DIR}
-          - name: TANTALUS_AUTH_SERVICE_TOKEN_REST_API
-            value: ${TANTALUS_AUTH_SERVICE_TOKEN_REST_API}
-          - name: TANTALUS_AUTH_SERVICE_DATABASE_URI_REST_API
-            value: ${TANTALUS_AUTH_SERVICE_DATABASE_URI_REST_API}
-          - name: TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID
-            value: ${TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID}
+          - name: CONNECTION_STRING
+            value: ${CONNECTION_STRING}
+          - name: S3_ACCESS_KEY_ID
+            value: ${S3_ACCESS_KEY_ID}
+          - name: S3_SECRET_ACCESS_KEY
+            value: ${S3_SECRET_ACCESS_KEY}
+          - name: S3_BUCKET
+            value: ${S3_BUCKET}
+          - name: AMAZON_REGION
+            value: ${AMAZON_REGION}
+          - name: TEMP_DIR
+            value: ${TEMP_DIR}
+          - name: AUTH_SERVICE_TOKEN_REST_API
+            value: ${AUTH_SERVICE_TOKEN_REST_API}
+          - name: AUTH_SERVICE_DATABASE_URI_REST_API
+            value: ${AUTH_SERVICE_DATABASE_URI_REST_API}
+          - name: AUTH_MASTER_KEY_REQUEST_SERVICE_ID
+            value: ${AUTH_MASTER_KEY_REQUEST_SERVICE_ID}
           imagePullPolicy: Always
           name: "api"
           ports:

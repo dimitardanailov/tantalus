@@ -6,7 +6,7 @@ describe('AWSS3', () => {
 
 		describe('bucketName', () => {
 			it('positive test', () => {
-				const bucketName = process.env.TANTALUS_S3_BUCKET;
+				const bucketName = process.env.S3_BUCKET || process.env.TANTALUS_S3_BUCKET;
 
 				assert.equal(bucketName, AWSS3.getBucketName());
 			});
@@ -18,7 +18,7 @@ describe('AWSS3', () => {
 
 		describe('access key', () => {
 			it('positive test', () => {
-				const acessKey = process.env.TANTALUS_S3_ACCESS_KEY_ID;
+				const acessKey = process.env.S3_ACCESS_KEY_ID || process.env.TANTALUS_S3_ACCESS_KEY_ID;
 
 				assert.equal(acessKey, AWSS3.getAccessKey());
 			});
@@ -30,7 +30,8 @@ describe('AWSS3', () => {
 
 		describe('secret access key', () => {
 			it('positive test', () => {
-				const secretKey = process.env.TANTALUS_S3_SECRET_ACCESS_KEY;
+				const secretKey = process.env.S3_SECRET_ACCESS_KEY || 
+				process.env.TANTALUS_S3_SECRET_ACCESS_KEY;
 
 				assert.equal(secretKey, AWSS3.getSecretAccessKey());
 			});
@@ -42,7 +43,7 @@ describe('AWSS3', () => {
 
 		describe('amazon region', () => {
 			it('positive test', () => { 
-				const region = process.env.TANTALUS_AMAZON_REGION;
+				const region = process.env.AMAZON_REGION || process.env.TANTALUS_AMAZON_REGION;
 
 				assert.equal(region, AWSS3.getAmazonRegion());
 			});
