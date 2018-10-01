@@ -22,7 +22,7 @@
 		"test:mocha": "mocha './server/**/test/**/*.spec.js' --recursive",
 		"test": "npm run build && npm run test:mocha",
 		"report": "nyc report",
-		"postinstall": "npm run compile"
+		"postinstall": "npm run build && npm run test"
 	},
 	"nodemonConfig": {
 		"env": {

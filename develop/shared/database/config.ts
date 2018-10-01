@@ -13,8 +13,10 @@ mongoose.connect(mongo.uri, mongo.opt).then(() => {
 	Logger.info('Connected to Database');
 
 	return mongoose.connection;
-}).catch(err => {
-	Logger.debugVariable(err);
+}).catch(error => {
+	Logger.error(error);
+
+	throw error;
 });
 
 export { mongoose };
