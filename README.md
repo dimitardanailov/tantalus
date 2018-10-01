@@ -12,17 +12,15 @@ npm test
 npm start
 ```
 
-## Build, run, and deploy using IDT
+## Cloudstrap
 
-```bash
-# Install needed dependencies:
-npm run idt:install
-# Build the docker image for your app:
-npm run idt:build
-# Run the app locally through docker:
-npm run idt:run
-# Deploy your app to IBM Cloud:
-npm run idt:deploy
+### Configurations
+
+Please use these congirations to encrypt or decrypt file: 
+
+```
+cloudstrap-microservice-tool encrypt --file=openshift/env/dev/service.env
+cloudstrap-microservice-tool decrypt --file=openshift/env/dev/service.env.enc
 ```
 
 ## Credentials
@@ -31,10 +29,7 @@ Application should have follow `process.env`:
 
 ### Database configurations
 
- - `TANTALUS_DATABASE_SERVER`
- - `TANTALUS_DATABASE`
- - `TANTALUS_TESTING_DATABASE_SERVER`
- - `TANTALUS_TESTING_DATABASE`
+ - `TANTALUS_CONNECTION_STRING` or `CONNECTION_STRING`
 
 ### S3 configurations
 

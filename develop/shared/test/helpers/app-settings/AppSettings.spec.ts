@@ -1,7 +1,6 @@
 import { assert } from "chai";
 import { AppSettings } from "../../../helpers/app-settings/AppSettings";
 
-
 describe('AppSettings', () => {
 
 	describe('TUS end point', () => {

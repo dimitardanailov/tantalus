@@ -60,8 +60,10 @@ export class TusHelper {
 				Logger.info(`${path} was deleted.`);
 			});
 
+			Logger.info('Upload on amazon ...');
+
 			// Upload zip file on AmazonS3 through tus.io
-			TusHelper.uploadOnAmazonS3(`${path}.zip`);
+			// TusHelper.uploadOnAmazonS3(`${path}.zip`);
 
 		}).catch(error => {
 			Logger.error(error);
