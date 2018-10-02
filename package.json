@@ -7,12 +7,12 @@
 		"node": "^8.9.4"
 	},
 	"scripts": {
-		"build": "npm run del && npm run copy && npm run compile",
+		"build": "npm run del && npm run compile && npm run copy",
 		"compile": "tsc",
 		"copy": "cp -R develop/config/ server/config/ || true",
 		"debug": "chmod +x run-debug && ./run-debug",
 		"dev": "nodemon server/server.js",
-		"del": "rm server/config/local.json || true",
+		"del": "rm -rf server/",
 		"start:agenda": "node server/agenda/server.js",
 		"start:api": "node server/api/server.js",
 		"start:cluster": "sl-run server/server.js",
