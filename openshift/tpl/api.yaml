@@ -96,6 +96,8 @@ objects:
             value: api
           - name: PORT
             value: '${PORT}'
+          - name: LOGGER_LEVEL
+            value: '${LOGGER_LEVEL}'
           - name: CONNECTION_STRING
             value: ${CONNECTION_STRING}
           - name: S3_ACCESS_KEY_ID

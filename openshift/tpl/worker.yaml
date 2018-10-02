@@ -94,8 +94,10 @@ objects:
         - env:
           - name: PORT
             value: '${PORT}'
-          - name: TANTALUS_AGENDA_DB_STRING
-            value: '${TANTALUS_AGENDA_DB_STRING}'
+          - name: LOGGER_LEVEL
+            value: '${LOGGER_LEVEL}'
+          - name: AGENDA_DB_STRING
+            value: '${AGENDA_DB_STRING}'
           - name: SERVICE_NAME
             value: worker
           imagePullPolicy: Always

@@ -8,6 +8,8 @@ class MemoryDatabase {
 
 	public static async openConnection() {
 		const mongoUri: string = await MemoryDatabase.getConfigurations();
+		Logger.info(`mongoUri is ${mongoUri}`);
+
 		const db = mongoose.connect(mongoUri, MemoryDatabase.getMongooseOpts);
 
 		return db;
@@ -31,6 +33,7 @@ class MemoryDatabase {
 			autoReconnect: true,
 			reconnectTries: Number.MAX_VALUE,
 			reconnectInterval: 1000,
+			useMongoClient: true,
 			useNewUrlParser: true
 		};
 	}

@@ -9,12 +9,15 @@ const mongo = {
   }
 };
 
+Logger.info('Application is trying to connect to database.');
+Logger.info(`MongoUri is ${mongo.uri}`);
+
 mongoose.connect(mongo.uri, mongo.opt).then(() => {
 	Logger.info('Connected to Database');
 
 	return mongoose.connection;
 }).catch(error => {
-	Logger.error(error);
+	Logger.fatal(error);
 
 	throw error;
 });
