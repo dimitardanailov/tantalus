@@ -113,21 +113,21 @@ objects:
               cpu: 200m
               memory: 512Mi
           livenessProbe:
-            httpGet:
-              path: "/health"
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 5
-            timeoutSeconds: 3
+            exec:
+              command:
+              - cat
+              - /agenda/health
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
           readinessProbe:
-            httpGet:
-              path: "/health"
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 5
+            exec:
+              command:
+              - cat
+              - /agenda/health
+            initialDelaySeconds: 15
             timeoutSeconds: 3
             periodSeconds: 10
             successThreshold: 1

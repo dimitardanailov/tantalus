@@ -4,6 +4,7 @@ import { Logger } from "../shared/helpers/logger/Logger";
 import { QueryRepository } from "../shared/repositories/QueryRepository";
 import { BackgroundJobNames } from "../shared/enums/BackgroundJobNames";
 import { TusHelper } from "./helpers/tus/TusHelper";
+import { Health } from "./helpers/health/Health";
 
 (async () => {
 	Logger.info('Agenda Start ...');
@@ -27,8 +28,10 @@ import { TusHelper } from "./helpers/tus/TusHelper";
 		done();
 	};
 
-	const configurations = { priority: 'high', concurrency: 10 };
+	// Create temp health file
+	Health.createHealthFile();
 
+	const configurations = { priority: 'high', concurrency: 10 };
 	agenda.define(BackgroundJobNames.Operation, configurations, (job, done) => {
 		example(job.attrs, done);
 	});

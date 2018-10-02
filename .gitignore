@@ -1,12 +1,18 @@
+# Openshift
+
 openshift/dist/**
 openshift/env/dev/service.env
 
-# Local setup
+# Health checkers
+/agenda/health
+
+# Project setup
 server/*
 files/*
 auth-example.ts
 agenda-example.ts
 
+# Node modules
 node_modules
 node_modules_linux
 server/localdev-config.json
