@@ -9,8 +9,8 @@ import { Service } from "typedi";
 import { QueryController } from './QueryController';
 import { QueryRepository } from "../../shared/repositories/QueryRepository";
 import { Logger } from "../../shared/helpers/logger/Logger";
-import { QueryMockObject } from "../test/mock-objects/models/QueryMockObject";
 import { IQuery } from "../../shared/interfaces/IQuery";
+import { QueryMockObject } from "../../shared/test/mock-objects/models/QueryMockObject";
 
 @Service()
 @JsonController()

@@ -1,8 +1,8 @@
 import { assert } from "chai";
-import { Query } from "../../../shared/models/Query";
+import { Query } from "../../models/Query";
+import { QueryRepository } from "../../repositories/QueryRepository";
+import { MochaDatabaseConfiguration } from "../../../api/test/utils/database/MochaDatabaseConfiguration";
 import { QueryMockObject } from "../mock-objects/models/QueryMockObject";
-import { QueryRepository } from "../../../shared/repositories/QueryRepository";
-import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 
 describe('QueryRepository', () => {
 

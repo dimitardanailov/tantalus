@@ -1,8 +1,8 @@
 import { assert } from "chai";
-import { Operation } from "../../../shared/models/Operation";
+import { Operation } from "../../models/Operation";
+import { OperationRepository } from "../../repositories/OperationRepository";
+import { MochaDatabaseConfiguration } from "../../../api/test/utils/database/MochaDatabaseConfiguration";
 import { OperationMockObject } from "../mock-objects/models/OperationMockObject";
-import { OperationRepository } from "../../../shared/repositories/OperationRepository";
-import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 
 describe('OperationRepository', () => {
 

@@ -9,7 +9,6 @@ import { Service } from "typedi";
 import { AbstractController } from "./AbstractController";
 import { OperationRepository } from "../../shared/repositories/OperationRepository";
 import { Logger } from "../../shared/helpers/logger/Logger";
-import { OperationMockObject } from "../test/mock-objects/models/OperationMockObject";
 import { ContentTypes } from "../../shared/enums/ContentTypes";
 import { IOperation } from "../../shared/interfaces/IOperation";
 import { HTTPResponseCodes } from "../enums/HTTPResponseCodes";
@@ -18,6 +17,7 @@ import { SashidoApplication } from "../helpers/sashido/SashidoApplication";
 import { SashidoDecorator } from "./SashidoDecorator";
 import { JobHelper } from "../../agenda/tus/JobHelper";
 import { BackgroundJobNames } from "../../shared/enums/BackgroundJobNames";
+import { OperationMockObject } from "../../shared/test/mock-objects/models/OperationMockObject";
 
 @Service()
 @JsonController()
