@@ -9,7 +9,7 @@ import { Logger } from '../../../shared/helpers/logger/Logger';
  * If file exists service is up and running
  */
 export class Health {
-	private static LOCATION = 'agenda/health';
+	public static LOCATION = 'agenda/health';
 
 	public static createHealthFile() {
 		const date = Date.now();
