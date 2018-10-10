@@ -3,7 +3,7 @@ import { assert, expect } from "chai";
 import { Logger } from "../../../shared/helpers/logger/Logger";
 import { FSHelper } from "../../helpers/fs/FSHelper";
 
-describe.only('FSHelper', () => {
+describe('FSHelper', () => {
 
 	const path = 'files/file';
 

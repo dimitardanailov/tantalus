@@ -12,18 +12,24 @@ export class ZipHelper {
 				zlib: { level: 9 } // Sets the compression level.
 			});
 
-			archive.on('warning', reject);
+			archive.on('warning', error => {
+				Logger.info(error);
+				reject(error);
+			});
 
-			archive.on('error', reject);
+			archive.on('error', error => {
+				Logger.error(error);
+				reject(error);
+			});
 
 			// listen for all archive data to be written
 			// 'close' event is fired only when a file descriptor is involved
-			output.on('close', resolve);
+			output.on('close', () => resolve(true));
 
 			// This event is fired when the data source is drained no matter what was the data source.
 			// It is not part of this library but rather from the NodeJS Stream API.
 			// @see: https://nodejs.org/api/stream.html#stream_event_end
-			output.on('end', resolve);
+			output.on('end', () => resolve(true));
 
 			// pipe archive data to the file
 			archive.pipe(output);

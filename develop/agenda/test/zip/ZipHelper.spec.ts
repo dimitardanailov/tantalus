@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { ZipHelper } from "../../helpers/zip/ZipHelper";
 import { Logger } from "../../../shared/helpers/logger/Logger";
 
-describe.only('Zip helper', () => {
+describe('Zip helper', () => {
 	
 	const directory = 'files';
 	const filename = 'myfile'

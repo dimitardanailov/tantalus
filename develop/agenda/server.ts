@@ -11,20 +11,27 @@ import { Health } from "./helpers/health/Health";
  
 	const agenda: Agenda = new Agenda({ 
 		db: { 
-			address:                                              AgendaDatabaseSettings.getConnectionString(),
+			address: AgendaDatabaseSettings.getConnectionString(),
 			options: {
 				useNewUrlParser: true
 			}
 		} 
 	});
 
-	const example = async function(attrs, done) {
+	const example = async function(job, done) {
 		// Parse queries ...
 		const repository = new QueryRepository();
 		const cursor = repository.getCursorToAllRecords();
 
-		await TusHelper.exportToS3(cursor, attrs._id);
+		const output = await TusHelper.exportToS3(cursor, job.attrs._id);
 
+		Logger.info(output);
+
+		if (output) {
+			Logger.info('Operations are exported on Amazon s3');
+			job.disable();
+		}
+		
 		done();
 	};
 
@@ -33,7 +40,7 @@ import { Health } from "./helpers/health/Health";
 
 	const configurations = { priority: 'high', concurrency: 10 };
 	agenda.define(BackgroundJobNames.Operation, configurations, (job, done) => {
-		example(job.attrs, done);
+		example(job, done);
 	});
 	
 	await agenda.start();
