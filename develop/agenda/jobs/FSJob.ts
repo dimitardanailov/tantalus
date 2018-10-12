@@ -24,9 +24,10 @@ export class FSJob {
 
 		if (attributes !== null) {
 			Logger.info(`File was created on file system and filename is: ${attributes.path}`);
-			job.disable();
 
 			await FSJob.createZipJob(attributes);
+
+			job.disable();
 		}
 		
 		done();
