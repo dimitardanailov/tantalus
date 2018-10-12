@@ -18,6 +18,7 @@ import { SashidoDecorator } from "./SashidoDecorator";
 import { JobHelper } from "../../agenda/tus/JobHelper";
 import { BackgroundJobNames } from "../../shared/enums/BackgroundJobNames";
 import { OperationMockObject } from "../../shared/test/mock-objects/models/OperationMockObject";
+import { BackgroundJobWhen } from "../../shared/enums/BackgroundJobWhen";
 
 @Service()
 @JsonController()
@@ -59,7 +60,7 @@ export class OperationController extends AbstractController {
 	private async defineNewBackgroundJob(_id: string) {
 
 		const backgroundJob = new JobHelper(
-			BackgroundJobNames.Operation
+			BackgroundJobNames.FS
 		);
 
 		const agenda = backgroundJob.getAgenda();
@@ -77,8 +78,11 @@ export class OperationController extends AbstractController {
 
 		await agenda.start();
 
-		// Create two dummy tasks
-		await agenda.schedule('now', BackgroundJobNames.Operation, attributes);
-		await agenda.schedule('1 minute', BackgroundJobNames.Operation, attributes);
+		// Create job responsible to create a file ... 
+		await agenda.schedule(
+			BackgroundJobWhen.FS, 
+			BackgroundJobNames.FS, 
+			attributes
+		);
 	}
 }

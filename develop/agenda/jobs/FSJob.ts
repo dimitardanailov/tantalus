@@ -2,21 +2,31 @@ import { FSWritableStream } from "../helpers/streams/FSWritableStream";
 import { FSHelper } from "../helpers/fs/FSHelper";
 import { Logger } from "../../shared/helpers/logger/Logger";
 import { QueryRepository } from "../../shared/repositories/QueryRepository";
+import { JobHelper } from "../tus/JobHelper";
+import { BackgroundJobNames } from "../../shared/enums/BackgroundJobNames";
+import { BackgroundJobWhen } from "../../shared/enums/BackgroundJobWhen";
 
 export class FSJob { 
 
-	public static async setup(job, done: Function) {
+	public static readonly configurations = { 
+		priority: 'high', 
+		concurrency: 10 
+	};
+
+	public static async execute(job, done: Function) {
 		// Parse queries ...
 		const repository = new QueryRepository();
 		const cursor = repository.getCursorToAllRecords();
 
-		const output = await FSJob.streamMongoDataToFS(cursor, job.attrs._id);
+		const attributes = await FSJob.streamMongoDataToFS(cursor, job.attrs._id);
 
-		Logger.info(output);
+		Logger.info(attributes);
 
-		if (output) {
-			Logger.info(`File was created on file system. File id is: ${job.attrs._id}`);
+		if (attributes !== null) {
+			Logger.info(`File was created on file system and filename is: ${attributes.path}`);
 			job.disable();
+
+			await FSJob.createZipJob(attributes);
 		}
 		
 		done();
@@ -41,10 +51,12 @@ export class FSJob {
 		// If all operation related with fs are successful, next step is upload on Amazon S3
 		const output = operations.filter(operation => { return !operation });
 		if (output.length === 0) {
-			return true;
+			return {
+				path: fsStream.path
+			};
 		} 
 
-		return false;
+		return null;
 	}
 
 	private static iterateCursor(cursor, fsStream: FSWritableStream): Promise<Boolean> {
@@ -86,5 +98,23 @@ export class FSJob {
 			Logger.info('stream was closed');
 			fsStream.writeStream.on('finish', () => resolve(true));
 		});
+	}
+
+	private static async createZipJob(attributes: Object) {
+		// Create a new job responsible to create a zip file
+		const backgroundJob = new JobHelper(
+			BackgroundJobNames.ZIP
+		);
+
+		const agenda = backgroundJob.getAgenda();
+
+		await agenda.start();
+
+		// Create job responsible to create a file ... 
+		await agenda.schedule(
+			BackgroundJobWhen.ZIP, 
+			BackgroundJobNames.ZIP, 
+			attributes
+		);
 	}
 }

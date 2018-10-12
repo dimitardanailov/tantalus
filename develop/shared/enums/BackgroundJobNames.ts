@@ -1,3 +1,5 @@
 export enum BackgroundJobNames {
-	Operation = 'operation'
+	FS = 'fs',
+	ZIP = 'zip',
+	TUS = 'TUS'
 }

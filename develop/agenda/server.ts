@@ -4,6 +4,7 @@ import { Logger } from "../shared/helpers/logger/Logger";
 import { BackgroundJobNames } from "../shared/enums/BackgroundJobNames";
 import { Health } from "./helpers/health/Health";
 import { FSJob } from "./jobs/FSJob";
+import { ZIPJob } from "./jobs/ZIPJob";
 
 (async () => {
 	Logger.info('Agenda Start ...');
@@ -20,10 +21,16 @@ import { FSJob } from "./jobs/FSJob";
 	// Create temp health file
 	Health.createHealthFile();
 
-	const configurations = { priority: 'high', concurrency: 10 };
-	agenda.define(BackgroundJobNames.Operation, configurations, (job, done) => {
-		FSJob.setup(job, done);
+	// Job is responsible to create a file on file system
+	agenda.define(BackgroundJobNames.FS, FSJob.configurations, (job, done) => {
+		Logger.info('hereee ...')
+		FSJob.execute(job, done);
 	});
-	
+
+	// Job is responsible to create a zip on file system
+	agenda.define(BackgroundJobNames.ZIP, ZIPJob.configurations, (job, done) => {
+		ZIPJob.execute(job, done);
+	});
+
 	await agenda.start();
 })();
