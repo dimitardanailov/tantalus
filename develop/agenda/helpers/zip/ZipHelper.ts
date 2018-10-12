@@ -15,11 +15,15 @@ export class ZipHelper {
 			archive.on('warning', error => {
 				Logger.info(error);
 				reject(error);
+
+				return;
 			});
 
 			archive.on('error', error => {
 				Logger.error(error);
 				reject(error);
+
+				return;
 			});
 
 			// listen for all archive data to be written
