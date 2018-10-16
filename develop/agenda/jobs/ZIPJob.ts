@@ -33,8 +33,7 @@ export class ZIPJob {
 			// delete a file
 			await FSHelper.deleteFile(path);
 
-			const attributes = { path };
-
+			const attributes = { path: `${path}.zip` };
 			await ZIPJob.createTUSJob(attributes);
 
 			job.disable();
