@@ -16,4 +16,8 @@ export class QueryRepository {
 	save(query: Query): Promise<Query> {
 		return Promise.resolve(query.save());
 	}
+
+	countRecords(): Promise<Query> {
+		return Promise.resolve(Query.estimatedDocumentCount({}).lean());
+	}
 }
