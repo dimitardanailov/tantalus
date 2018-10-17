@@ -33,7 +33,7 @@ export class FSJob {
 		done();
 	}
 
-	private static async streamMongoDataToFS(cursor, operationId) {
+	public static async streamMongoDataToFS(cursor, operationId) {
 		// Create FS stream configurations
 		const fsStream = new FSWritableStream(`${operationId}.json`);
 		fsStream.saveStreamOnFileSystem();
