@@ -2,6 +2,7 @@ const chai = require('chai');
 import { expect } from "chai";
 import { ZipHelper } from "../../helpers/zip/ZipHelper";
 import { Logger } from "../../../shared/helpers/logger/Logger";
+import { promises } from "fs";
 
 describe('Zip helper', () => {
 	
@@ -32,14 +33,12 @@ describe('Zip helper', () => {
 		});
 
 		it('mock file exists', () => {
-			// @ts-ignore: chai-fs typings are not supported
 			expect(path).to.be.a.file();
 		})
 
 		it('check zip exists', async () => {
-			const promise = await ZipHelper.createZipFile(path);
-			
-			// @ts-ignore: chai-fs typings are not supported
+			await ZipHelper.createZipFile(path);
+
 			expect(`${path}.zip`).to.be.a.file();
 		});
 	});

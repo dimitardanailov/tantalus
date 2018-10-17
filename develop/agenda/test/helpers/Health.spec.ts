@@ -41,12 +41,10 @@ describe('Health', () => {
 		it('createHealthFile', () => {
 			Health.createHealthFile();
 
-			// @ts-ignore: chai-fs typings are not supported
 			expect(Health.LOCATION).to.be.a.file();
 		});
 
 		it('file should be not an empty', () => {
-			// @ts-ignore: chai-fs typings are not supported
 			assert.notIsEmptyFile(Health.LOCATION);
 		})
 	});
