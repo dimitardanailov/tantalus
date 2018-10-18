@@ -14,7 +14,7 @@
 		"dev": "nodemon server/server.js",
 		"del:agenda": "rm -rf agenda/ && mkdir agenda",
 		"del": "npm run del:agenda && rm -rf server/",
-		"start:agenda": "node server/agenda/server.js",
+		"start:agenda": "node server/agenda/worker.js",
 		"start:api": "node server/api/server.js",
 		"start:cluster": "sl-run server/server.js",
 		"start": "node server/index.js",

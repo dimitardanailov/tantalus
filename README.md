@@ -62,6 +62,7 @@ You can access these variables on `Sashido` -> `App Settings` -> `Security & Key
 ### Agenda
 
  - `TANTALUS_AGENDA_DB_STRING` or `AGENDA_DB_STRING`
+ - `TANTALUS_AGENDA_HEALTH_SERVICE_PORT` or `AGENDA_HEALTH_SERVICE_PORT`
 
 ## Resources / Ideas
 

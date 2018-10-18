@@ -22,6 +22,9 @@ import { TUSJob } from "./jobs/TUSJob";
 	// Create temp health file
 	Health.createHealthFile();
 
+	// Load load service
+	loadHealthService();
+
 	// Job is responsible to create a file on file system
 	agenda.define(BackgroundJobNames.FS, FSJob.configurations, (job, done) => {
 		FSJob.execute(job, done);
@@ -39,3 +42,15 @@ import { TUSJob } from "./jobs/TUSJob";
 
 	await agenda.start();
 })();
+
+function loadHealthService() {
+	const app = require("express")();
+	const port = process.env.TANTALUS_AGENDA_HEALTH_SERVICE_PORT || 
+		process.env.AGENDA_HEALTH_SERVICE_PORT || 9005;
+
+		require('./health')(app);
+
+	app.listen(port, () => {
+		Logger.info(`Application has a health service on ${port}`);
+	});
+}

@@ -113,21 +113,21 @@ objects:
               cpu: 200m
               memory: 512Mi
           livenessProbe:
-            exec:
-              command:
-              - cat
-              - /agenda/health
-            initialDelaySeconds: 15
-            timeoutSeconds: 1
+            httpGet:
+              path: "/health"
+              port: 9005
+              scheme: HTTP
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
           readinessProbe:
-            exec:
-              command:
-              - cat
-              - /agenda/health
-            initialDelaySeconds: 15
+            httpGet:
+              path: "/health"
+              port: 9005
+              scheme: HTTP
+            initialDelaySeconds: 5
             timeoutSeconds: 3
             periodSeconds: 10
             successThreshold: 1
