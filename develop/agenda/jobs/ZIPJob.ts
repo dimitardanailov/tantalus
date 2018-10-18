@@ -7,6 +7,8 @@ import { BackgroundJobWhen } from "../../shared/enums/BackgroundJobWhen";
 
 export class ZIPJob {
 
+	public static jobNameTest = 'test';
+
 	public static readonly configurations = { 
 		priority: 'high', 
 		concurrency: 10 
@@ -33,9 +35,13 @@ export class ZIPJob {
 			// delete a file
 			await FSHelper.deleteFile(path);
 
-			const attributes = { path: `${path}.zip` };
-			await ZIPJob.createTUSJob(attributes);
-
+			// If job will be execute by testing part should 
+			// doesn't create a new agenda task
+			if (job.name !== ZIPJob.jobNameTest) {
+				const attributes = { path: `${path}.zip` };
+				await ZIPJob.createTUSJob(attributes);
+			}
+			
 			job.disable();
 		}
 

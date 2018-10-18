@@ -12,6 +12,14 @@ export class MockHelper {
 		done();
 	}
 
+	public static createMockAndFiles(items) {
+		mock({
+			'files': mock.directory({
+				items: items
+			})
+		});
+	}
+
 	public static restoreMock(done: Function) {
 		mock.restore();
 
