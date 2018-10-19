@@ -98,6 +98,8 @@ objects:
             value: '${LOGGER_LEVEL}'
           - name: AGENDA_DB_STRING
             value: '${AGENDA_DB_STRING}'
+          - name: AGENDA_HEALTH_SERVICE_PORT
+            value: '${AGENDA_HEALTH_SERVICE_PORT}'
           - name: SERVICE_NAME
             value: worker
           imagePullPolicy: Always
