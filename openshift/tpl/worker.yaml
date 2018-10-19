@@ -96,6 +96,8 @@ objects:
             value: '${PORT}'
           - name: LOGGER_LEVEL
             value: '${LOGGER_LEVEL}'
+          - name: CONNECTION_STRING
+            value: '${CONNECTION_STRING}'
           - name: AGENDA_DB_STRING
             value: '${AGENDA_DB_STRING}'
           - name: AGENDA_HEALTH_SERVICE_PORT
