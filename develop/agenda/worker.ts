@@ -19,9 +19,6 @@ import { TUSJob } from "./jobs/TUSJob";
 		} 
 	});
 
-	// Create temp health file
-	Health.createHealthFile();
-
 	// Load load service
 	loadHealthService();
 
@@ -46,7 +43,7 @@ import { TUSJob } from "./jobs/TUSJob";
 function loadHealthService() {
 	const app = require("express")();
 	const port = process.env.TANTALUS_AGENDA_HEALTH_SERVICE_PORT || 
-		process.env.AGENDA_HEALTH_SERVICE_PORT || 9005;
+		process.env.AGENDA_HEALTH_SERVICE_PORT || 8080;
 
 		require('./health')(app);
 
