@@ -2,7 +2,6 @@ import Agenda = require("agenda");
 import { AgendaDatabaseSettings } from "./configurations/AgendaDatabaseSettings";
 import { Logger } from "../shared/helpers/logger/Logger";
 import { BackgroundJobNames } from "../shared/enums/BackgroundJobNames";
-import { Health } from "./helpers/health/Health";
 import { FSJob } from "./jobs/FSJob";
 import { ZIPJob } from "./jobs/ZIPJob";
 import { TUSJob } from "./jobs/TUSJob";
