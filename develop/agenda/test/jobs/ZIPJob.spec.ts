@@ -6,7 +6,7 @@ import Agenda = require("agenda");
 import { Logger } from "../../../shared/helpers/logger/Logger";
 import { ZIPJob } from "../../jobs/ZIPJob";
 
-describe.only('ZIPJob', () => {
+describe('ZIPJob', () => {
 	require('chai').use(require('chai-fs'));
 
 	const helper = new JobSpecDBHelper();
