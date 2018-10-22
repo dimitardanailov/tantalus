@@ -7,6 +7,10 @@ import { ZIPJob } from "./jobs/ZIPJob";
 import { TUSJob } from "./jobs/TUSJob";
 
 (async () => {
+
+	Logger.info('Application is trying to connect to database.');
+	Logger.info(`Agenda uri is ${AgendaDatabaseSettings.getConnectionString()}`);
+
 	const agenda: Agenda = new Agenda({ 
 		db: { 
 			address: AgendaDatabaseSettings.getConnectionString(),
