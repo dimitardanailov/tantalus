@@ -64,6 +64,29 @@ You can access these variables on `Sashido` -> `App Settings` -> `Security & Key
  - `TANTALUS_AGENDA_DB_STRING` or `AGENDA_DB_STRING`
  - `TANTALUS_AGENDA_HEALTH_SERVICE_PORT` or `AGENDA_HEALTH_SERVICE_PORT`
 
+### OpenShift
+
+```bash
+ ./oc login https://console-1-eu-os.cloudstrap.io
+```
+
+```bash
+./oc projects
+```
+
+```bash
+# Create a new pod from last successful build
+./oc scale dc worker --replicas=1
+```
+
+```bash
+./oc get deploymentconfigs
+```
+
+```bash
+./oc get pods
+```
+
 ## Resources / Ideas
 
 #### Mongoose
