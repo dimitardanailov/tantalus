@@ -7,8 +7,6 @@ import { ZIPJob } from "./jobs/ZIPJob";
 import { TUSJob } from "./jobs/TUSJob";
 
 (async () => {
-	Logger.info('Agenda Start ...');
- 
 	const agenda: Agenda = new Agenda({ 
 		db: { 
 			address: AgendaDatabaseSettings.getConnectionString(),
@@ -17,9 +15,6 @@ import { TUSJob } from "./jobs/TUSJob";
 			}
 		} 
 	});
-
-	// Load load service
-	loadHealthService();
 
 	// Job is responsible to create a file on file system
 	agenda.define(BackgroundJobNames.FS, FSJob.configurations, (job, done) => {
@@ -37,6 +32,11 @@ import { TUSJob } from "./jobs/TUSJob";
 	});
 
 	await agenda.start();
+
+	Logger.info('Agenda Start ...');
+
+	// Load load service
+	loadHealthService();
 })();
 
 function loadHealthService() {
