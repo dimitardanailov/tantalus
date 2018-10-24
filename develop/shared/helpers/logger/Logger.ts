@@ -20,4 +20,9 @@ export class Logger {
 	public static fatal(message) {
 		logger.fatal(message);
 	}
+
+	public static addPromiseError(metod, error) {
+		logger.info(metod);
+		logger.error(error);
+	}
 }

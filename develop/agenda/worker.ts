@@ -5,6 +5,7 @@ import { BackgroundJobNames } from "../shared/enums/BackgroundJobNames";
 import { FSJob } from "./jobs/FSJob";
 import { ZIPJob } from "./jobs/ZIPJob";
 import { TUSJob } from "./jobs/TUSJob";
+import { PromiseRejection } from "../shared/helpers/promises/PromiseRejection";
 
 (async () => {
 
@@ -41,6 +42,8 @@ import { TUSJob } from "./jobs/TUSJob";
 
 	// Load load service
 	loadHealthService();
+
+	PromiseRejection.loadUnhandledRejectionWatcher();
 })();
 
 function loadHealthService() {

@@ -1,16 +1,16 @@
 import { AgendaDatabaseSettings } from "../../configurations/AgendaDatabaseSettings";
 import { Logger } from "../../../shared/helpers/logger/Logger";
 import { MongoClient } from "mongodb";
+import { ErrorHandling } from "../../../shared/helpers/promises/ErrorHandling";
 
 export class MongoHealthHelper {
 
 	public static async checkDatabase() {
-		const promise = MongoHealthHelper.openConnection();
-		promise.then(() => {
-			Logger.info('Health checker has connection to Mongodb');
-		}).catch(err => {
-			throw err;
-		})
+		const promise = await MongoHealthHelper.openConnection()
+			.catch(ErrorHandling.throwCrash)
+
+		Logger.info('Health checker has connection to Mongodb');
+		return promise['topology']['clientInfo'];
 	}
 
 	public static async openConnection(): Promise<object> {
@@ -18,9 +18,15 @@ export class MongoHealthHelper {
 		const options = { useNewUrlParser: true }
 
 		return new Promise((resolve, reject) => {
-			MongoClient.connect(connectionString, options, (err) => {
-				if (err) reject(err);
-				resolve();
+			MongoClient.connect('connectionString', options, (error, client) => {
+				if (error) { 
+					Logger.addPromiseError('MongoHealthHelper.openConnection', error);
+					reject(error);
+
+					return;
+				}
+
+				resolve(client);
 			});
 		});
 	}

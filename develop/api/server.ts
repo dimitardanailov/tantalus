@@ -20,6 +20,7 @@ import log4js = require('log4js');
 import path = require('path');
 import { AuthService } from "./auth/AuthService";
 import { TUSServerAWSS3 } from "./helpers/tus/TUSServerAWSS3";
+import { PromiseRejection } from "../shared/helpers/promises/PromiseRejection";
 const logger = log4js.getLogger(appName);
 
 // Setup routing-controllers to use typedi container.
@@ -65,5 +66,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.sendFile(path.join(AppSettings.removeSubFoldersByDirname(), 'public', '500.html'));
 });
+
+PromiseRejection.loadUnhandledRejectionWatcher();
 
 module.exports = app; // for testing

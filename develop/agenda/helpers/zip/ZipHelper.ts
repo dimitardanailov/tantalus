@@ -13,14 +13,14 @@ export class ZipHelper {
 			});
 
 			archive.on('warning', error => {
-				Logger.info(error);
+				Logger.addPromiseError('ZipHelper.createZipFile', error);
 				reject(error);
 
 				return;
 			});
 
 			archive.on('error', error => {
-				Logger.error(error);
+				Logger.addPromiseError('ZipHelper.createZipFile', error);
 				reject(error);
 
 				return;
