@@ -5,9 +5,8 @@ module.exports = (app) => {
   const router = require('express').Router();
 
   router.get('/', async (req, res) => {
-		// const clientIfo = await MongoHealthHelper.checkDatabase();
-
-		res.json({status: 'UP', clientInfo: 'clientIfo'});
+		const clientIfo = await MongoHealthHelper.checkDatabase();
+		res.json({status: 'UP', clientInfo: clientIfo});
   });
 
   app.use('/health', router);
