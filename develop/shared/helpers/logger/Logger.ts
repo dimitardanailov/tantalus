@@ -25,4 +25,12 @@ export class Logger {
 		logger.info(metod);
 		logger.error(error);
 	}
+
+	public static printFeatureToggleMessage(message) {
+		console.log('\x1b[45m%s\x1b[0m', message);
+	}
+
+	public static backgroundJobInfo(message) {
+		console.log('\x1b[37m%s\x1b[0m', message);
+	}
 }

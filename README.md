@@ -53,7 +53,6 @@ Each application has a proto Buffer for authentication.
  - `TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID` or `AUTH_MASTER_KEY_REQUEST_SERVICE_ID`
  - `TANTALUS_AUTH_APP_ID` or `AUTH_APP_ID`
 
-
 ### Sashido Testing and Development Variables
 
 You can access these variables on `Sashido` -> `App Settings` -> `Security & Keys`
@@ -88,6 +87,13 @@ You can access these variables on `Sashido` -> `App Settings` -> `Security & Key
 ```bash
 ./oc get pods
 ```
+
+### Feature Toggles
+
+More about Feature toggles -> [Feature Toggles (aka Feature Flags)](https://martinfowler.com/articles/feature-toggles.html)
+
+ - `AGENDA_IS_ACTIVE` - If process variables is equal to `false`. Api doesn't create background tasks
+ - `AWS_S3_IS_ACTIVE` - If process variables is equal to `true`. Api doesn't upload files on Amazon S3 
 
 ## Resources / Ideas
 

@@ -19,6 +19,7 @@ import { JobHelper } from "../../agenda/tus/JobHelper";
 import { BackgroundJobNames } from "../../shared/enums/BackgroundJobNames";
 import { OperationMockObject } from "../../shared/test/mock-objects/models/OperationMockObject";
 import { BackgroundJobWhen } from "../../shared/enums/BackgroundJobWhen";
+import { FeatureToggle } from "../../shared/helpers/feature-toggle/FeatureToggle";
 
 @Service()
 @JsonController()
@@ -34,10 +35,28 @@ export class OperationController extends AbstractController {
 	async createRecord(): Promise<IOperation> {
 		const operation = OperationMockObject.createSimpleJson();
 
+		const collections = [
+			{
+				name: 'Query',
+				query: {
+					"where": { "applicationId": "123456789" }
+				}
+			},
+			{
+				name: 'Query',
+				query: {
+					"where": {"arrayKey":{"$all":["123456789","123456789","123456789"]}}
+				}
+			}
+		];
+
 		const promise = this.repository.save(operation);
 
 		return await promise.then(dbQuery => {
-			this.defineNewBackgroundJob(dbQuery._id);
+			
+			if (FeatureToggle.apiCanCreateAgendaRecords()) {
+				this.defineNewBackgroundJob(dbQuery._id);
+			}
 
 			return dbQuery.toJSON();
 		});
@@ -57,13 +76,13 @@ export class OperationController extends AbstractController {
 	}
 
 	private async defineNewBackgroundJob(_id: string) {
-
 		const backgroundJob = new JobHelper(
 			BackgroundJobNames.FS
 		);
 
-		const agenda = backgroundJob.getAgenda();
+		Logger.backgroundJobInfo(`Api wants to create a new backgroundjob: ${BackgroundJobNames.FS}`);
 
+		const agenda = backgroundJob.getAgenda();
 		const queries = [
 			{
 				query: 'db.users.find({})'
