@@ -17,6 +17,7 @@
 		"start:agenda": "node server/agenda/worker.js",
 		"start:api": "node server/api/server.js",
 		"start:cluster": "sl-run server/server.js",
+		"start:mongodb": "node server/agenda/mongodb.js",
 		"start": "node server/index.js",
 		"test:agenda": "npm run build && mocha './server/agenda/test/**/*.spec.js' --recursive",
 		"test:api": "npm run build && mocha './server/api/test/**/*.spec.js' --recursive",

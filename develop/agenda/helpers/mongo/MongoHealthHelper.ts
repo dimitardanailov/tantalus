@@ -18,7 +18,7 @@ export class MongoHealthHelper {
 		const options = { useNewUrlParser: true }
 
 		return new Promise((resolve, reject) => {
-			MongoClient.connect('connectionString', options, (error, client) => {
+			MongoClient.connect(connectionString, options, (error, client) => {
 				if (error) { 
 					Logger.addPromiseError('MongoHealthHelper.openConnection', error);
 					reject(error);
