@@ -19,6 +19,7 @@ import { grpc } from 'grpc-web-client';
 import { AuthServiceConfigurations } from './AuthServiceConfigurations';
 import { Logger } from '../../shared/helpers/logger/Logger';
 import { AuthRequestHeader } from './AuthRequestHeader';
+import { SashidoConfigOptions } from '../helpers/sashido/SashidoConfigOptions';
 
 export class AuthService extends AuthClient {
 
@@ -73,13 +74,15 @@ export class AuthService extends AuthClient {
 
 			// Get Master Key Response
 			this.response = await this.createMasterKeyResponsePromise();
-			Logger.info(this.response.getToken());
+			
+			// Logger.info(this.response)
+			// Logger.info(this.response.getToken());
 
 			this.sashidoClient = AuthService.createSashidoClient();
 			const app: GetAppResponse = await this.createAppResponsePromise();
 
 			this.databaseUri = app.getDatabaseuri();
-			Logger.info(this.databaseUri);
+			// Logger.info(this.databaseUri);
 		} catch (error) {
 			Logger.error(error);
 		}
@@ -92,7 +95,13 @@ export class AuthService extends AuthClient {
 	private async createMasterKeyResponsePromise(): Promise<MasterKeyResponse>  {
 		return new Promise<MasterKeyResponse>((resolve, reject) => {
 			this.masterKey(this.request, (error: AuthClientError, response: MasterKeyResponse) => {
-				if (error) reject(error);
+				if (error) { 
+					Logger.addPromiseError('AuthService.createMasterKeyResponsePromise', error);
+					reject(error);
+
+					return;
+				}
+
 
 				resolve(response);
 			});
@@ -101,7 +110,9 @@ export class AuthService extends AuthClient {
 
 	private async createAppResponsePromise(): Promise<GetAppResponse> {
 		const getAppRequest = new GetAppRequest();
-  	getAppRequest.setApplicationid('H56RW6vtjkwReKxHD9kDNHsUF8CPPAMXTiP4hNKJ');
+
+		const AUTH_APP_ID = SashidoConfigOptions.getAuthApplicationId();
+		getAppRequest.setApplicationid(AUTH_APP_ID);
 		
 		// Set Token
 		const meta: grpc.Metadata = new BrowserHeaders();
@@ -109,7 +120,12 @@ export class AuthService extends AuthClient {
 
 		return new Promise<GetAppResponse>((resolve, reject) => {
 			this.sashidoClient.getApp(getAppRequest, meta, (error: SashidoClientError, response: GetAppResponse) => {
-				if (error) reject(error);
+				if (error) { 
+					Logger.addPromiseError('AuthService.createAppResponsePromise', error);
+					reject(error);
+					
+					return;
+				}
 
 				resolve(response);
 			});

@@ -3,8 +3,8 @@
 APP_ID=$TANTALUS_SASHIDO_APP_ID
 MASTER_KEY=$TANTALUS_SASHIDO_MASTER_KEY
 
-# echo $APP_ID
-# echo $MASTER_KEY
+echo $APP_ID
+echo $MASTER_KEY
 
 END_POINT="http://localhost:3000/api/operations/decorator"
 

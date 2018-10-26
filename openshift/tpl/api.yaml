@@ -116,6 +116,8 @@ objects:
             value: ${AUTH_SERVICE_DATABASE_URI_REST_API}
           - name: AUTH_MASTER_KEY_REQUEST_SERVICE_ID
             value: ${AUTH_MASTER_KEY_REQUEST_SERVICE_ID}
+          - name: AUTH_APP_ID
+            value: ${AUTH_APP_ID}
           imagePullPolicy: Always
           name: "api"
           ports:

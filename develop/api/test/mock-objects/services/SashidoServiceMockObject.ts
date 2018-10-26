@@ -1,4 +1,5 @@
 import { SashidoDbConnector } from "../../../../shared/database/config-sashido";
+import { SashidoConfigOptions } from "../../../helpers/sashido/SashidoConfigOptions";
 
 export class SashidoServiceMockObject {
 	
@@ -29,23 +30,4 @@ export class SashidoServiceMockObject {
 			SashidoDbConnector.connect(SashidoConfigOptions.getDatabaseUri());
 	}
 
-}
-
-class SashidoConfigOptions {
-	
-	public static getToken(): string {
-		return process.env.TANTALUS_SASHIDO_AUTH_TOKEN || '';
-	}
-
-	public static getApplicationId(): string {
-		return process.env.TANTALUS_SASHIDO_APP_ID || '';
-	}
-
-	public static getMasterKey(): string {
-		return process.env.TANTALUS_SASHIDO_MASTER_KEY || '';
-	}
-
-	public static getDatabaseUri(): string {
-		return process.env.TANTALUS_SASHIDO_DB_URI || '';
-	}
 }

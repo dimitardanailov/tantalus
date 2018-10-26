@@ -29,10 +29,9 @@ export class OperationController extends AbstractController {
 		super();
 	}
 
-	@Get('/create')
+	@Post("/create")
 	@OnUndefined(HTTPResponseCodes.OnUndefined)
 	async createRecord(): Promise<IOperation> {
-		// Create a dummy Operation
 		const operation = OperationMockObject.createSimpleJson();
 
 		const promise = this.repository.save(operation);
@@ -52,7 +51,7 @@ export class OperationController extends AbstractController {
 
 	@Post("/decorator")
 	decorator(@SashidoDecorator({ required: true }) app: SashidoApplication) {
-		// Logger.info(app);
+		Logger.info(app);
 
 		return 'Hello World';
 	}
