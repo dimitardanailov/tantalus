@@ -23,7 +23,7 @@ describe('OperationController', () => {
 
 		beforeEach(done => {
 			request = chai.request(server)
-				.get('/api/operations/create');
+				.post('/api/operations/create');
 
 			done();
 		});
@@ -49,7 +49,7 @@ describe('OperationController', () => {
 		});
 	}); // createRecord test cases
 
-	describe.only('decorator', () => {
+	describe.skip('decorator', () => {
 		let request;
 
 		beforeEach(done => {
