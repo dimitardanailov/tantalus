@@ -35,7 +35,7 @@ export class OperationController extends AbstractController {
 	async createRecord(): Promise<IOperation> {
 		const operation = OperationMockObject.createSimpleJson();
 
-		const collections = [
+		const queries = [
 			{
 				name: 'Query',
 				query: {
@@ -55,7 +55,7 @@ export class OperationController extends AbstractController {
 		return await promise.then(dbQuery => {
 			
 			if (FeatureToggle.apiCanCreateAgendaRecords()) {
-				this.defineNewBackgroundJob(dbQuery._id);
+				this.defineNewBackgroundJob(dbQuery._id, queries);
 			}
 
 			return dbQuery.toJSON();
@@ -75,7 +75,7 @@ export class OperationController extends AbstractController {
 		return 'Hello World';
 	}
 
-	private async defineNewBackgroundJob(_id: string) {
+	private async defineNewBackgroundJob(_id: string, queries) {
 		const backgroundJob = new JobHelper(
 			BackgroundJobNames.FS
 		);
@@ -83,17 +83,8 @@ export class OperationController extends AbstractController {
 		Logger.backgroundJobInfo(`Api wants to create a new backgroundjob: ${BackgroundJobNames.FS}`);
 
 		const agenda = backgroundJob.getAgenda();
-		const queries = [
-			{
-				query: 'db.users.find({})'
-			},
-			{
-				query: 'db.articles.find({}).limit(50)'
-			}
-		];
 
 		const attributes  = { _id, queries};
-
 		await agenda.start();
 
 		// Create job responsible to create a file ... 

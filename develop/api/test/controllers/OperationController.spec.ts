@@ -5,6 +5,7 @@ import { Logger } from "../../../shared/helpers/logger/Logger";
 import { beforeEach } from "mocha";
 import { MochaController } from "../utils/controllers/MochaController";
 import { SashidoConfigOptions } from "../../helpers/sashido/SashidoConfigOptions";
+import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 
 describe('OperationController', () => {
 
@@ -16,6 +17,14 @@ describe('OperationController', () => {
 		chai.use(chaiHttp);
 
 		done();
+	});
+
+	before(done => {
+		// Setup a proces env
+		process.env.NODE_ENV = 'test';
+
+		// Create a connection to database
+		MochaDatabaseConfiguration.connectToDatabase(done);
 	});
 
 	describe.only('createRecord', () => {
