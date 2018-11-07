@@ -7,7 +7,7 @@ import { MochaController } from "../utils/controllers/MochaController";
 import { SashidoConfigOptions } from "../../helpers/sashido/SashidoConfigOptions";
 import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 
-describe('OperationController', () => {
+describe.only('OperationController', () => {
 
 	let APP_ID = SashidoConfigOptions.getApplicationId();
 	let MASTER_KEY = SashidoConfigOptions.getMasterKey();
@@ -27,7 +27,7 @@ describe('OperationController', () => {
 		MochaDatabaseConfiguration.connectToDatabase(done);
 	});
 
-	describe.only('createRecord', () => {
+	describe('createRecord', () => {
 		let request;
 
 		beforeEach(done => {
@@ -58,7 +58,7 @@ describe('OperationController', () => {
 		});
 	}); // createRecord test cases
 
-	describe.skip('decorator', () => {
+	describe.only('decorator', () => {
 		let request;
 
 		beforeEach(done => {

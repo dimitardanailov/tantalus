@@ -18,7 +18,7 @@ export class SashidoDbConnector {
 
 	openMongoDBConnection() {
 		mongoose.connect(this.configurations.uri, this.configurations.opt).then(() => {
-			Logger.info('Application has a connection to Sashido Database');
+			Logger.sashidoConnectorMessage('Application has a connection to Sashido Database');
 		
 			return mongoose.connection;
 		}).catch(err => {
@@ -27,7 +27,7 @@ export class SashidoDbConnector {
 	}
 
 	public static connect(uri: string) {
-		Logger.info('Mongodb bridge between tantalus and SashiDo.io ... ')
+		Logger.sashidoConnectorMessage('Mongodb bridge between tantalus and SashiDo.io ... ')
 		const instance = new SashidoDbConnector(uri);
 		instance.openMongoDBConnection();
 		

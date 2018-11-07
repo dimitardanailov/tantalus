@@ -45,7 +45,9 @@ export class OperationController extends AbstractController {
 			{
 				name: 'Query',
 				query: {
-					"where": {"arrayKey":{"$all":["123456789","123456789","123456789"]}}
+					// To Do:
+					// Error: key $all must not start with '$'
+					// "where": {"arrayKey":{"$all":["123456789","123456789","123456789"]}}
 				}
 			}
 		];

@@ -27,10 +27,24 @@ export class Logger {
 	}
 
 	public static printFeatureToggleMessage(message) {
-		console.log('\x1b[45m%s\x1b[0m', message);
+		const featureToggleMessage = Logger.createLoggerGroupMessage('FeatureToggle', message);
+		console.log('\x1b[45m%s\x1b[0m', featureToggleMessage);
 	}
 
 	public static backgroundJobInfo(message) {
-		console.log('\x1b[37m%s\x1b[0m', message);
+		const backgroundJobMessage = Logger.createLoggerGroupMessage('Agenda', message);
+		console.log('\x1b[37m%s\x1b[0m', backgroundJobMessage);
+	}
+
+	public static sashidoConnectorMessage(message) {
+		const sashidoMessage = Logger.createLoggerGroupMessage('Sashido', message);
+		console.log('\x1b[34m%s\x1b[0m', sashidoMessage);
+	}
+
+	public static createLoggerGroupMessage(group, message) {
+		const date = new Date();
+		const groupMessage = `[${date}] [${group}] - ${AppSettings.getAppName()} - ${message}`;
+
+		return groupMessage;
 	}
 }

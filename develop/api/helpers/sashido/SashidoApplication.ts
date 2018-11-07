@@ -24,13 +24,13 @@ export class SashidoApplication {
 	constructor(authService?: AuthService) {
 		const isTestinEnv = process.env.NODE_ENV === NodeEnv.TEST;
 
-		if (authService.hasDatabaseUri() && (!isTestinEnv)) {
-			Logger.info('Auth has a value');
+		if (authService.hasDatabaseUri()) {
+			Logger.sashidoConnectorMessage('Auth Service database URI is available');
+		}
 
+		if (authService.hasDatabaseUri() && (!isTestinEnv)) {
 			this.createApplicationByAuthService(authService);
 		} else {
-			Logger.info('Auth service is down');
-
 			this.createApplicationThroughMockObject();
 		}
 	}

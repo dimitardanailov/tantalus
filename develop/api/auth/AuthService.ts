@@ -74,7 +74,7 @@ export class AuthService extends AuthClient {
 
 			// Get Master Key Response
 			this.response = await this.createMasterKeyResponsePromise();
-			
+
 			// Logger.info(this.response)
 			// Logger.info(this.response.getToken());
 
