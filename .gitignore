@@ -12,6 +12,9 @@ files/*
 auth-example.ts
 agenda-example.ts
 
+# Parse server
+develop/parse-server/node_modules/
+
 # Node modules
 node_modules
 node_modules_linux

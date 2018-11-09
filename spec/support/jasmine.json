@@ -1,0 +1,6 @@
+{
+  "spec_dir": "develop/parse-server/spec",
+  "spec_files": ["*spec.js"],
+  "helpers": ["helper.js"],
+  "random": false
+}
