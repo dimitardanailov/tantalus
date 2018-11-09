@@ -34,3 +34,5 @@ export class SashidoDbConnector {
 		return instance;
 	}
 }
+
+// End of SashidoDbConnector

@@ -75,14 +75,10 @@ export class AuthService extends AuthClient {
 			// Get Master Key Response
 			this.response = await this.createMasterKeyResponsePromise();
 
-			// Logger.info(this.response)
-			// Logger.info(this.response.getToken());
-
 			this.sashidoClient = AuthService.createSashidoClient();
 			const app: GetAppResponse = await this.createAppResponsePromise();
 
 			this.databaseUri = app.getDatabaseuri();
-			// Logger.info(this.databaseUri);
 		} catch (error) {
 			Logger.error(error);
 		}
@@ -101,7 +97,6 @@ export class AuthService extends AuthClient {
 
 					return;
 				}
-
 
 				resolve(response);
 			});
