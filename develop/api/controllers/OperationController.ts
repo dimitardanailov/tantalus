@@ -21,6 +21,10 @@ import { OperationMockObject } from "../../shared/test/mock-objects/models/Opera
 import { BackgroundJobWhen } from "../../shared/enums/BackgroundJobWhen";
 import { FeatureToggle } from "../../shared/helpers/feature-toggle/FeatureToggle";
 
+import { forEach } from "p-iteration"
+
+const transform = require('../../parse-server/node_modules/lib/Adapters/Storage/Mongo/MongoTransform');
+
 @Service()
 @JsonController()
 @Controller("/operations")
@@ -35,15 +39,15 @@ export class OperationController extends AbstractController {
 	async createRecord(): Promise<IOperation> {
 		const operation = OperationMockObject.createSimpleJson();
 
-		const queries = [
+		const params = [
 			{
-				name: 'Query',
+				collectionName: 'GameScore',
 				query: {
-					"where": { "applicationId": "123456789" }
+					"where": { "score": "1337" }
 				}
 			},
 			{
-				name: 'Query',
+				collectionName: 'GameScore',
 				query: {
 					// To Do:
 					// Error: key $all must not start with '$'
@@ -52,12 +56,17 @@ export class OperationController extends AbstractController {
 			}
 		];
 
-		const promise = this.repository.save(operation);
+		if (FeatureToggle.transformParseQueries()) {
+			// this.transformParseQueriesToMongoDB(queries);
+		}
 
-		return await promise.then(dbQuery => {
-			
+		const promise = this.repository.save(operation);
+		
+		Logger.info(FeatureToggle.transformParseQueries())
+
+		return await promise.then(dbQuery => { 
 			if (FeatureToggle.apiCanCreateAgendaRecords()) {
-				this.defineNewBackgroundJob(dbQuery._id, queries);
+				this.defineNewBackgroundJob(dbQuery._id, params);
 			}
 
 			return dbQuery.toJSON();
@@ -75,6 +84,20 @@ export class OperationController extends AbstractController {
 		Logger.info(app);
 
 		return 'Hello World';
+	}
+
+	public static async transformParseQueriesToMongoDB(params) {
+		const transformations = [];
+
+		await forEach(params, async (param) => {
+			let className = param['className'];
+			let query = param['query'];
+			let mongoQuery = transform.transformWhere(className, query);
+
+			// transformations.push()
+
+			Logger.info(mongoQuery);
+		});
 	}
 
 	private async defineNewBackgroundJob(_id: string, queries) {

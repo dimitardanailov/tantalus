@@ -6,13 +6,13 @@ import { beforeEach } from "mocha";
 import { MochaController } from "../utils/controllers/MochaController";
 import { SashidoConfigOptions } from "../../helpers/sashido/SashidoConfigOptions";
 import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
+import { OperationController } from "../../controllers/OperationController";
 
 describe.only('OperationController', () => {
 
 	let APP_ID = SashidoConfigOptions.getApplicationId();
 	let MASTER_KEY = SashidoConfigOptions.getMasterKey();
 	
-
 	before(done => {
 		chai.use(chaiHttp);
 
@@ -58,7 +58,7 @@ describe.only('OperationController', () => {
 		});
 	}); // createRecord test cases
 
-	describe.only('decorator', () => {
+	describe('decorator', () => {
 		let request;
 
 		beforeEach(done => {
@@ -74,5 +74,34 @@ describe.only('OperationController', () => {
 		it('reponse code should be 200', done => {
 			MochaController.reponseCodeShouldBe200(request, done);
 		});
+	});
+
+	describe('transformParseQueriesToMongoDB', () => {
+		const params = [
+			{
+				className: 'GameScore',
+				query: {
+					"where": JSON.stringify({ "score": "1337" })
+				}
+			},
+			{
+				className: 'GameScore',
+				query: {
+					// To Do:
+					// Error: key $all must not start with '$'
+					"where": JSON.stringify({"arrayKey":{"$all":["123456789","123456789","123456789"]}})
+				}
+			}
+		];
+
+		before(done => {
+			done();
+		});
+
+		it.only('reponse code should be 200', () => { 
+			const mongoQueries = OperationController.transformParseQueriesToMongoDB(params);
+			Logger.info(mongoQueries);
+		});
+
 	});
 });

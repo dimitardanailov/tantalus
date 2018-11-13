@@ -11,6 +11,15 @@ export class FeatureToggle {
 	}
 	/*** Api ***/
 
+	/*** Parse ***/
+	public static transformParseQueries() {
+		const transformParseQueries = FeatureToggle.getValue('PARSE_TRANSFORMATION ');
+		Logger.printFeatureToggleMessage(`transformParseQueries value is equal to: ${transformParseQueries}`);
+
+		return transformParseQueries;
+	}
+	/*** Parse ***/
+
 	/*** Background job */
 	public static awsS3UploadIsEnable() {
 		const awsS3IsEnable = FeatureToggle.getValue('AWS_S3_IS_ACTIVE');

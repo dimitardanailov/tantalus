@@ -7,8 +7,9 @@
 		"node": "^8.9.4"
 	},
 	"scripts": {
-		"build": "npm run del && npm run compile && npm run copy",
-		"compile": "tsc",
+		"build": "npm run del && npm run compile && npm run copy && npm run build:parse",
+		"build:parse": "babel develop/parse-server/src/ -d server/parse-server/node_modules/lib/ --copy-files",
+		"compile": "tsc && npm run compile:babel",
 		"compile:babel": "babel develop/parse-server/src/ -d develop/parse-server/node_modules/lib/ --copy-files",
 		"copy": "cp -R develop/config/ server/config/ || true",
 		"debug": "chmod +x run-debug && ./run-debug",
@@ -50,6 +51,7 @@
 		"mongo": "^0.1.0",
 		"mongoose": "^5.3.10",
 		"multer": "^1.4.1",
+		"p-iteration": "^1.1.7",
 		"parse": "^2.1.0",
 		"protos": "git+https://0b053dd6865f9321e6e2014449327f171bc2d847@github.com/cloudstrap/protos.git",
 		"reflect-metadata": "^0.1.12",

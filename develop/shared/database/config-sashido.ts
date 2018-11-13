@@ -17,6 +17,8 @@ export class SashidoDbConnector {
 	public mongoose;
 
 	openMongoDBConnection() {
+		this.configurations.uri = 'mongodb://localhost:27017/dev'
+
 		mongoose.connect(this.configurations.uri, this.configurations.opt).then(() => {
 			Logger.sashidoConnectorMessage('Application has a connection to Sashido Database');
 		
