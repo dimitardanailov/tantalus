@@ -44,7 +44,7 @@ Application should have follow `process.env`:
 
 ### AUTH Service
 
-Sashido is responsible to provide these variables.
+Cloud provider is responsible to provide these variables.
 
 Each application has a proto Buffer for authentication.
 
@@ -53,12 +53,12 @@ Each application has a proto Buffer for authentication.
  - `TANTALUS_AUTH_MASTER_KEY_REQUEST_SERVICE_ID` or `AUTH_MASTER_KEY_REQUEST_SERVICE_ID`
  - `TANTALUS_AUTH_APP_ID` or `AUTH_APP_ID`
 
-### Sashido Testing and Development Variables
+### Cloud provider Testing and Development Variables
 
-You can access these variables on `Sashido` -> `App Settings` -> `Security & Keys`
+You can access these variables on `Cloud Provider` -> `App Settings` -> `Security & Keys`
 
- - `TANTALUS_SASHIDO_APP_ID`
- - `TANTALUS_SASHIDO_MASTER_KEY`
+ - `TANTALUS_CLOUD_PROVIDER_APP_ID`
+ - `TANTALUS_CLOUD_PROVIDER_MASTER_KEY`
 
 ### Agenda
 
@@ -94,6 +94,14 @@ More about Feature toggles -> [Feature Toggles (aka Feature Flags)](https://mart
 
  - `AGENDA_IS_ACTIVE` - If process variables is equal to `false`. Api doesn't create background tasks
  - `AWS_S3_IS_ACTIVE` - If process variables is equal to `true`. Api doesn't upload files on Amazon S3 
+
+ ### Mongoexport
+
+ Export parse collection: 
+
+ ```bash
+mongoexport --db dev --collection GameScore --jsonArray --out gamescore.json
+ ```
 
 ## Resources / Ideas
 

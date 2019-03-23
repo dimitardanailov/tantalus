@@ -20,10 +20,10 @@ import { BackgroundJobNames } from "../../shared/enums/BackgroundJobNames";
 import { OperationMockObject } from "../../shared/test/mock-objects/models/OperationMockObject";
 import { BackgroundJobWhen } from "../../shared/enums/BackgroundJobWhen";
 import { FeatureToggle } from "../../shared/helpers/feature-toggle/FeatureToggle";
+import { forEach } from "p-iteration";
+import { ParseLibModuleImporter } from "../../shared/helpers/parse-server/ParseLibModuleImporter";
 
-import { forEach } from "p-iteration"
-
-const transform = require('../../parse-server/node_modules/lib/Adapters/Storage/Mongo/MongoTransform');
+const transform = ParseLibModuleImporter.addModule('lib/Adapters/Storage/Mongo/MongoTransform');
 
 @Service()
 @JsonController()

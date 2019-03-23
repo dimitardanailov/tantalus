@@ -1,5 +1,6 @@
 import * as mongoose from "mongoose";
 import { Logger } from "../helpers/logger/Logger";
+import { FeatureToggle } from "../helpers/feature-toggle/FeatureToggle";
 
 export class SashidoDbConnector {
 	private configurations = {
@@ -18,9 +19,9 @@ export class SashidoDbConnector {
 
 	openMongoDBConnection() {
 		this.configurations.uri = 'mongodb://localhost:27017/dev'
-
+		
 		mongoose.connect(this.configurations.uri, this.configurations.opt).then(() => {
-			Logger.sashidoConnectorMessage('Application has a connection to Sashido Database');
+			Logger.cloudConnectorMessage('Application has a connection to Sashido Database');
 		
 			return mongoose.connection;
 		}).catch(err => {
@@ -29,12 +30,10 @@ export class SashidoDbConnector {
 	}
 
 	public static connect(uri: string) {
-		Logger.sashidoConnectorMessage('Mongodb bridge between tantalus and SashiDo.io ... ')
+		Logger.cloudConnectorMessage('Mongodb bridge between tantalus and SashiDo.io ... ')
 		const instance = new SashidoDbConnector(uri);
 		instance.openMongoDBConnection();
 		
 		return instance;
 	}
 }
-
-// End of SashidoDbConnector

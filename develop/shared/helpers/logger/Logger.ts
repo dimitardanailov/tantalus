@@ -36,9 +36,9 @@ export class Logger {
 		console.log('\x1b[37m%s\x1b[0m', backgroundJobMessage);
 	}
 
-	public static sashidoConnectorMessage(message) {
-		const sashidoMessage = Logger.createLoggerGroupMessage('Sashido', message);
-		console.log('\x1b[34m%s\x1b[0m', sashidoMessage);
+	public static cloudConnectorMessage(message) {
+		const cloudMessage = Logger.createLoggerGroupMessage('Cloud', message);
+		console.log('\x1b[34m%s\x1b[0m', cloudMessage);
 	}
 
 	public static createLoggerGroupMessage(group, message) {

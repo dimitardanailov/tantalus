@@ -7,6 +7,7 @@ import { MochaController } from "../utils/controllers/MochaController";
 import { SashidoConfigOptions } from "../../helpers/sashido/SashidoConfigOptions";
 import { MochaDatabaseConfiguration } from "../utils/database/MochaDatabaseConfiguration";
 import { OperationController } from "../../controllers/OperationController";
+import { ParseServerImporter } from "../../../shared/helpers/parse-server/ParseServerImporter";
 
 describe.only('OperationController', () => {
 
@@ -76,16 +77,16 @@ describe.only('OperationController', () => {
 		});
 	});
 
-	describe('transformParseQueriesToMongoDB', () => {
+	describe.only('transformParseQueriesToMongoDB', () => {
 		const params = [
 			{
-				className: 'GameScore',
+				className: ParseServerImporter.collection,
 				query: {
 					"where": JSON.stringify({ "score": "1337" })
 				}
 			},
 			{
-				className: 'GameScore',
+				className: ParseServerImporter.collection,
 				query: {
 					// To Do:
 					// Error: key $all must not start with '$'
@@ -98,9 +99,24 @@ describe.only('OperationController', () => {
 			done();
 		});
 
-		it.only('reponse code should be 200', () => { 
-			const mongoQueries = OperationController.transformParseQueriesToMongoDB(params);
-			Logger.info(mongoQueries);
+		beforeEach(async () => {
+			Logger.info('-- dropParseCollection --');
+			await ParseServerImporter.dropParseCollection();
+		});
+
+		beforeEach(async () => {
+			Logger.info('-- insertParserMockupDatabase --');
+			await ParseServerImporter.insertParserMockupDatabase();
+		});
+
+		it('Records should be equal to N', () => {
+			const n = 10;
+		});
+
+		it('reponse code should be 200', () => { 
+			Logger.info('reponse code should be 200');
+			// const mongoQueries = OperationController.transformParseQueriesToMongoDB(params);
+			// Logger.debugVariable(mongoQueries);
 		});
 
 	});

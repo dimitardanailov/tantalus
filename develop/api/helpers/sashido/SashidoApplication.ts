@@ -25,7 +25,7 @@ export class SashidoApplication {
 		const isTestinEnv = process.env.NODE_ENV === NodeEnv.TEST;
 
 		if (authService.hasDatabaseUri()) {
-			Logger.sashidoConnectorMessage('Auth Service database URI is available');
+			Logger.cloudConnectorMessage('Auth Service database URI is available');
 		}
 
 		if (authService.hasDatabaseUri() && (!isTestinEnv)) {

@@ -18,6 +18,13 @@ export class FeatureToggle {
 
 		return transformParseQueries;
 	}
+
+	public static parseDatabaseIsLocal() {
+		const parseDatabaseIsLocal = FeatureToggle.getValue('PARSE_DATABASE_IS_LOCAL');
+		Logger.printFeatureToggleMessage(`parseDatabaseIsLocal value is equal to: ${parseDatabaseIsLocal}`);
+
+		return parseDatabaseIsLocal;
+	}
 	/*** Parse ***/
 
 	/*** Background job */
